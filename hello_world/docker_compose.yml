@@ -1,0 +1,36 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hello_world
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+    depends_on:
+      - neo4j
+    networks:
+      - neo4j_network
+
+  neo4j:
+    image: neo4j:latest
+    container_name: neo4j
+    environment:
+      - NEO4J_AUTH=${NEO4J_USER}/${NEO4J_PASSWORD}
+    ports:
+      - "7474:7474"  # веб-интерфейс (HTTP)
+      - "7687:7687"  # протокол Bolt для подключения
+    volumes:
+      - neo4j_data:/data  # сохраняем данные
+      - neo4j_logs:/logs  # сохраняем логи
+    networks:
+      - neo4j_network
+
+volumes:
+  neo4j_data:
+  neo4j_logs:
+
+networks:
+  neo4j_network:
+    driver: bridge
