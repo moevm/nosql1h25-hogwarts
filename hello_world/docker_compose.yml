@@ -9,7 +9,8 @@ services:
     environment:
       - DATABASE_URL=${DATABASE_URL}
     depends_on:
-      - neo4j
+      neo4j:
+        condition: service_healthy
     networks:
       - neo4j_network
 
@@ -26,6 +27,11 @@ services:
       - neo4j_logs:/logs  # сохраняем логи
     networks:
       - neo4j_network
+    healthcheck:
+      test: ["CMD", "cypher-shell", "-u", "${NEO4J_USER}", "-p", "${NEO4J_PASSWORD}", "RETURN 1"]
+      interval: 5s
+      retries: 3
+      start_period: 10s
 
 volumes:
   neo4j_data:
