@@ -1,12 +1,17 @@
-from neomodel import StructuredNode, StringProperty, RelationshipTo, RelationshipFrom, IntegerProperty, config, db
+from neomodel import StructuredNode, StringProperty, Relationship, RelationshipTo, StructuredRel, config, db
 import os
 from dotenv import load_dotenv
+from collections import defaultdict
 
 
 # загружаем переменные окружения
 load_dotenv()
 
 config.DATABASE_URL = os.getenv("DATABASE_URL")
+
+
+class CharacterRelationship(StructuredRel):
+    type = StringProperty(required=True)
 
 
 class House(StructuredNode):
@@ -39,8 +44,8 @@ class Character(StructuredNode):
     knows_spell = RelationshipTo('Spell', 'KNOWS')
     brewed_poison = RelationshipTo('Poison', 'BREWED')
 
-    friends = RelationshipTo('Character', 'FRIEND')
-    enemies = RelationshipTo('Character', 'ENEMY')
+    relationships = RelationshipTo('Character', 'HAS_RELATIONSHIP_WITH',
+                                   model=CharacterRelationship)
 
 
 def clear_data():
@@ -118,13 +123,17 @@ def create_data():
     harry.knows_spell.connect(expelliarmus)
     hermione.knows_spell.connect(expelliarmus)
     voldemort.knows_spell.connect(avada_kedavra)
+    voldemort.knows_spell.connect(expelliarmus)
 
     harry.brewed_poison.connect(veritaserum)
 
-    harry.friends.connect(hermione)
-    harry.friends.connect(ron)
-    ron.friends.connect(hermione)
-    voldemort.enemies.connect(harry)
+    harry.relationships.connect(hermione, {'type': 'Friend'})
+    harry.relationships.connect(ron, {'type': 'Friend'})
+    ron.relationships.connect(hermione, {'type': 'Friend'})
+    ron.relationships.connect(voldemort, {'type': 'Friend'})
+    hermione.relationships.connect(voldemort, {'type': 'Enemy'})
+
+    voldemort.relationships.connect(harry, {'type': 'Enemy'})
 
 
 def read_data():
@@ -150,19 +159,82 @@ def read_data():
                 print(
                     f"    - {poison.name}: {poison.effect} (Difficulty: {poison.difficulty})")
 
-        friends = char.friends.all()
-        if friends:
-            print("  Friends:")
-            for friend in friends:
-                print(f"    - {friend.name}")
+        print("  Relationships:")
+        for rel in char.relationships.all():
+            rel_props = char.relationships.relationship(rel)
+            print(f"    - {rel_props.type} with {rel.name}")
 
-        enemies = char.enemies.all()
-        if enemies:
-            print("  Enemies:")
-            for enemy in enemies:
-                print(f"    - {enemy.name}")
+
+def find_conflicting_friendships():
+    """
+    Враг моего врага - мой друг
+    """
+    query = """
+    MATCH (a:Character)-[r1:HAS_RELATIONSHIP_WITH {type: 'Friend'}]-(b:Character),
+          (b)-[r2:HAS_RELATIONSHIP_WITH {type: 'Enemy'}]-(c:Character),
+          (a)-[r3:HAS_RELATIONSHIP_WITH {type: 'Friend'}]-(c)
+    RETURN a.name AS person1, b.name AS person2, c.name AS person3
+    """
+    results, meta = db.cypher_query(query)
+
+    print("\nConflicting friendships (enemy of my friend is my friend too):")
+    for row in results:
+        print(f"{row[0]} is friends with {row[1]}, who is enemies with {row[2]}, but {row[0]} is also friends with {row[2]}")
+
+
+def find_least_conflicted_house():
+    """
+    Находит факультет с наименьшим количеством вражеских отношений
+    """
+    query = """
+    MATCH (h:House)<-[:BELONGS_TO]-(c:Character)-[r:HAS_RELATIONSHIP_WITH {type: 'Enemy'}]-(other:Character)
+    WITH h, COUNT(r) AS conflict_count
+    ORDER BY conflict_count ASC
+    RETURN h.name AS house_name, conflict_count
+    """
+    results, meta = db.cypher_query(query)
+
+    if results:
+        print(
+            f"\nHouse with least conflicts: {results[0][0]} ({results[0][1]} conflicts)")
+    else:
+        print("\nNo conflicts found between houses")
+
+
+def find_unique_spells_by_house():
+    """
+    Находит уникальные заклинания по факультетам (которые или совсем не представлены
+    у учащихся других факультетов, или данный факультет чаще всех их использует)
+    """
+    query = """
+    MATCH (h:House)<-[:BELONGS_TO]-(c:Character)-[:KNOWS]->(s:Spell)
+    WITH h, s, COUNT(c) AS house_count
+    OPTIONAL MATCH (other:Character)-[:KNOWS]->(s) 
+    WHERE NOT (other)-[:BELONGS_TO]->(h)
+    WITH h, s, house_count, COUNT(other) AS other_count
+    WHERE other_count = 0 OR house_count > other_count
+    RETURN h.name AS house, s.name AS spell, 
+           CASE WHEN other_count = 0 THEN 'Уникальное' ELSE 'Чаще всего используется' END AS type
+    ORDER BY house, type, spell
+    """
+
+    results, meta = db.cypher_query(query)
+
+    house_spells = defaultdict(list)
+    for house, spell, spell_type in results:
+        house_spells[house].append((spell, spell_type))
+
+    print("\nUnique or mostly used spells by house:")
+    for house, spells in house_spells.items():
+        print(f"\n{house}:")
+        for spell, spell_type in spells:
+            print(f"  - {spell} ({spell_type})")
 
 
 if __name__ == "__main__":
     create_data()
     read_data()
+
+    find_conflicting_friendships()
+    find_least_conflicted_house()
+    find_unique_spells_by_house()
