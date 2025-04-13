@@ -1,12 +1,11 @@
 <script setup>
 import Card from '../components/Card.vue'
-import { computed, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref } from 'vue'
 
 const items = ref([
   { id: 'harry', name: 'Harry Potter', imageUrl: '/images/HarryPotter.png' },
   { id: 'hermione', name: 'Hermione Granger', imageUrl: '/images/HermioneGranger.png' },
-  { id: 'ron', name: 'Ron Weasley', imageUrl: '/images/RonWeasley.png' },
+  { id: 'ron', name: 'Ron Weasley', imageUrl: '/images/RonWeasley.png' }
 ])
 </script>
 
@@ -31,6 +30,14 @@ const items = ref([
     </div>
 
     <ul class="w-5/6 grid grid-cols-[2fr_2fr_2fr_2fr] gap-5 overflow-y-auto scrollbar-hide">
+      <li>
+        <div class="flex justify-center items-center">
+          <div class="w-50 h-50 bg-bg flex flex-col items-center pt-2 rounded-md">
+            <img class="my-4 w-3/5 rounded-md border-3 border-gold" src="/images/add.svg" />
+            <p class="text-gold text-lg">Add Item</p>
+          </div>
+        </div>
+      </li>
       <li v-for="item in items" :key="item.id">
         <router-link :to="`/character/${item.id}`">
           <Card :title="item.name" :image-url="item.imageUrl" />
