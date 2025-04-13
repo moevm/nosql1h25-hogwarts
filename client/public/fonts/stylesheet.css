@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'Irish Grover';
+    src: url('IrishGrover-Regular.eot');
+    src: local('Irish Grover Regular'), local('IrishGrover-Regular'),
+        url('IrishGrover-Regular.eot?#iefix') format('embedded-opentype'),
+        url('IrishGrover-Regular.woff2') format('woff2'),
+        url('IrishGrover-Regular.woff') format('woff'),
+        url('IrishGrover-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
