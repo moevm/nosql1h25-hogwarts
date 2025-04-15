@@ -4,8 +4,8 @@ import { useRoute } from 'vue-router'
 
 const characters = [
   { id: 'harry', name: 'Harry Potter' },
-  { id: 'hermione', name: 'Hermione Granger' },
-  { id: 'ron', name: 'Ron Weasley' },
+  { id: 'hermione-granger', name: 'Hermione Granger' },
+  { id: 'ron', name: 'Ron Weasley' }
 ]
 
 const route = useRoute()

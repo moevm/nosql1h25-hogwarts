@@ -1,6 +1,7 @@
 <script setup>
 import { useHead } from '@vueuse/head'
 import { ref } from 'vue'
+import TopButton from './components/TopButton.vue'
 
 useHead({
   title: 'Главная страница',
@@ -8,9 +9,9 @@ useHead({
     { name: 'description', content: 'Описание моей замечательной страницы' },
     { name: 'keywords', content: 'vue, seo, vueuse, head' },
     { property: 'og:title', content: 'Моя страница в соцсетях' },
-    { property: 'og:description', content: 'Краткое описание для соцсетей' },
+    { property: 'og:description', content: 'Краткое описание для соцсетей' }
   ],
-  link: [{ rel: 'icon', href: '/images/favicon.ico' }],
+  link: [{ rel: 'icon', href: '/images/favicon.ico' }]
 })
 const isOpen = ref(false)
 </script>
@@ -23,7 +24,7 @@ const isOpen = ref(false)
     <div class="w-[175px] grid grid-rows-[1fr_6fr] relative">
       <button
         @click="isOpen = !isOpen"
-        class="w-full flex items-center px-4 bg-bg border-b-3 border-gold text-gold pl-10"
+        class="w-full flex items-center px-4 bg-bg border-b-3 border-r-3 border-gold text-gold pl-10 outline-none"
       >
         <p class="text-xl">Categories</p>
         <span
@@ -33,7 +34,7 @@ const isOpen = ref(false)
         </span>
       </button>
       <transition name="fade">
-        <ul v-if="isOpen" class="flex flex-col">
+        <ul v-if="isOpen" class="flex flex-col border-r-3 border-gold">
           <li class="flex-1">
             <router-link
               to="/character"
@@ -62,21 +63,11 @@ const isOpen = ref(false)
       </transition>
     </div>
     <div class="absolute top-[50px] right-[70px] flex gap-5">
-      <!-- Вынести в отдельный компонент + стили одинаковые - в отдельную переменную -->
-      <button
-        class="bg-bg rounded-md px-2 py-3 border border-gold border-3 disabled:bg-gray-200"
-        disabled
-      >
-        <span class="text-xl text-gold">Statistics</span>
-      </button>
-      <button class="bg-bg rounded-md px-2 py-3 border border-gold border-3">
-        <span class="text-xl text-gold">Import</span>
-      </button>
-      <button class="bg-bg rounded-md px-2 py-3 border border-gold border-3">
-        <span class="text-xl text-gold">Export</span>
-      </button>
+      <TopButton action="Statistics" disabled />
+      <TopButton action="Import" />
+      <TopButton action="Export" />
     </div>
-    <router-view class="flex-1 flex flex-col items-center justify-center pt-[150px]"></router-view>
+    <router-view class="flex-1 flex flex-col items-center justify-center pt-[100px]"></router-view>
   </div>
 </template>
 
