@@ -6,7 +6,9 @@ import { createHead } from '@vueuse/head'
 import CharacterList from './pages/CharacterList.vue'
 import Character from './pages/Character.vue'
 import PoisonList from './pages/PoisonList.vue'
+import Poison from './pages/Poison.vue'
 import SpellList from './pages/SpellList.vue'
+import Spell from './pages/Spell.vue'
 import HelloPage from './pages/HelloPage.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -17,7 +19,9 @@ const routes = [
   { path: '/character', component: CharacterList },
   { path: '/character/:id', component: Character },
   { path: '/poisons', component: PoisonList },
+  { path: '/poisons/:id', component: Poison },
   { path: '/spells', component: SpellList },
+  { path: '/spells/:id', component: Spell },
 ]
 
 const router = createRouter({
