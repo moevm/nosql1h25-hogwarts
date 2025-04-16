@@ -11,6 +11,10 @@ class CharacterService:
     def get_all(self):
         return Character.nodes.all()
 
+    def get_by_id(self, char_id):
+        char = Character.nodes.get(id=char_id)
+        return char
+
     def add_relationship(self, char1_id, char2_id, rel_type):
         char1 = Character.nodes.get(id=char1_id)
         char2 = Character.nodes.get(id=char2_id)
