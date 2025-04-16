@@ -1,6 +1,7 @@
 <script setup>
 import Card from '../components/Card.vue'
 import { ref } from 'vue'
+import Search from '../components/Search.vue'
 
 const items = ref([
   { id: 'harry', name: 'Harry Potter', imageUrl: '/images/HarryPotter.png' },
@@ -14,6 +15,10 @@ const items = ref([
 ])
 
 const modalOpen = ref(false)
+
+const modalToggle = () => {
+  modalOpen.value = !modalOpen.value
+}
 </script>
 
 <template>
@@ -21,41 +26,7 @@ const modalOpen = ref(false)
     <router-link to="/" class="text-5xl text-gold font-display flex">
       Harry Potter Wiki
     </router-link>
-
-    <div class="w-5/6 my-5 relative">
-      <div class="max-w-full flex items-center bg-bg rounded-md border border-gold overflow-hidden">
-        <input
-          class="flex-1 pl-3 py-3 bg-bg text-gold outline-none font-display placeholder:text-[#6C6F27]"
-          placeholder="Harry Potter"
-        />
-        <button
-          class="text-bg w-12 h-12 rounded-md border border-gold flex justify-center items-center text-gold outline-none"
-          @click="
-            () => {
-              modalOpen = !modalOpen
-            }
-          "
-        >
-          <span
-            :class="['transition-transform duration-200', modalOpen ? 'rotate-180' : 'rotate-0']"
-          >
-            ▼
-          </span>
-        </button>
-        <button
-          class="text-bg h-12 w-12 rounded-md border border-gold flex justify-center items-center"
-        >
-          <img class="w-6 h-6" src="/images/search.svg" />
-        </button>
-      </div>
-      <transition name="fade">
-        <div
-          v-if="modalOpen"
-          class="bg-bg w-full h-[400px] rounded-md border border-gold absolute b-[-1px] l-0"
-        ></div>
-      </transition>
-    </div>
-
+    <Search :modal-toggle="modalToggle" placeholder="Harry Potter" :modal-open="modalOpen" />
     <ul class="w-5/6 grid grid-cols-[2fr_2fr_2fr_2fr] gap-5 overflow-y-auto scrollbar-hide">
       <li class="flex justify-center">
         <div class="w-50 h-50 bg-bg flex flex-col items-center pt-2 rounded-md">
@@ -74,14 +45,3 @@ const modalOpen = ref(false)
     </ul>
   </div>
 </template>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: all 0.25s ease-in-out;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>

@@ -1,13 +1,20 @@
 <script setup>
 import SpellCard from '@/components/SpellCard.vue'
+import Search from '../components/Search.vue'
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 const items = ref([
   { id: 'aguamenti', name: 'Aguamenti Charm' },
   { id: 'alohomora', name: 'Alohomora' },
-  { id: 'aparecium', name: 'Aparecium' },
+  { id: 'aparecium', name: 'Aparecium' }
 ])
+
+const modalOpen = ref(false)
+
+const modalToggle = () => {
+  modalOpen.value = !modalOpen.value
+}
 </script>
 
 <template>
@@ -16,21 +23,18 @@ const items = ref([
       Harry Potter Wiki
     </router-link>
 
-    <div
-      class="w-5/6 mt-5 mb-10 flex items-center bg-bg rounded-md border border-gold overflow-hidden"
-    >
-      <input
-        class="flex-1 pl-3 py-3 bg-bg text-gold outline-none font-display placeholder:text-[#6C6F27]"
-        placeholder="Harry Potter"
-      />
-      <div
-        class="text-bg h-full w-12 rounded-md border border-gold flex justify-center items-center"
-      >
-        <img class="w-6 h-6" src="/images/search.svg" />
-      </div>
-    </div>
+    <Search :modal-toggle="modalToggle" placeholder="Aguamenti" :modal-open="modalOpen" />
 
     <ul class="w-5/6 grid grid-cols-[2fr_2fr_2fr_2fr] gap-5 overflow-y-auto scrollbar-hide">
+      <li class="flex justify-center">
+        <div class="w-50 h-50 bg-bg flex flex-col items-center pt-2 rounded-md">
+          <img
+            class="my-4 w-3/5 rounded-md border-3 border-gold border-dashed"
+            src="/images/add.svg"
+          />
+          <p class="text-gold text-lg">Add Item</p>
+        </div>
+      </li>
       <li v-for="item in items" :key="item.id">
         <router-link :to="`/spells/${item.id}`">
           <SpellCard />
