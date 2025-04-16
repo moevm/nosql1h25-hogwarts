@@ -8,7 +8,7 @@ def register_character_routes(app, db):
         return jsonify([{
             'id': str(c.id),
             'name': c.name,
-            'house': c.house,
+            'house': (c.belongs_to.single().name if c.belongs_to.single() else None),
             'blood_status': c.blood_status
         } for c in characters])
 
@@ -17,10 +17,11 @@ def register_character_routes(app, db):
         character = db.characters.get_by_id(character_id)
         if not character:
             return jsonify({'error': 'Character not found'}), 404
+        house_node = character.belongs_to.single()
         return jsonify({
             'id': str(character.id),
             'name': character.name,
-            'house': character.house,
+            'house': house_node.name if house_node else None,
             'blood_status': character.blood_status,
             'description': character.description
         })
@@ -31,11 +32,17 @@ def register_character_routes(app, db):
         try:
             character = db.characters.create(
                 name=data['name'],
-                house=data.get('house'),
                 blood_status=data.get('blood_status'),
                 gender=data.get('gender'),
                 description=data.get('description')
             )
+
+            if data.get('house'):
+                from models.house import House
+                house_node = House.nodes.get_or_none(name=data['house'])
+                if house_node:
+                    character.belongs_to.connect(house_node)
+
             return jsonify({
                 'id': str(character.id),
                 'name': character.name
