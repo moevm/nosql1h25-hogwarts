@@ -13,10 +13,11 @@ services:
         condition: service_healthy
     networks:
       - neo4j_network
+    ports:
+      - "5000:5000"
 
   neo4j:
     image: neo4j:latest
-    container_name: neo4j-dev
     environment:
       - NEO4J_AUTH=${NEO4J_USER}/${NEO4J_PASSWORD}
     ports:
