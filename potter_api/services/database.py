@@ -1,9 +1,9 @@
 from neomodel import config, db
 from config import Config
-from character_service import CharacterService
-from house_service import HouseService
-from poison_service import PoisonService
-from spell_service import SpellService
+from services.character_service import CharacterService
+from services.house_service import HouseService
+from services.poison_service import PoisonService
+from services.spell_service import SpellService
 
 
 class Neo4jDatabase:

@@ -1,7 +1,7 @@
-from character_routes import register_character_routes
-from house_routes import register_house_routes
-from poison_routes import register_poison_routes
-from spell_routes import register_spell_routes
+from api.character_routes import register_character_routes
+from api.house_routes import register_house_routes
+from api.poison_routes import register_poison_routes
+from api.spell_routes import register_spell_routes
 
 
 def register_all_routes(app, db):

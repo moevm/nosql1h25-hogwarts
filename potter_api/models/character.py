@@ -1,6 +1,6 @@
-from neomodel import StringProperty, RelationshipTo, TextProperty
-from .base_model import BaseModel
-from .character_relationship import CharacterRelationship
+from neomodel import StringProperty, RelationshipTo
+from models.base_model import BaseModel
+from models.character_relationship import CharacterRelationship
 
 
 class Character(BaseModel):
@@ -17,7 +17,7 @@ class Character(BaseModel):
         'female': 'Female',
         'other': 'Other'
     })
-    description = TextProperty()
+    description = StringProperty()
 
     # Relationships
     belongs_to = RelationshipTo('House', 'BELONGS_TO')

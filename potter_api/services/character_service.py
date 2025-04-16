@@ -1,4 +1,4 @@
-from models.character import Character, CharacterRelationship
+from models.character import Character
 
 
 class CharacterService:
