@@ -1,11 +1,13 @@
-from neomodel import StringProperty, RelationshipTo, TextProperty
-from .base_model import BaseModel
-from .character_relationship import CharacterRelationship
+from neomodel import StringProperty, RelationshipTo
+from models.base_model import BaseModel
+from models.character_relationship import CharacterRelationship
+from models.house import House
+from models.spell import Spell
+from models.poison import Poison
 
 
 class Character(BaseModel):
     name = StringProperty(required=True, unique_index=True)
-    house = StringProperty()
     blood_status = StringProperty(choices={
         'pure-blood': 'Pure-blood',
         'half-blood': 'Half-blood',
@@ -17,11 +19,11 @@ class Character(BaseModel):
         'female': 'Female',
         'other': 'Other'
     })
-    description = TextProperty()
+    description = StringProperty()
 
     # Relationships
-    belongs_to = RelationshipTo('House', 'BELONGS_TO')
-    knows = RelationshipTo('Spell', 'KNOWS')
-    brewed = RelationshipTo('Poison', 'BREWED')
+    belongs_to = RelationshipTo(House, 'BELONGS_TO')
+    knows = RelationshipTo(Spell, 'KNOWS')
+    brewed = RelationshipTo(Poison, 'BREWED')
     relationships = RelationshipTo('Character', 'HAS_RELATIONSHIP_WITH',
                                    model=CharacterRelationship)
