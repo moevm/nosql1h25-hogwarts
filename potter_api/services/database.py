@@ -1,6 +1,6 @@
 from neomodel import config, db
 from config import Config
-from services.character_services import CharacterService
+from character_services import CharacterService
 
 
 class Neo4jDatabase:
