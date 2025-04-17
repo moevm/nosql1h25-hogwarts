@@ -17,3 +17,7 @@ class SpellService:
         spell = Spell.nodes.get(id=spell_id)
         char.knows.connect(spell)
         return True
+
+    def get_by_id(self, spell_id):
+        spell = Spell.nodes.get(id=spell_id)
+        return spell
