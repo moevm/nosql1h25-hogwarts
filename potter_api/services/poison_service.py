@@ -17,3 +17,8 @@ class PoisonService:
         poison = Poison.nodes.get(id=poison_id)
         char.brewed.connect(poison)
         return True
+
+    def get_by_id(self, poison_id):
+        poison = Poison.nodes.get(id=poison_id)
+        return poison
+
