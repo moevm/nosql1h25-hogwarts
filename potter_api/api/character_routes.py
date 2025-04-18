@@ -33,6 +33,7 @@ def register_character_routes(app, db):
             from models.spell import Spell
             from models.poison import Poison
             from models.house import House
+            from models.character import Character
 
             character = db.characters.create(
                 name=data['name'],
@@ -58,6 +59,16 @@ def register_character_routes(app, db):
                     if poison:
                         character.brewed.connect(poison)
 
+            if data.get('relationships'):
+                for relationship in data['relationships']:
+                    target_character_name = relationship['target_character']
+                    relationship_type = relationship['relationship_type']
+                    
+                    target_character = Character.nodes.get_or_none(name=target_character_name)
+                    if target_character:
+                        character.relationships.connect(target_character, 
+                            {'relationship_type': relationship_type})
+                    
             return jsonify({
                 'id': str(character.id),
                 'name': character.name
