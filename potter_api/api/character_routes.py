@@ -62,12 +62,12 @@ def register_character_routes(app, db):
             if data.get('relationships'):
                 for relationship in data['relationships']:
                     target_character_name = relationship['target_character']
-                    relationship_type = relationship['relationship_type']
+                    relationship_type = relationship['type']
                     
                     target_character = Character.nodes.get_or_none(name=target_character_name)
                     if target_character:
                         character.relationships.connect(target_character, 
-                            {'relationship_type': relationship_type})
+                            {'type': relationship_type})
                     
             return jsonify({
                 'id': str(character.id),
