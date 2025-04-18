@@ -1,5 +1,6 @@
 from models.spell import Spell
 from models.character import Character
+from neomodel.exceptions import DoesNotExist
 
 
 class SpellService:
@@ -19,5 +20,7 @@ class SpellService:
         return True
 
     def get_by_id(self, spell_id):
-        spell = Spell.nodes.get(id=spell_id)
-        return spell
+        try:
+            return Spell.nodes.get(id=spell_id)
+        except DoesNotExist:
+            return None

@@ -1,5 +1,6 @@
 from models.poison import Poison
 from models.character import Character
+from neomodel.exceptions import DoesNotExist
 
 
 class PoisonService:
@@ -19,6 +20,8 @@ class PoisonService:
         return True
 
     def get_by_id(self, poison_id):
-        poison = Poison.nodes.get(id=poison_id)
-        return poison
+        try:
+            return Poison.nodes.get(id=poison_id)
+        except DoesNotExist:
+            return None
 
