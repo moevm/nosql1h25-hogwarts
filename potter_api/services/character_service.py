@@ -1,4 +1,5 @@
 from models.character import Character
+from neomodel.exceptions import DoesNotExist
 
 
 class CharacterService:
@@ -12,8 +13,10 @@ class CharacterService:
         return Character.nodes.all()
 
     def get_by_id(self, char_id):
-        char = Character.nodes.get(id=char_id)
-        return char
+        try:
+            return Character.nodes.get(id=char_id)
+        except DoesNotExist:
+            return None
 
     def add_relationship(self, char1_id, char2_id, rel_type):
         char1 = Character.nodes.get(id=char1_id)
