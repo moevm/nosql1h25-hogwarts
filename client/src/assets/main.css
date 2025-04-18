@@ -1,0 +1,21 @@
+@import 'tailwindcss';
+@import './normalize.css';
+@import '../../public/fonts/stylesheet.css';
+
+@theme {
+  --color-gold: #bcac03;
+  --color-bg: #093062;
+  --color-active-bg: #00065a;
+}
+
+html {
+  font-family: 'Irish Grover', 'sans-serif';
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE и Edge */
+  scrollbar-width: none; /* Firefox */
+}
