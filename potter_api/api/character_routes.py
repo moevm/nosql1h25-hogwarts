@@ -30,6 +30,11 @@ def register_character_routes(app, db):
     def create_character():
         data = request.json
         try:
+            from models.spell import Spell
+            from models.poison import Poison
+            from models.house import House
+            from models.character import Character
+
             character = db.characters.create(
                 name=data['name'],
                 blood_status=data.get('blood_status'),
@@ -38,14 +43,36 @@ def register_character_routes(app, db):
             )
 
             if data.get('house'):
-                from models.house import House
                 house_node = House.nodes.get_or_none(name=data['house'])
                 if house_node:
                     character.belongs_to.connect(house_node)
 
+            if data.get('spells'):
+                for spell_name in data['spells']:
+                    spell = Spell.nodes.get_or_none(name=spell_name)
+                    if spell:
+                        character.knows.connect(spell)
+
+            if data.get('poisons'):
+                for poison_name in data['poisons']:
+                    poison = Poison.nodes.get_or_none(name=poison_name)
+                    if poison:
+                        character.brewed.connect(poison)
+
+            if data.get('relationships'):
+                for relationship in data['relationships']:
+                    target_character_name = relationship['target_character']
+                    relationship_type = relationship['relationship_type']
+                    
+                    target_character = Character.nodes.get_or_none(name=target_character_name)
+                    if target_character:
+                        character.relationships.connect(target_character, 
+                            {'relationship_type': relationship_type})
+                    
             return jsonify({
                 'id': str(character.id),
                 'name': character.name
             }), 201
+
         except Exception as e:
             return jsonify({'error': str(e)}), 400
