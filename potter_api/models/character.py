@@ -8,6 +8,7 @@ from models.poison import Poison
 
 class Character(BaseModel):
     name = StringProperty(required=True, unique_index=True)
+    image_path = StringProperty()
     blood_status = StringProperty(choices={
         'pure-blood': 'Pure-blood',
         'half-blood': 'Half-blood',
