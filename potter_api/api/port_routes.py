@@ -4,19 +4,33 @@ from flask import jsonify, request
 def register_port_routes(app, db):
     @app.route('/api/export', methods=['GET'])
     def export_database():
-        characters = [{
-            'id': str(c.id),
-            'name': c.name,
-            'house': (c.belongs_to.single().name if c.belongs_to.single() else None),
-            'blood_status': c.blood_status
-        } for c in db.characters.get_all()]
+        characters = []
+        for c in db.characters.get_all():
+            house_node = c.belongs_to.single()
+            house_name = house_node.name if house_node else None
 
-        poisons = [{
-            'id': str(poison.id),
-            'name': poison.name,
-            'effect': poison.effect,
-            'difficulty': poison.difficulty
-        } for poison in db.poisons.get_all()]
+            spells = [spell.name for spell in c.knows.all()]
+            poisons = [poison.name for poison in c.brewed.all()]
+
+            relationships = []
+            for target_character in c.relationships.all():
+                rel = c.relationships.relationship(target_character)
+                relationships.append({
+                    'target_character': target_character.name,
+                    'type': rel.type
+                })
+
+            characters.append({
+                'id': str(c.id),
+                'name': c.name,
+                'house': house_name,
+                'blood_status': c.blood_status,
+                'gender': c.gender,
+                'description': c.description,
+                'spells': spells,
+                'poisons': poisons,
+                'relationships': relationships
+            })
 
         spells = [{
             'id': str(spell.id),
@@ -25,8 +39,15 @@ def register_port_routes(app, db):
             'type': spell.type
         } for spell in db.spells.get_all()]
 
+        poisons = [{
+            'id': str(poison.id),
+            'name': poison.name,
+            'effect': poison.effect,
+            'difficulty': poison.difficulty
+        } for poison in db.poisons.get_all()]
+
         return jsonify({
             'characters': characters,
-            'poisons': poisons,
-            'spells': spells
+            'spells': spells,
+            'poisons': poisons
         })
