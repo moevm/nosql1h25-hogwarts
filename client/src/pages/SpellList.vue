@@ -2,7 +2,7 @@
 import SpellCard from '@/components/SpellCard.vue'
 import Search from '../components/Search.vue'
 import AddItem from '../components/AddItem.vue'
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 const items = ref([
@@ -19,7 +19,7 @@ const modalToggle = () => {
 </script>
 
 <template>
-  <div>
+  <div class="mt-[-150px]">
     <router-link to="/" class="text-5xl text-gold font-display flex">
       Harry Potter Wiki
     </router-link>

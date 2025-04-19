@@ -26,7 +26,7 @@ const modalToggle = () => {
 </script>
 
 <template>
-  <div>
+  <div class="mt-[-150px]">
     <router-link to="/" class="text-5xl text-gold font-display flex">
       Harry Potter Wiki
     </router-link>
