@@ -8,6 +8,7 @@ def register_poison_routes(app, db):
         return jsonify([{
             'id': str(poison.id),
             'name': poison.name,
+            'image_path': poison.image_path,
             'effect': poison.effect,
             'difficulty': poison.difficulty
         } for poison in poisons])
@@ -20,6 +21,7 @@ def register_poison_routes(app, db):
         return jsonify({
             'id': str(poison.id),
             'name': poison.name,
+            'image_path': poison.image_path,
             'effect': poison.effect,
             'difficulty': poison.difficulty
         })

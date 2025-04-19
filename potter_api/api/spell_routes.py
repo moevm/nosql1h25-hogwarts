@@ -8,6 +8,7 @@ def register_spell_routes(app, db):
         return jsonify([{
             'id': str(spell.id),
             'name': spell.name,
+            'image_path': spell.image_path,
             'effect': spell.effect,
             'type': spell.type
         } for spell in spells])
@@ -20,6 +21,7 @@ def register_spell_routes(app, db):
         return jsonify({
             'id': str(spell.id),
             'name': spell.name,
+            'image_path': spell.image_path,
             'effect': spell.effect,
             'type': spell.type
         })
@@ -39,4 +41,3 @@ def register_spell_routes(app, db):
             }), 201
         except Exception as e:
             return jsonify({'error': str(e)}), 400
-
