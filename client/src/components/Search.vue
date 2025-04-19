@@ -1,4 +1,6 @@
 <script setup>
+import CharacterFilters from './CharacterFilters.vue'
+
 defineProps({
   modalToggle: Function,
   placeholder: String,
@@ -33,8 +35,10 @@ defineProps({
     <transition name="fade">
       <div
         v-if="modalOpen"
-        class="bg-bg w-full h-[400px] rounded-md border border-gold absolute b-[-1px] l-0"
-      ></div>
+        class="bg-bg w-full h-[400px] rounded-md border border-gold absolute b-[-1px] l-0 p-6 flex gap-[300px]"
+      >
+        <CharacterFilters />
+      </div>
     </transition>
   </div>
 </template>
