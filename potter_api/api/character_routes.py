@@ -27,6 +27,9 @@ def register_character_routes(app, db):
             result.append({
                 'id': str(c.id),
                 'name': c.name,
+                'image_path': c.image_path,
+                'born': c.born,
+                'died': c.died,
                 'house': house_name,
                 'blood_status': c.blood_status,
                 'gender': c.gender,
@@ -59,6 +62,9 @@ def register_character_routes(app, db):
         return jsonify({
             'id': str(character.id),
             'name': character.name,
+            'image_path': character.image_path,
+            'born': character.born,
+            'died': character.died,
             'house': house_node.name if house_node else None,
             'blood_status': character.blood_status,
             'gender': character.gender,
@@ -79,6 +85,8 @@ def register_character_routes(app, db):
 
             character = db.characters.create(
                 name=data['name'],
+                born=data['born'],
+                died=data['died'],
                 blood_status=data.get('blood_status'),
                 gender=data.get('gender'),
                 description=data.get('description')
