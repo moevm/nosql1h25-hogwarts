@@ -6,3 +6,4 @@ class Spell(BaseModel):
     name = StringProperty(required=True, unique_index=True)
     effect = StringProperty()
     type = StringProperty()
+    image_path = StringProperty()
