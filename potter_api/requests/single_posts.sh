@@ -53,30 +53,6 @@ echo
 
 # персонажи
 curl -X POST "$API_URL/characters" -H "Content-Type: application/json" -d '{
-  "name": "Harry Potter",
-  "born": "1980-07-31",
-  "died": null,
-  "blood_status": "half-blood",
-  "gender": "male",
-  "description": "The Boy Who Lived",
-  "house": "Gryffindor",
-  "spells": ["Expelliarmus"],
-  "poisons": ["Polyjuice Potion"],
-  "relationships": [
-    {
-      "target_character": "Hermione Granger",
-      "type": "friend"
-    },
-    {
-      "target_character": "Draco Malfoy",
-      "type": "rival"
-    }
-  ] 
-}'
-
-echo
-
-curl -X POST "$API_URL/characters" -H "Content-Type: application/json" -d '{
   "name": "Hermione Granger",
   "born": "1979-09-19",
   "died": null,
@@ -111,6 +87,30 @@ curl -X POST "$API_URL/characters" -H "Content-Type: application/json" -d '{
       "type": "rival"
     }
   ]
+}'
+
+echo
+
+curl -X POST "$API_URL/characters" -H "Content-Type: application/json" -d '{
+  "name": "Harry Potter",
+  "born": "1980-07-31",
+  "died": null,
+  "blood_status": "half-blood",
+  "gender": "male",
+  "description": "The Boy Who Lived",
+  "house": "Gryffindor",
+  "spells": ["Expelliarmus"],
+  "poisons": ["Polyjuice Potion"],
+  "relationships": [
+    {
+      "target_character": "Hermione Granger",
+      "type": "friend"
+    },
+    {
+      "target_character": "Draco Malfoy",
+      "type": "rival"
+    }
+  ] 
 }'
 
 echo
