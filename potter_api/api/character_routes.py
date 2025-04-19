@@ -44,12 +44,28 @@ def register_character_routes(app, db):
         if not character:
             return jsonify({'error': 'Character not found'}), 404
         house_node = character.belongs_to.single()
+
+        spells = [spell.name for spell in character.knows.all()]
+        poisons = [poison.name for poison in character.brewed.all()]
+
+        relationships = []
+        for target_character in character.relationships.all():
+            rel = character.relationships.relationship(target_character)
+            relationships.append({
+                'target_character': target_character.name,
+                'type': rel.type
+            })
+
         return jsonify({
             'id': str(character.id),
             'name': character.name,
             'house': house_node.name if house_node else None,
             'blood_status': character.blood_status,
-            'description': character.description
+            'gender': character.gender,
+            'description': character.description,
+            'spells': spells,
+            'poisons': poisons,
+            'relationships': relationships
         })
 
     @app.route('/api/characters', methods=['POST'])
