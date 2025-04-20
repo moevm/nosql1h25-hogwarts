@@ -5,6 +5,22 @@ import AddItem from '../components/AddItem.vue'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 
+const items = ref([])
+
+onMounted(async () => {
+  const data = await fetch(`${import.meta.SERVER_URL}/spells`, {
+    method: 'GET'
+  })
+
+  if (!data.ok) {
+    throw new Error('Ошибка при загрузке заклинаний')
+  }
+
+  items.value = await data.json()
+
+  console.log(items.value)
+})
+
 const modalOpen = ref(false)
 
 const modalToggle = () => {
