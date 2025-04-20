@@ -7,16 +7,16 @@ class SpellService:
     def __init__(self, database):
         self.db = database
 
-    def create(self, name, effect=None, type=None):
-        return Spell(name=name, effect=effect, type=type).save()
+    def create(self, name, effect=None, category=None, light=None):
+        return Spell(name=name, effect=effect, category=category, light=light).save()
 
-    def get_all(self, name=None, effect=None, type=None, light=None):
+    def get_all(self, name=None, effect=None, category=None, light=None):
         query = """
                 MATCH (s:Spell)
                 OPTIONAL MATCH (s)<-[:KNOWS]-(c:Character)
                 WHERE ($name IS NULL OR s.name CONTAINS $name)
                   AND ($effect IS NULL OR s.effect CONTAINS $effect)
-                  AND ($type IS NULL OR s.type = $type)
+                  AND ($category IS NULL OR s.category = $category)
                   AND ($light IS NULL OR s.light = $light)
                 RETURN s, 
                        collect(DISTINCT c.name) AS known_by
@@ -25,7 +25,7 @@ class SpellService:
         parameters = {
             'name': name,
             'effect': effect,
-            'type': type,
+            'category': category,
             'light': light
         }
 

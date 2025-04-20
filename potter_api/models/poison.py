@@ -7,3 +7,4 @@ class Poison(BaseModel):
     image_path = StringProperty()
     effect = StringProperty()
     difficulty = StringProperty()
+    ingredients = StringProperty()

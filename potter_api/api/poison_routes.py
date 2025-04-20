@@ -23,8 +23,8 @@ def register_poison_routes(app, db):
             poisons.append({
                 'id': str(p.id),
                 'name': p.name,
+                'image_path': p.image_path,
                 'effect': p.effect,
-                'description': p.description,
                 'brewers': brewers,
                 'ingredients': p.ingredients,
                 'difficulty': p.difficulty
@@ -46,13 +46,14 @@ def register_poison_routes(app, db):
     def get_poison(poison_id):
         poison = db.poisons.get_by_id(poison_id)
         if not poison:
-            return jsonify({'error': 'Character not found'}), 404
+            return jsonify({'error': 'Poison not found'}), 404
         return jsonify({
             'id': str(poison.id),
             'name': poison.name,
             'image_path': poison.image_path,
             'effect': poison.effect,
-            'difficulty': poison.difficulty
+            'difficulty': poison.difficulty,
+            'ingredients': poison.ingredients
         })
 
     @app.route('/api/poisons', methods=['POST'])
@@ -63,6 +64,7 @@ def register_poison_routes(app, db):
                 name=data['name'],
                 effect=data.get('effect'),
                 difficulty=data.get('difficulty'),
+                ingredients=data.get('ingredients')
             )
             return jsonify({
                 'id': str(poison.id),

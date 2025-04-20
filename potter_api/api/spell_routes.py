@@ -6,13 +6,13 @@ def register_spell_routes(app, db):
     def get_spells():
         name = request.args.get('name')
         effect = request.args.get('effect')
-        type_param = request.args.get('type')
+        category = request.args.get('category')
         light = request.args.get('light')
 
         results = db.spells.get_all(
             name=name,
             effect=effect,
-            type=type_param,
+            category=category,
             light=light
         )
 
@@ -25,7 +25,7 @@ def register_spell_routes(app, db):
                 'name': s.name,
                 'image_path': s.image_path,
                 'effect': s.effect,
-                'type': s.type,
+                'category': s.category,
                 'light': s.light,
                 'known_by': known_by
             })
@@ -51,7 +51,8 @@ def register_spell_routes(app, db):
             'name': spell.name,
             'image_path': spell.image_path,
             'effect': spell.effect,
-            'type': spell.type
+            'category': spell.category,
+            'light': spell.light
         })
 
     @app.route('/api/spells', methods=['POST'])
@@ -61,7 +62,8 @@ def register_spell_routes(app, db):
             spell = db.spells.create(
                 name=data['name'],
                 effect=data.get('effect'),
-                type=data.get('type'),
+                category=data.get('category'),
+                light=data.get('light')
             )
             return jsonify({
                 'id': str(spell.id),
