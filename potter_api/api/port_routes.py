@@ -92,6 +92,8 @@ def register_port_routes(app, db):
         for c in data.get('characters', []):
             char = Character(
                 name=c['name'],
+                born=c['born'],
+                died=c['died'],
                 blood_status=c.get('blood_status'),
                 gender=c.get('gender'),
                 description=c.get('description')
