@@ -5,7 +5,7 @@ import { useRoute } from 'vue-router'
 const items = ref([])
 
 onMounted(async () => {
-  const data = await fetch(`${import.meta.env.VITE_SERVER_URL}/poisons`, {
+  const data = await fetch(`${import.meta.env.VITE_SERVER_URL}/potions`, {
     method: 'GET'
   })
 
