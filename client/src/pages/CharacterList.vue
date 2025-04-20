@@ -10,10 +10,19 @@ const items = ref([
   { id: 'ron', name: 'Ron Weasley', imageUrl: '/images/RonWeasley.png' }
 ])
 
-const modalOpen = ref(false)
+const isAddModalOpen = ref(false)
+const isSearchPanelOpen = ref(false)
 
-const modalToggle = () => {
-  modalOpen.value = !modalOpen.value
+const openAddModal = () => {
+  isAddModalOpen.value = true
+}
+
+const closeAddModal = () => {
+  isAddModalOpen.value = false
+}
+
+const toggleSearchPanel = () => {
+  isSearchPanelOpen.value = !isSearchPanelOpen.value
 }
 
 const addCharacter = (character) => {
@@ -33,13 +42,17 @@ const addCharacter = (character) => {
       Harry Potter Wiki
     </router-link>
 
-    <Search :modal-toggle="modalToggle" placeholder="Harry Potter" :modal-open="modalOpen" />
+    <Search
+      :modal-toggle="toggleSearchPanel"
+      placeholder="Harry Potter"
+      :modal-open="isSearchPanelOpen"
+    />
 
     <ul class="w-5/6 grid grid-cols-[2fr_2fr_2fr_2fr] gap-5 overflow-y-auto scrollbar-hide">
       <li class="flex justify-center">
         <div
           class="w-50 h-50 bg-bg flex flex-col items-center pt-2 rounded-md cursor-pointer"
-          @click="modalToggle"
+          @click="openAddModal"
         >
           <img
             class="my-4 w-3/5 rounded-md border-3 border-gold border-dashed"
@@ -56,6 +69,6 @@ const addCharacter = (character) => {
       </li>
     </ul>
 
-    <AddCharacterForm v-if="modalOpen" @close="modalToggle" @add="addCharacter" />
+    <AddCharacterForm v-if="isAddModalOpen" @close="closeAddModal" @add="addCharacter" />
   </div>
 </template>
