@@ -1,7 +1,8 @@
 <script setup>
-import { useHead } from '@vueuse/head'
 import { ref } from 'vue'
+import { exportData } from './models/utils/Export.js' // Импортируем функцию из export.js
 import TopButton from './components/TopButton.vue'
+import { useHead } from '@vueuse/head'
 
 useHead({
   title: 'Главная страница',
@@ -14,12 +15,37 @@ useHead({
   link: [{ rel: 'icon', href: '/images/favicon.ico' }]
 })
 
+const characters = ref([
+  { id: 'harry', name: 'Harry Potter', imageUrl: '/images/HarryPotter.png', description: 'Wizard' },
+  { id: 'hermione-granger', name: 'Hermione Granger', imageUrl: '/images/HermioneGranger.png', description: 'Witch' },
+  { id: 'ron', name: 'Ron Weasley', imageUrl: '/images/RonWeasley.png', description: 'Wizard' }
+])
+
+// Функция для обработки нажатия на кнопку Export
+const handleExport = () => {
+  exportData(characters.value, 'characters.json'); // Экспортируем данные
+}
+
 const isOpen = ref(false)
+
+const modalToggle = () => {
+  isOpen.value = !isOpen.value
+}
+
+const addCharacter = (character) => {
+  const id = character.name.toLowerCase().replace(/\s+/g, '-')
+  characters.value.unshift({
+    id,
+    name: character.name,
+    imageUrl: character.imageUrl,
+    description: character.description
+  })
+}
 </script>
 
 <template>
   <div
-    class="min-h-screen w-full bg-no-repeat bg-cover bg-center flex relative"
+    class="w-full h-screen bg-no-repeat bg-cover bg-center flex relative"
     style="background-image: url('/images/background.svg')"
   >
     <div class="w-[175px] grid grid-rows-[1fr_6fr] relative">
@@ -66,7 +92,7 @@ const isOpen = ref(false)
     <div class="absolute top-[50px] right-[70px] flex gap-5">
       <TopButton action="Statistics" disabled />
       <TopButton action="Import" />
-      <TopButton action="Export" />
+      <TopButton action="Export" @click="handleExport" />
     </div>
     <router-view class="flex-1 flex flex-col items-center pt-[100px]"></router-view>
   </div>
