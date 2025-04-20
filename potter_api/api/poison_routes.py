@@ -10,7 +10,8 @@ def register_poison_routes(app, db):
             'name': poison.name,
             'image_path': poison.image_path,
             'effect': poison.effect,
-            'difficulty': poison.difficulty
+            'difficulty': poison.difficulty,
+            'ingredients': poison.ingredients
         } for poison in poisons])
 
     @app.route('/api/poisons/<poison_id>', methods=['GET'])
@@ -23,7 +24,8 @@ def register_poison_routes(app, db):
             'name': poison.name,
             'image_path': poison.image_path,
             'effect': poison.effect,
-            'difficulty': poison.difficulty
+            'difficulty': poison.difficulty,
+            'ingredients': poison.ingredients
         })
 
     @app.route('/api/poisons', methods=['POST'])
@@ -34,6 +36,7 @@ def register_poison_routes(app, db):
                 name=data['name'],
                 effect=data.get('effect'),
                 difficulty=data.get('difficulty'),
+                ingredients=data.get('ingredients'),
             )
             return jsonify({
                 'id': str(poison.id),

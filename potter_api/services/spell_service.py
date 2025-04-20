@@ -7,8 +7,8 @@ class SpellService:
     def __init__(self, database):
         self.db = database
 
-    def create(self, name, effect=None, type=None):
-        return Spell(name=name, effect=effect, type=type).save()
+    def create(self, name, **kwargs):
+        return Spell(name=name, **kwargs).save()
 
     def get_all(self):
         return Spell.nodes.all()

@@ -7,8 +7,8 @@ class PoisonService:
     def __init__(self, database):
         self.db = database
 
-    def create(self, name, effect=None, difficulty=None):
-        return Poison(name=name, effect=effect, difficulty=difficulty).save()
+    def create(self, name, **kwargs):
+        return Poison(name=name, **kwargs).save()
 
     def get_all(self):
         return Poison.nodes.all()
