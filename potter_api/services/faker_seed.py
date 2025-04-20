@@ -68,7 +68,7 @@ def faker_seed(
         )
         char_ids.append(character.id)
 
-        if house_ids and random.random() > 0.3:
+        if house_ids:
             db.houses.assign_character(character.id, random.choice(house_ids))
 
         for _ in range(random.randint(0, 3)):
