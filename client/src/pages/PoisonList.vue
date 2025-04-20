@@ -2,8 +2,25 @@
 import PoisonCard from '@/components/PoisonCard.vue'
 import Search from '../components/Search.vue'
 import AddItem from '../components/AddItem.vue'
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
+
+const items = ref([])
+
+onMounted(async () => {
+  const data = await fetch(`${import.meta.SERVER_URL}/poisons`, {
+    method: 'GET'
+  })
+
+  if (!data.ok) {
+    throw new Error('Ошибка при загрузке зелий')
+  }
+
+  items.value = await data.json()
+
+  console.log(items.value)
+})
+
 const modalOpen = ref(false)
 
 const modalToggle = () => {
@@ -21,9 +38,9 @@ const modalToggle = () => {
 
     <ul class="w-5/6 grid grid-cols-[2fr_2fr_2fr_2fr] gap-5 overflow-y-auto scrollbar-hide">
       <AddItem />
-      <li v-for="item in items" :key="item.id">
+      <li v-for="item in items" :key="item.id" class="flex justify-center">
         <router-link :to="`/poisons/${item.id}`">
-          <PoisonCard />
+          <PoisonCard :title="item.name" />
         </router-link>
       </li>
     </ul>

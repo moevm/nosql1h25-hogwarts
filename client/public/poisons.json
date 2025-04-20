@@ -1,0 +1,149 @@
+[
+  {
+    "name": "Ageing Potion",
+    "difficulty": "Advanced",
+    "effect": "Aged drinker temporarily",
+    "ingredients": "Newt spleens, Bananas, An orange snake, A green leaf",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/5/51/Ageing_Potion_PM.png"
+  },
+  {
+    "name": "Alihotsy Draught",
+    "difficulty": null,
+    "effect": "Uncontrollable laughter",
+    "ingredients": "Alihotsy",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/4/46/Alihotsy_Draught.png"
+  },
+  {
+    "name": "Amortentia",
+    "difficulty": "Advanced",
+    "effect": "Love potion that caused a powerful infatuation or obsession in the drinker",
+    "ingredients": "Pearl Dust",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/4/49/Amortentia.png"
+  },
+  {
+    "name": "Angel's Trumpet Draught",
+    "difficulty": null,
+    "effect": "Poisonous",
+    "ingredients": "Angel's Trumpet",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/c/c8/Angels_Trumpet_Draught.JPG"
+  },
+  {
+    "name": "Antidote",
+    "difficulty": null,
+    "effect": null,
+    "ingredients": null,
+    "image_path": null
+  },
+  {
+    "name": "Antidote to Common Poisons",
+    "difficulty": "Beginner to Moderate",
+    "effect": "Counteracted the effects of common poisons",
+    "ingredients": "1 Bezoar, 2 measures of Standard Ingredient, 1 pinch of powdered unicorn horn, 2 mistletoe berries",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/9/96/Antidote-to-common-poisons.png"
+  },
+  {
+    "name": "Antidote to Uncommon Poisons",
+    "difficulty": "Moderate",
+    "effect": "Cures the effects of minor poisons",
+    "ingredients": "Fire Seeds, Powdered graphorn horn, Billywig stings, Chizpurfle carapaces",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/b/bd/Antidote_to_Uncommon_Poisons.png"
+  },
+  {
+    "name": "Antidote to Veritaserum",
+    "difficulty": "Advanced",
+    "effect": "Countered the effect of Veritaserum",
+    "ingredients": null,
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/3/3e/Antidote_to_Veritaserum_HM.png"
+  },
+  {
+    "name": "Anti-Paralysis Potion",
+    "difficulty": null,
+    "effect": "Cured paralysis",
+    "ingredients": null,
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/a/aa/Anti-Paralysis_Potion.png"
+  },
+  {
+    "name": "Armadillo Bile Mixture",
+    "difficulty": null,
+    "effect": null,
+    "ingredients": "Bat wings, Armadillo bile, Wormwood, Armotentia, Acromantula venom, Aconite, Water (likely)",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/0/0a/Armadillo_Bile_Mixture.jpg"
+  },
+  {
+    "name": "Babbling Beverage",
+    "difficulty": "Moderate to Ordinary Wizarding Level",
+    "effect": "Caused the drinker to speak nonsense",
+    "ingredients": "Valerian sprigs, Aconite, Dittany",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/5/5d/HM_y3_Babbling_Beverage.png"
+  },
+  {
+    "name": "Baneberry Potion",
+    "difficulty": null,
+    "effect": "Poison",
+    "ingredients": "Baneberry",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/9/93/Baneberry_Potion.JPG"
+  },
+  {
+    "name": "Baruffio's Brain Elixir",
+    "difficulty": null,
+    "effect": "Allegedly increases one's brain power",
+    "ingredients": "Leaping Toadstools, Frog brains, Runespoor eggs, Powdered dragon claw",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/8/8d/Baruffio%E2%80%99s_Brain_Elixir_HM.png"
+  },
+  {
+    "name": "Beautification Potion",
+    "difficulty": "Moderate",
+    "effect": "Enhances the attractiveness of the drinker's physical appearance",
+    "ingredients": "Fairy wings, Morning dew, Rose Petals, Lady's Mantle, Unicorn hair, Ginger roots, Boomslang skin",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/8/8b/Beautification_Potion_Bottle.png"
+  },
+  {
+    "name": "Befuddlement Draught",
+    "difficulty": "Ordinary Wizarding Level",
+    "effect": "Recklessness",
+    "ingredients": "Scurvy grass, Lovage, Sneezewort, Frog brains",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/d/d3/BefuddlementDraughtHM.png"
+  },
+  {
+    "name": "Blood-Replenishing Potion",
+    "difficulty": null,
+    "effect": "Replenished lost blood",
+    "ingredients": "Standard potioning water, Powdered unicorn horn, Stewed Mandrake",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/4/49/BloodReplenishingPotionHM.png"
+  },
+  {
+    "name": "Bloodroot Poison",
+    "difficulty": null,
+    "effect": "Poisonous",
+    "ingredients": "Bloodroot",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/e/eb/Bloodroot_Poison.jpg"
+  },
+  {
+    "name": "Bruise removal paste",
+    "difficulty": null,
+    "effect": "Healed bruises in an hour",
+    "ingredients": null,
+    "image_path": null
+  },
+  {
+    "name": "Bulgeye Potion",
+    "difficulty": null,
+    "effect": "Causes eyes to bulge (presumably)",
+    "ingredients": null,
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/2/25/Bulgeye.JPG"
+  },
+  {
+    "name": "Bundimum Pomade",
+    "difficulty": null,
+    "effect": "Hair care",
+    "ingredients": "Bundimun Secretion (most likely)",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/8/86/BoxofBezoars.jpg"
+  },
+  {
+    "name": "Bundimun Secretion",
+    "difficulty": null,
+    "effect": null,
+    "ingredients": null,
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/a/a0/Ooze.JPG"
+  }
+]

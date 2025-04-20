@@ -2,15 +2,25 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
-const characters = [
-  { id: 'harry', name: 'Harry Potter' },
-  { id: 'hermione-granger', name: 'Hermione Granger' },
-  { id: 'ron', name: 'Ron Weasley' }
-]
+const items = ref([])
+
+onMounted(async () => {
+  const data = await fetch(`${import.meta.SERVER_URL}/characters`, {
+    method: 'GET'
+  })
+
+  if (!data.ok) {
+    throw new Error('Ошибка при загрузке зелий')
+  }
+
+  items.value = await data.json()
+
+  console.log(items.value)
+})
 
 const route = useRoute()
 
-const character = computed(() => characters.find((c) => c.id === route.params.id))
+const character = computed(() => items.find((c) => c.id === route.params.id))
 </script>
 
 <template>
