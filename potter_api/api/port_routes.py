@@ -46,7 +46,8 @@ def register_port_routes(app, db):
             'name': spell.name,
             'image_path': spell.image_path,
             'effect': spell.effect,
-            'type': spell.type
+            'category': spell.category,
+            'light': spell.light
         } for spell in db.spells.get_all()]
 
         poisons = [{
@@ -54,7 +55,8 @@ def register_port_routes(app, db):
             'name': poison.name,
             'image_path': poison.image_path,
             'effect': poison.effect,
-            'difficulty': poison.difficulty
+            'difficulty': poison.difficulty,
+            'ingredients': poison.ingredients
         } for poison in db.poisons.get_all()]
 
         return jsonify({
@@ -81,12 +83,12 @@ def register_port_routes(app, db):
 
         for s in data.get('spells', []):
             spell = Spell(name=s['name'], effect=s.get(
-                'effect'), type=s.get('type')).save()
+                'effect'), category=s.get('category'), light=s.get('light')).save()
             spell_map[spell.name] = spell
 
         for p in data.get('poisons', []):
             poison = Poison(name=p['name'], effect=p.get(
-                'effect'), difficulty=p.get('difficulty')).save()
+                'effect'), difficulty=p.get('difficulty'), ingredients=p.get('ingredients')).save()
             poison_map[poison.name] = poison
 
         for c in data.get('characters', []):
