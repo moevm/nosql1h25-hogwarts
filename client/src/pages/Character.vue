@@ -5,7 +5,7 @@ import { useRoute } from 'vue-router'
 const items = ref([])
 
 onMounted(async () => {
-  const data = await fetch(`${import.meta.env.SERVER_URL}/characters`, {
+  const data = await fetch(`${import.meta.env.VITE_SERVER_URL}/characters`, {
     method: 'GET'
   })
 
