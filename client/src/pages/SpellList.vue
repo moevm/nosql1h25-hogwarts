@@ -5,12 +5,6 @@ import AddItem from '../components/AddItem.vue'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 
-const items = ref([
-  { id: 'aguamenti', name: 'Aguamenti Charm' },
-  { id: 'alohomora', name: 'Alohomora' },
-  { id: 'aparecium', name: 'Aparecium' }
-])
-
 const modalOpen = ref(false)
 
 const modalToggle = () => {

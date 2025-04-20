@@ -4,13 +4,6 @@ import Search from '../components/Search.vue'
 import AddItem from '../components/AddItem.vue'
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
-
-const items = ref([
-  { id: 'amortentia', name: 'Amortentia' },
-  { id: 'anti-jinx', name: 'Anti-jinx varnish' },
-  { id: 'volubilis', name: 'Volubilis Potion' }
-])
-
 const modalOpen = ref(false)
 
 const modalToggle = () => {
