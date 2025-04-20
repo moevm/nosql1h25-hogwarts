@@ -10,8 +10,27 @@ class SpellService:
     def create(self, name, effect=None, type=None):
         return Spell(name=name, effect=effect, type=type).save()
 
-    def get_all(self):
-        return Spell.nodes.all()
+    def get_all(self, name=None, effect=None, type=None, light=None):
+        query = """
+                MATCH (s:Spell)
+                OPTIONAL MATCH (s)<-[:KNOWS]-(c:Character)
+                WHERE ($name IS NULL OR s.name CONTAINS $name)
+                  AND ($effect IS NULL OR s.effect CONTAINS $effect)
+                  AND ($type IS NULL OR s.type = $type)
+                  AND ($light IS NULL OR s.light = $light)
+                RETURN s, 
+                       collect(DISTINCT c.name) AS known_by
+                """
+
+        parameters = {
+            'name': name,
+            'effect': effect,
+            'type': type,
+            'light': light
+        }
+
+        results, _ = self.db.cypher_query(query, parameters)
+        return results
 
     def add_knows(self, char_id, spell_id):
         char = Character.nodes.get(id=char_id)
