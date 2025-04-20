@@ -46,9 +46,5 @@
       Born:
       <input class="text-gold outline-none border border-gold rounded-md ml-2" />
     </div>
-    <div class="text-gold">
-      Mentioned:
-      <input class="text-gold outline-none border border-gold rounded-md ml-2" />
-    </div>
   </div>
 </template>

@@ -1,3 +1,5 @@
+<script setup></script>
+
 <template>
   <div class="flex flex-col flex-wrap justify-around h-full">
     <div class="text-gold">
@@ -5,10 +7,8 @@
       <select
         class="bg-bg text-gold border border-gold rounded-md px-4 py-2 font-display outline-none focus:ring-1 focus:ring-gold ml-2"
       >
-        <option class="bg-bg text-gold" value="Griffindor">Charm</option>
-        <option class="bg-bg text-gold" value="Cogtenvran">Cogtenvran</option>
-        <option class="bg-bg text-gold" value="Slyzerin">Slyzerin</option>
-        <option class="bg-bg text-gold" value="Puffendui">Puffendui</option>
+        <option class="bg-bg text-gold" value="Charm">Charm</option>
+        <option class="bg-bg text-gold" value="Curse">Curse</option>
       </select>
     </div>
     <div class="text-gold">
@@ -22,10 +22,11 @@
       <select
         class="bg-bg text-gold border border-gold rounded-md px-4 py-2 font-display outline-none focus:ring-1 focus:ring-gold ml-2"
       >
-        <option class="bg-bg text-gold" value="Griffindor">Griffindor</option>
-        <option class="bg-bg text-gold" value="Cogtenvran">Cogtenvran</option>
-        <option class="bg-bg text-gold" value="Slyzerin">Slyzerin</option>
-        <option class="bg-bg text-gold" value="Puffendui">Puffendui</option>
+        <option class="bg-bg text-gold" value="Blue">Blue</option>
+        <option class="bg-bg text-gold" value="Red">Red</option>
+        <option class="bg-bg text-gold" value="Green">Green</option>
+        <option class="bg-bg text-gold" value="White">White</option>
+        <option class="bg-bg text-gold" value="Yellow">Yellow</option>
       </select>
     </div>
     <div class="text-gold">
