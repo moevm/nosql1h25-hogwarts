@@ -62,3 +62,66 @@ def register_port_routes(app, db):
             'spells': spells,
             'poisons': poisons
         })
+
+    @app.route('/api/import', methods=['POST'])
+    def import_database():
+        data = request.get_json()
+
+        # очистка
+        db.clear_data()
+
+        house_map = {}
+        character_map = {}
+        spell_map = {}
+        poison_map = {}
+
+        for h in data.get('houses', []):
+            house = House(name=h['name'], traits=h.get('traits', [])).save()
+            house_map[house.name] = house
+
+        for s in data.get('spells', []):
+            spell = Spell(name=s['name'], effect=s.get(
+                'effect'), type=s.get('type')).save()
+            spell_map[spell.name] = spell
+
+        for p in data.get('poisons', []):
+            poison = Poison(name=p['name'], effect=p.get(
+                'effect'), difficulty=p.get('difficulty')).save()
+            poison_map[poison.name] = poison
+
+        for c in data.get('characters', []):
+            char = Character(
+                name=c['name'],
+                born=c['born'],
+                died=c['died'],
+                blood_status=c.get('blood_status'),
+                gender=c.get('gender'),
+                description=c.get('description')
+            ).save()
+            character_map[char.name] = char
+
+            house_name = c.get('house')
+            if house_name and house_name in house_map:
+                char.belongs_to.connect(house_map[house_name])
+
+        for c in data.get('characters', []):
+            char = character_map[c['name']]
+
+            for spell_name in c.get('spells', []):
+                if spell_name in spell_map:
+                    char.knows.connect(spell_map[spell_name])
+
+            for poison_name in c.get('poisons', []):
+                if poison_name in poison_map:
+                    char.brewed.connect(poison_map[poison_name])
+
+        for c in data.get('characters', []):
+            char = character_map[c['name']]
+            for rel in c.get('relationships', []):
+                target_name = rel['target_character']
+                rel_type = rel['type']
+                if target_name in character_map:
+                    char.relationships.connect(
+                        character_map[target_name], {'type': rel_type})
+
+        return jsonify({'status': 'imported successfully'})
