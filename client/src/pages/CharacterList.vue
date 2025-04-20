@@ -7,17 +7,19 @@ import AddItem from '../components/AddItem.vue'
 const items = ref([])
 
 onMounted(async () => {
-  try {
-    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/characters`)
-    if (!response.ok) {
-      throw new Error('Ошибка при загрузке персонажей')
-    }
-    const data = await response.json()
-    items.value = data
-  } catch (err) {
-    console.error(err)
+  const data = await fetch(`${import.meta.SERVER_URL}/characters`, {
+    method: 'GET'
+  })
+
+  if (!data.ok) {
+    throw new Error('Ошибка при загрузке персонажей')
   }
+
+  items.value = await data.json()
+
+  console.log(items.value)
 })
+
 const modalOpen = ref(false)
 
 const modalToggle = () => {

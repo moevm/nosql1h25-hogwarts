@@ -12,7 +12,7 @@ const toggleModal = (e) => {
 
 <template>
   <li class="flex justify-center" @click="(e) => toggleModal(e)">
-    <div class="w-50 h-50 bg-bg flex flex-col items-center pt-2 rounded-md">
+    <div class="w-50 h-60 bg-bg flex flex-col items-center pt-2 rounded-md">
       <img class="my-4 w-3/5 rounded-md border-3 border-gold border-dashed" src="/images/add.svg" />
       <p class="text-gold text-lg">Add Item</p>
     </div>
