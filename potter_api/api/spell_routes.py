@@ -10,7 +10,8 @@ def register_spell_routes(app, db):
             'name': spell.name,
             'image_path': spell.image_path,
             'effect': spell.effect,
-            'type': spell.type
+            'category': spell.category,
+            'light': spell.light
         } for spell in spells])
 
     @app.route('/api/spells/<spell_id>', methods=['GET'])
@@ -23,7 +24,8 @@ def register_spell_routes(app, db):
             'name': spell.name,
             'image_path': spell.image_path,
             'effect': spell.effect,
-            'type': spell.type
+            'category': spell.category,
+            'light': spell.light
         })
 
     @app.route('/api/spells', methods=['POST'])
@@ -33,7 +35,8 @@ def register_spell_routes(app, db):
             spell = db.spells.create(
                 name=data['name'],
                 effect=data.get('effect'),
-                type=data.get('type'),
+                category=data.get('category'),
+                light=data.get('light')
             )
             return jsonify({
                 'id': str(spell.id),
