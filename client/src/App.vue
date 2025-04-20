@@ -67,7 +67,7 @@ const isOpen = ref(false)
       <TopButton action="Import" />
       <TopButton action="Export" />
     </div>
-    <router-view class="flex-1 flex flex-col items-center pt-[100px]"></router-view>
+    <router-view class="flex-1 flex flex-col items-center pt-[250px]"></router-view>
   </div>
 </template>
 
