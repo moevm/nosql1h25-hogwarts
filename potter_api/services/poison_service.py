@@ -10,8 +10,27 @@ class PoisonService:
     def create(self, name, effect=None, difficulty=None):
         return Poison(name=name, effect=effect, difficulty=difficulty).save()
 
-    def get_all(self):
-        return Poison.nodes.all()
+    def get_all(self, name=None, effect=None, ingredients=None, difficulty=None):
+        query = """
+                MATCH (p:Poison)
+                OPTIONAL MATCH (p)<-[:BREWED]-(c:Character)
+                WHERE ($name IS NULL OR p.name CONTAINS $name)
+                  AND ($effect IS NULL OR p.effect CONTAINS $effect)
+                  AND ($ingredients IS NULL OR p.ingredients CONTAINS $ingredients)
+                  AND ($difficulty IS NULL OR p.difficulty = $difficulty)
+                RETURN p, 
+                       collect(DISTINCT c.name) AS brewers
+                """
+
+        parameters = {
+            'name': name,
+            'effect': effect,
+            'ingredients': ingredients,
+            'difficulty': difficulty
+        }
+
+        results, _ = self.db.cypher_query(query, parameters)
+        return results
 
     def add_brewed(self, char_id, poison_id):
         char = Character.nodes.get(id=char_id)
