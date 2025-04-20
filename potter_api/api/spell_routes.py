@@ -4,14 +4,42 @@ from flask import jsonify, request
 def register_spell_routes(app, db):
     @app.route('/api/spells', methods=['GET'])
     def get_spells():
-        spells = db.spells.get_all()
-        return jsonify([{
-            'id': str(spell.id),
-            'name': spell.name,
-            'image_path': spell.image_path,
-            'effect': spell.effect,
-            'type': spell.type
-        } for spell in spells])
+        name = request.args.get('name')
+        effect = request.args.get('effect')
+        type_param = request.args.get('type')
+        light = request.args.get('light')
+
+        results = db.spells.get_all(
+            name=name,
+            effect=effect,
+            type=type_param,
+            light=light
+        )
+
+        spells = []
+        for record in results:
+            s, known_by = record
+
+            spells.append({
+                'id': str(s.id),
+                'name': s.name,
+                'image_path': s.image_path,
+                'effect': s.effect,
+                'type': s.type,
+                'light': s.light,
+                'known_by': known_by
+            })
+
+        return jsonify(spells)
+    # def get_spells():
+    #     spells = db.spells.get_all()
+    #     return jsonify([{
+    #         'id': str(spell.id),
+    #         'name': spell.name,
+    #         'image_path': spell.image_path,
+    #         'effect': spell.effect,
+    #         'type': spell.type
+    #     } for spell in spells])
 
     @app.route('/api/spells/<spell_id>', methods=['GET'])
     def get_spell(spell_id):
