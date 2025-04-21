@@ -1,5 +1,5 @@
 <script setup>
-import SpellCard from '@/components/SpellCard.vue'
+import Card from '@/components/Card.vue'
 import Search from '../components/Search.vue'
 import AddItem from '../components/AddItem.vue'
 import { ref, onMounted } from 'vue'
@@ -39,7 +39,7 @@ const modalToggle = () => {
       <AddItem />
       <li v-for="item in items" :key="item.id" class="flex justify-center">
         <router-link :to="`/spells/${item.id}`">
-          <SpellCard />
+          <Card :title="item.name" :imageUrl="item.image_path"/>
         </router-link>
       </li>
     </ul>
