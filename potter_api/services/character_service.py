@@ -10,34 +10,44 @@ class CharacterService:
         return Character(name=name, **kwargs).save()
 
     def get_all(self, name=None, house=None, blood_status=None, gender=None, born=None, died=None):
-        query = """
-                MATCH (c:Character)
-                OPTIONAL MATCH (c)-[:BELONGS_TO]->(h:House)
-                OPTIONAL MATCH (c)-[:KNOWS]->(s:Spell)
-                OPTIONAL MATCH (c)-[:BREWED]->(p:Poison)
-                OPTIONAL MATCH (c)-[r:RELATIONSHIP]->(target:Character)
-                WHERE ($name IS NULL OR c.name CONTAINS $name)
-                  AND ($house IS NULL OR h.name = $house)
-                  AND ($blood_status IS NULL OR c.blood_status = $blood_status)
-                  AND ($gender IS NULL OR c.gender = $gender)
-                  AND ($born IS NULL OR c.born = $born)
-                  AND ($died IS NULL OR c.died = $died)
-                RETURN c, h, 
-                       collect(DISTINCT s.name) AS spells, 
-                       collect(DISTINCT p.name) AS poisons, 
-                       collect(DISTINCT {target: target.name, type: r.type}) AS relationships
-                """
+        filters = []
+        parameters = {}
 
-        parameters = {
-            'name': name,
-            'house': house,
-            'blood_status': blood_status,
-            'gender': gender,
-            'born': born,
-            'died': died
-        }
+        if name:
+            filters.append("c.name CONTAINS $name")
+            parameters["name"] = name
+        if blood_status:
+            filters.append("c.blood_status = $blood_status")
+            parameters["blood_status"] = blood_status
+        if gender:
+            filters.append("c.gender = $gender")
+            parameters["gender"] = gender
+        if born:
+            filters.append("c.born = $born")
+            parameters["born"] = born
+        if died:
+            filters.append("c.died = $died")
+            parameters["died"] = died
+        if house:
+            filters.append("h.name = $house")
+            parameters["house"] = house
 
-        results, _ = self.db.cypher_query(query, parameters)
+        where_clause = " AND ".join(filters) if filters else "1=1"
+
+        query = f"""
+            MATCH (c:Character)
+            OPTIONAL MATCH (c)-[:BELONGS_TO]->(h:House)
+            OPTIONAL MATCH (c)-[:KNOWS]->(s:Spell)
+            OPTIONAL MATCH (c)-[:BREWED]->(p:Poison)
+            OPTIONAL MATCH (c)-[r:RELATIONSHIP]->(target:Character)
+            WHERE {where_clause}
+            RETURN c, h,
+                   collect(DISTINCT s.name) AS spells,
+                   collect(DISTINCT p.name) AS poisons,
+                   collect(DISTINCT {{target: target.name, type: r.type}}) AS relationships
+        """
+
+        results, _ = self.db.execute_query(query, parameters)
         return results
 
     def get_by_id(self, char_id):
