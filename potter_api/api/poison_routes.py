@@ -64,7 +64,7 @@ def register_poison_routes(app, db):
                 name=data['name'],
                 effect=data.get('effect'),
                 difficulty=data.get('difficulty'),
-                ingredients=data.get('ingredients')
+                ingredients=data.get('ingredients'),
             )
             return jsonify({
                 'id': str(poison.id),

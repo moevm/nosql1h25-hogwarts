@@ -1,0 +1,106 @@
+[
+  {
+    "name": "1992-gryffindor-vs-slytherin-quidditch-match-spectators",
+    "blood_status": null,
+    "born": null,
+    "died": null,
+    "gender": null,
+    "image_path": null
+  },
+  {
+    "name": "1996-gryffindor-quidditch-keeper-trials-spectators",
+    "blood_status": null,
+    "born": null,
+    "died": null,
+    "gender": null,
+    "image_path": null
+  },
+  {
+    "name": "2-headed-baby",
+    "blood_status": null,
+    "born": "Before 1927",
+    "died": null,
+    "gender": "Male (most likely)",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/a/a6/2HeadedBaby.jpg"
+  },
+  {
+    "name": "unidentified-8-year-old-muggle-girl",
+    "blood_status": "Muggle",
+    "born": "1983",
+    "died": null,
+    "gender": "Female",
+    "image_path": null
+  },
+  {
+    "name": "aamir-loonat",
+    "blood_status": null,
+    "born": "31 August 1982 or earlier",
+    "died": null,
+    "gender": "Male",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/c/cd/Aamir_Loonat.png"
+  },
+  {
+    "name": "abbott",
+    "blood_status": null,
+    "born": null,
+    "died": "Before 24 December, 1997",
+    "gender": null,
+    "image_path": null
+  },
+  {
+    "name": "abel-treetops",
+    "blood_status": null,
+    "born": "Before 1832",
+    "died": null,
+    "gender": "Male",
+    "image_path": null
+  },
+  {
+    "name": "aberforth-dumbledore",
+    "blood_status": "Half-blood",
+    "born": "Between 1 September 1883 and 31 August 1884, Mould-on-the-Wold, England, Great Britain (presumably)",
+    "died": null,
+    "gender": "Male",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/4/40/Aberforth_Dumbledore.jpg"
+  },
+  {
+    "name": "abernathy",
+    "blood_status": null,
+    "born": "Before 1909 (likely)",
+    "died": null,
+    "gender": "Male",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/a/a6/Abernathy_COG.png"
+  },
+  {
+    "name": "abigail-grey",
+    "blood_status": "Half-blood",
+    "born": "Between 1 September 1992 and 31 August 1997",
+    "died": null,
+    "gender": "Female",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/a/af/Abigail_Grey_MA.jpeg"
+  },
+  {
+    "name": "abigail-nicola",
+    "blood_status": null,
+    "born": null,
+    "died": null,
+    "gender": "Female",
+    "image_path": null
+  },
+  {
+    "name": "abigail-pugh",
+    "blood_status": null,
+    "born": "31 August 1982 or earlier",
+    "died": null,
+    "gender": "Female",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/2/2f/Abigail_Pugh.png"
+  },
+  {
+    "name": "abigail-r-cankus",
+    "blood_status": null,
+    "born": null,
+    "died": null,
+    "gender": "Female",
+    "image_path": null
+  }
+]

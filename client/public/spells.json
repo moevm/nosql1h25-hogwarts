@@ -1,0 +1,107 @@
+[
+  {
+    "name": "Age Line",
+    "category": "Charm",
+    "effect": "Prevented people above or below a certain age from access to a target",
+    "light": "Blue",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/e/e5/Age_Line_surrounding_the_Goblet_of_Fire_PM.jpg"
+  },
+  {
+    "name": "Alarte Ascendare",
+    "category": "Charm",
+    "effect": "Rocketed target upward",
+    "light": "Red",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/c/c4/Alarte_Ascendare.gif"
+  },
+  {
+    "name": "Albus Dumbledore's forceful spell",
+    "category": "Spell",
+    "effect": "Great force",
+    "light": "None",
+    "image_path": null
+  },
+  {
+    "name": "Amplifying Charm",
+    "category": "Charm",
+    "effect": "Loudens target",
+    "light": "None",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/2/29/Sonorous_GOF_Dumbledore_1.jpg"
+  },
+  {
+    "name": "Anapneo",
+    "category": "Healing spell, Vanishment, Charm",
+    "effect": "Cleared target's airway by vanishing blockages",
+    "light": null,
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/2/2e/Celestina_Warbeck%27s_throat_unblocked_HM.png"
+  },
+  {
+    "name": "Animagus Spell",
+    "category": "Transfiguration",
+    "effect": "Used as part of the ritual to become an Animagus",
+    "light": "Golden",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/2/2d/Animagus_Spell_HM.png"
+  },
+  {
+    "name": "Animation Charm",
+    "category": "Charm",
+    "effect": "Animated target",
+    "light": "None",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/e/e5/Piertotum_Locomotor.gif"
+  },
+  {
+    "name": "Anteoculatia",
+    "category": "Dark charm",
+    "effect": "Grew antlers on head",
+    "light": "Red or purple",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/f/f7/Anteoculatia_HM.png"
+  },
+  {
+    "name": "Anti-Apparition Charm",
+    "category": "Charm",
+    "effect": "Prevents Apparition into an area",
+    "light": null,
+    "image_path": null
+  },
+  {
+    "name": "Anti-Cheating Spell",
+    "category": "Charm",
+    "effect": "Prevents cheating",
+    "light": "Purple",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/f/fa/Anti-CheatingSpell.png"
+  },
+  {
+    "name": "Anti-Disapparition Jinx",
+    "category": "Jinx",
+    "effect": "Prevented Disapparition within a certain area",
+    "light": null,
+    "image_path": null
+  },
+  {
+    "name": "Anti-intruder jinxes",
+    "category": "Jinx",
+    "effect": "Repelled intruders",
+    "light": null,
+    "image_path": null
+  },
+  {
+    "name": "Antonin Dolohov's curse",
+    "category": "Curse",
+    "effect": "Injuries capable of killing",
+    "light": "Purple fire",
+    "image_path": null
+  },
+  {
+    "name": "Apparition/Disapparition",
+    "category": "Magical transportation",
+    "effect": "Instantly teleports user",
+    "light": "None",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/b/be/Dumbledore_and_Harry_performing_Apparition.gif"
+  },
+  {
+    "name": "Aqua Eructo",
+    "category": "Charm",
+    "effect": "Jet of water",
+    "light": "Ice-blue",
+    "image_path": "https://static.wikia.nocookie.net/harrypotter/images/2/20/Aqua_Eructo.PNG"
+  }
+]

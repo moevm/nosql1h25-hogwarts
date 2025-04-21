@@ -1,7 +1,7 @@
 services:
-  app:
+  backend:
     build:
-      context: .
+      context: ./potter_api
       dockerfile: Dockerfile
     container_name: app
     env_file:
@@ -15,6 +15,18 @@ services:
       - neo4j_network
     ports:
       - "5000:5000"
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: client
+    networks:
+      - neo4j_network
+    ports:
+      - "3000:80"  # локальный 3000 -- nginx 80
+    depends_on:
+      - backend
 
   neo4j:
     image: neo4j:latest

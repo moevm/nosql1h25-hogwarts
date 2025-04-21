@@ -41,6 +41,7 @@ def register_spell_routes(app, db):
     #         'type': spell.type
     #     } for spell in spells])
 
+
     @app.route('/api/spells/<spell_id>', methods=['GET'])
     def get_spell(spell_id):
         spell = db.poisons.get_by_id(spell_id)
