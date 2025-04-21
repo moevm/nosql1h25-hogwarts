@@ -77,10 +77,10 @@ docker compose up
 docker compose down
 ```
 
-Для удаления контейнеров, образов и томов:
+Для остановки и удаления контейнеров:
 
 ```bash
-docker compose down --volumes --rmi all
+docker compose down -v
 ```
 
 ---
