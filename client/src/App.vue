@@ -37,7 +37,7 @@ const isOpen = ref(false)
         <ul v-if="isOpen" class="flex flex-col border-r-3 border-gold">
           <li class="flex-1">
             <router-link
-              to="/character"
+              to="/characters"
               class="block text-center py-2 bg-bg text-gold border-b-3 border-gold w-full h-full flex items-center justify-center text-xl"
             >
               Character
@@ -45,7 +45,7 @@ const isOpen = ref(false)
           </li>
           <li class="flex-1">
             <router-link
-              to="/poisons"
+              to="/potions"
               class="block text-center py-2 bg-bg text-gold border-b-3 border-gold w-full h-full flex items-center justify-center text-xl"
             >
               Poison

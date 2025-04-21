@@ -7,17 +7,16 @@ import AddItem from '../components/AddItem.vue'
 const items = ref([])
 
 onMounted(async () => {
-  const data = await fetch(`${import.meta.env.VITE_SERVER_URL}/characters`, {
-    method: 'GET'
-  })
-
-  if (!data.ok) {
-    throw new Error('Ошибка при загрузке персонажей')
+  try{
+    const data = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/characters`, {
+      method: 'GET'
+    })
+    items.value = await data.json()
+    console.log(items.value)
   }
-
-  items.value = await data.json()
-
-  console.log(items.value)
+  catch(err){
+    console.error(err)
+  }
 })
 
 const modalOpen = ref(false)
@@ -36,8 +35,8 @@ const modalToggle = () => {
     <ul class="w-5/6 grid grid-cols-[2fr_2fr_2fr_2fr] gap-5 overflow-y-auto scrollbar-hide">
       <AddItem />
       <li v-for="item in items" :key="item.id" class="flex justify-center">
-        <router-link :to="`/character/${item.id}`">
-          <Card :title="item.name" :image-url="item.imageUrl" />
+        <router-link :to="`/characters/${item.id}`">
+          <Card :title="item.name" :image-url="item.image_path" />
         </router-link>
       </li>
     </ul>

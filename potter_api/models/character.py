@@ -11,17 +11,8 @@ class Character(BaseModel):
     image_path = StringProperty()
     born = StringProperty()
     died = StringProperty()
-    blood_status = StringProperty(choices={
-        'pure-blood': 'Pure-blood',
-        'half-blood': 'Half-blood',
-        'muggle-born': 'Muggle-born',
-        'unknown': 'Unknown'
-    })
-    gender = StringProperty(choices={
-        'male': 'Male',
-        'female': 'Female',
-        'other': 'Other'
-    })
+    blood_status = StringProperty()
+    gender = StringProperty()
     description = StringProperty()
 
     # Relationships
