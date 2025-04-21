@@ -2,7 +2,7 @@ from flask import jsonify, request
 
 
 def register_poison_routes(app, db):
-    @app.route('/api/poisons', methods=['GET'])
+    @app.route('/api/potions', methods=['GET'])
     def get_poisons():
         name = request.args.get('name')
         effect = request.args.get('effect')
@@ -38,11 +38,11 @@ def register_poison_routes(app, db):
 
         return jsonify(poisons)
 
-    @app.route('/api/poisons/<poison_id>', methods=['GET'])
-    def get_poison(poison_id):
-        poison = db.poisons.get_by_id(poison_id)
+    @app.route('/api/potions/<potion_id>', methods=['GET'])
+    def get_poison(potion_id):
+        poison = db.poisons.get_by_id(potion_id)
         if not poison:
-            return jsonify({'error': 'Poison not found'}), 404
+            return jsonify({'error': 'Potion not found'}), 404
         return jsonify({
             'id': str(poison.id),
             'name': poison.name,
@@ -52,7 +52,7 @@ def register_poison_routes(app, db):
             'ingredients': poison.ingredients
         })
 
-    @app.route('/api/poisons', methods=['POST'])
+    @app.route('/api/potions', methods=['POST'])
     def create_poison():
         data = request.json
         try:

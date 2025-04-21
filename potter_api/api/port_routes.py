@@ -86,7 +86,7 @@ def register_port_routes(app, db):
                 'effect'), category=s.get('category'), light=s.get('light')).save()
             spell_map[spell.name] = spell
 
-        for p in data.get('poisons', []):
+        for p in data.get('potions', []):
             poison = Poison(name=p['name'], effect=p.get(
                 'effect'), difficulty=p.get('difficulty'), ingredients=p.get('ingredients')).save()
             poison_map[poison.name] = poison
