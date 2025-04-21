@@ -16,10 +16,10 @@ const head = createHead()
 
 const routes = [
   { path: '/', component: HelloPage },
-  { path: '/character', component: CharacterList },
-  { path: '/character/:id', component: Character },
-  { path: '/poisons', component: PoisonList },
-  { path: '/poisons/:id', component: Poison },
+  { path: '/characters', component: CharacterList },
+  { path: '/characters/:id', component: Character },
+  { path: '/potions', component: PoisonList },
+  { path: '/potions/:id', component: Poison },
   { path: '/spells', component: SpellList },
   { path: '/spells/:id', component: Spell },
 ]
