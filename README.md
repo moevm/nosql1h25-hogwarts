@@ -41,8 +41,8 @@ cd nosql1h25-hogwarts
 Выполните команды:
 
 ```bash
-docker compose build --no-cache
-docker compose up
+docker-compose build --no-cache
+docker-compose up
 ```
 
 Проект развернёт три сервиса:
@@ -74,13 +74,13 @@ docker compose up
 Для остановки всех контейнеров:
 
 ```bash
-docker compose down
+docker-compose down
 ```
 
 Для остановки и удаления контейнеров:
 
 ```bash
-docker compose down -v
+docker-compose down -v
 ```
 
 ---
