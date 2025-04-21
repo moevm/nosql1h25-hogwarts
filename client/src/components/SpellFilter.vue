@@ -1,6 +1,7 @@
 <script setup></script>
 
 <template>
+<div>
   <div class="flex flex-col flex-wrap justify-around h-full">
     <div class="text-gold">
       Category:
@@ -33,5 +34,6 @@
       User:
       <input class="text-gold outline-none border border-gold rounded-md ml-2" />
     </div>
+  </div>
   </div>
 </template>

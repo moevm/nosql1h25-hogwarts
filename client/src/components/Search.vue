@@ -50,8 +50,7 @@ defineProps({
 
         <template v-else-if="route.path.includes('/spell')"> <SpellFilter /> </template>
 
-        <template v-else-if="route.path.includes('/poison')"> <PoisonFilter /> </template>
-        <p class="text-gold p-4"></p>
+        <template v-else-if="route.path.includes('/potion')"> <PoisonFilter /> </template>
       </div>
     </transition>
   </div>

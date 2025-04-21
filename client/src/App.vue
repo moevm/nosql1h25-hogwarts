@@ -15,6 +15,7 @@ useHead({
   link: [{ rel: 'icon', href: '/images/favicon.ico' }]
 })
 
+
 const characters = ref([
   { id: 'harry', name: 'Harry Potter', imageUrl: '/images/HarryPotter.png', description: 'Wizard' },
   { id: 'hermione-granger', name: 'Hermione Granger', imageUrl: '/images/HermioneGranger.png', description: 'Witch' },
@@ -45,7 +46,7 @@ const addCharacter = (character) => {
 
 <template>
   <div
-    class="w-full h-screen bg-no-repeat bg-cover bg-center flex relative"
+    class="min-h-screen w-full bg-no-repeat bg-cover bg-center flex relative"
     style="background-image: url('/images/background.svg')"
   >
     <div class="w-[175px] grid grid-rows-[1fr_6fr] relative">
