@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router'
 
 const route = useRoute()
 
-const items = ref([])
+const item = ref([])
 
 onMounted(async () => {
   try{

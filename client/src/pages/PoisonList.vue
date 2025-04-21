@@ -12,8 +12,8 @@ onMounted(async () => {
     const data = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/poisons`, {
       method: 'GET'
     })
-    item.value = await data.json()
-    console.log(item.value)
+    items.value = await data.json()
+    console.log(items.value)
   }
   catch(err){
     console.error(err)
