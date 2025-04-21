@@ -2,24 +2,13 @@
 import Card from '../components/Card.vue'
 import { onMounted, ref } from 'vue'
 import Search from '../components/Search.vue'
-
 import AddCharacterForm from '../components/AddCharacterForm.vue'
-import AddItem from '../components/AddItem.vue'
 
-const items = ref([])
-
-onMounted(async () => {
-  try{
-    const data = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/characters`, {
-      method: 'GET'
-    })
-    items.value = await data.json()
-    console.log(items.value)
-  }
-  catch(err){
-    console.error(err)
-  }
-})
+const items = ref([
+  { id: 'harry', name: 'Harry Potter', imageUrl: '/images/HarryPotter.png' },
+  { id: 'hermione-granger', name: 'Hermione Granger', imageUrl: '/images/HermioneGranger.png' },
+  { id: 'ron', name: 'Ron Weasley', imageUrl: '/images/RonWeasley.png' }
+])
 
 const isAddModalOpen = ref(false)
 const isSearchPanelOpen = ref(false)
