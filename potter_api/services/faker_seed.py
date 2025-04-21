@@ -17,8 +17,9 @@ def faker_seed(
 
     print(f"создание {num_houses} факультетов...")
     house_ids = []
-    for _ in range(num_houses):
-        name = random.choice(["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"])
+    houses_names = ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"]
+    for i in range(num_houses):
+        name = houses_names[i]
         founder = fake.name()
         house = db.houses.create(name=name, founder=founder)
         house_ids.append(house.id)

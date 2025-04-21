@@ -43,4 +43,3 @@ class PoisonService:
             return Poison.nodes.get(id=poison_id)
         except DoesNotExist:
             return None
-
