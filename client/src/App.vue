@@ -13,13 +13,12 @@ useHead({
   ],
   link: [{ rel: 'icon', href: '/images/favicon.ico' }]
 })
-
 const isOpen = ref(false)
 </script>
 
 <template>
   <div
-    class="min-h-screen w-full bg-no-repeat bg-cover bg-center flex relative"
+    class="w-full h-screen bg-no-repeat bg-cover bg-center flex relative"
     style="background-image: url('/images/background.svg')"
   >
     <div class="w-[175px] grid grid-rows-[1fr_6fr] relative">
