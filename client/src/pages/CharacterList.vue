@@ -7,7 +7,7 @@ import AddItem from '../components/AddItem.vue'
 const items = ref([])
 
 onMounted(async () => {
-  const data = await fetch(`${import.meta.env.VITE_SERVER_URL}/characters`, {
+  const data = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/characters`, {
     method: 'GET'
   })
 
@@ -36,7 +36,7 @@ const modalToggle = () => {
     <ul class="w-5/6 grid grid-cols-[2fr_2fr_2fr_2fr] gap-5 overflow-y-auto scrollbar-hide">
       <AddItem />
       <li v-for="item in items" :key="item.id" class="flex justify-center">
-        <router-link :to="`/character/${item.id}`">
+        <router-link :to="`/characters/${item.id}`">
           <Card :title="item.name" :image-url="item.imageUrl" />
         </router-link>
       </li>
