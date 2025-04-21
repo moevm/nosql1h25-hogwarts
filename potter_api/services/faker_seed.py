@@ -46,8 +46,8 @@ def faker_seed(
         poison_ids.append(poison.id)
 
     print(f"создание {num_characters} персонажей...")
-    blood_statuses = ['pure-blood', 'half-blood', 'muggle-born']
-    genders = ['male', 'female']
+    blood_statuses = ['Pure-blood', 'Half-blood', 'Muggle-born']
+    genders = ['Male', 'Female']
 
     char_ids = []
     for _ in range(num_characters):
