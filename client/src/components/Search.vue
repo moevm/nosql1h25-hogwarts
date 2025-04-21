@@ -41,6 +41,9 @@ defineProps({
     <transition name="fade">
       <div
         v-if="modalOpen"
+        class="absolute top-full mt-2 left-0 bg-bg w-full h-[400px] rounded-md border border-gold z-10"
+      >
+        
         class="bg-bg w-full h-[400px] rounded-md border border-gold absolute b-[-1px] l-0 p-6 flex gap-[300px]"
       >
         <template v-if="route.path.includes('/character')"> <CharacterFilters /> </template>
