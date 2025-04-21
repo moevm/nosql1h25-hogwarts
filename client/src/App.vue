@@ -77,7 +77,7 @@ const isOpen = ref(false)
               to="/potions"
               class="block text-center py-2 bg-bg text-gold border-b-3 border-gold w-full h-full flex items-center justify-center text-xl"
             >
-              Poison
+              Potions
             </router-link>
           </li>
           <li class="flex-1">

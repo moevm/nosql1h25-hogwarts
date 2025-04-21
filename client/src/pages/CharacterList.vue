@@ -49,7 +49,7 @@ const modalToggle = () => {
       :modal-open="modalOpen"
     />
     <ul class="w-5/6 grid grid-cols-[2fr_2fr_2fr_2fr] gap-5 overflow-y-auto scrollbar-hide">
-      <AddCharacter />
+      <AddCharacter @fetchUpdate="fetchUpdate" />
       <li v-for="item in items" :key="item.id" class="flex justify-center">
         <router-link :to="`/characters/${item.id}`">
           <Card :title="item.name" :image-url="item.image_path" />

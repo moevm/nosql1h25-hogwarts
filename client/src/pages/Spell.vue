@@ -27,10 +27,10 @@ onMounted(async () => {
     <div class="bg-[#09306260] p-[70px] rounded-md w-full overflow-y-auto scrollbar-hide">
       <img
         class="rounded-md w-[300px] h-[300px] float-left mr-10 mb-10"
-        :src="item.image_path"
+        :src="item.image_path ? item.image_path : '/images/defaultSpell.jpg'"
         :alt="item.name"
       />
-      <h2 class="text-6xl text-gold font-display pb-5">{{ item.name }}</h2>
+      <h2 class="text-6xl text-gold font-display pb-5 text-wrap">{{ item.name }}</h2>
       <p class="text-4xl text-gold font-display text-start">Effect: {{ item.effect }}</p>
       <p class="text-4xl text-gold font-display text-start">Light: {{ item.light }}</p>
       <p class="text-4xl text-gold font-display text-start">Category: {{ item.category }}</p>

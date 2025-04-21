@@ -6,12 +6,14 @@ defineProps({
     default: 'images/AguamentiCharm.png'
   }
 })
+
+console.log(imageUrl)
 </script>
 
 <template>
   <div class="flex justify-center items-center">
     <div class="w-50 h-60 bg-bg flex flex-col items-center pt-3 rounded-md">
-      <img class="w-4/5 mb-2" :src="imageUrl" />
+      <img class="w-4/5 mb-2" :src="imageUrl || '/images/defaultPotion.jpg'" />
       <p class="text-gold text-lg text-center">{{ title }}</p>
     </div>
   </div>

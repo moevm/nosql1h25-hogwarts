@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+const emit = defineEmits(['fetchUpdate'])
 
 const addPotionModal = ref(false)
 const name = ref('')
@@ -24,7 +25,7 @@ const handleSubmitPotion = async () => {
   }
 
   try {
-    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/potions`, {
+    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}//api/potions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -48,6 +49,8 @@ const handleSubmitPotion = async () => {
   } catch (error) {
     console.error('Ошибка при отправке:', error)
     alert('Произошла ошибка при добавлении зелья.')
+  } finally {
+    emit('fetchUpdate', `${import.meta.env.VITE_SERVER_URL}/api/potions`)
   }
 }
 </script>
@@ -84,9 +87,9 @@ const handleSubmitPotion = async () => {
           </div>
 
           <div>
-            <label class="block mb-2 text-gold text-lg font-display">Description</label>
+            <label class="block mb-2 text-gold text-lg font-display">Difficulty</label>
             <textarea
-              v-model="diffyculty"
+              v-model="difficulty"
               rows="1"
               class="w-full p-2 rounded border border-gold bg-transparent text-gold placeholder:text-[#6C6F27] font-display resize-none"
               placeholder="Enter difficulty"

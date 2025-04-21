@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+const emit = defineEmits(['fetchUpdate'])
 
 const addSpellModal = ref(false)
 const name = ref('')
@@ -21,7 +22,7 @@ const handleSubmitSpell = async () => {
   }
 
   try {
-    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/spells`, {
+    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/spells`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -45,6 +46,8 @@ const handleSubmitSpell = async () => {
   } catch (error) {
     console.error('Ошибка при отправке:', error)
     alert('Произошла ошибка при добавлении заклинания.')
+  } finally {
+    emit('fetchUpdate', `${import.meta.env.VITE_SERVER_URL}/api/spells`)
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 
-const API_URL = 'https://your-api-url.com/characters' // замени на свой
+const emit = defineEmits(['fetchUpdate'])
 
 const addItemModal = ref(false)
 const name = ref('')
@@ -61,7 +61,7 @@ const handleSubmit = () => {
     }
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/characters`, {
+      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/characters`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -93,6 +93,8 @@ const handleSubmit = () => {
     } catch (error) {
       console.error('Ошибка при отправке:', error)
       alert('Произошла ошибка при добавлении персонажа.')
+    } finally {
+      emit('fetchUpdate', `${import.meta.env.VITE_SERVER_URL}/api/characters`)
     }
   }
 

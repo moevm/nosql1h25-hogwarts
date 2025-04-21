@@ -7,18 +7,16 @@ const route = useRoute()
 const item = ref({})
 
 onMounted(async () => {
-  try{
+  try {
     const data = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/potions/${route.params.id}`, {
       method: 'GET'
     })
     item.value = await data.json()
     console.log(item.value)
-  }
-  catch(err){
+  } catch (err) {
     console.error(err)
   }
 })
-
 </script>
 
 <template>
@@ -29,19 +27,13 @@ onMounted(async () => {
     <div class="bg-[#09306260] p-[70px] w-full rounded-md overflow-y-auto scrollbar-hide">
       <img
         class="rounded-md w-[300px] h-[300px] float-left mr-10 mb-10"
-        :src="item.image_path || ''"
+        :src="item.image_path || '/images/defaultPotion.jpg'"
         :alt="item.name"
       />
       <h2 class="text-6xl text-gold font-display pb-5">{{ item.name }}</h2>
-      <p class="text-4xl text-gold font-display text-start">
-        Difficulty: {{item.difficulty}}
-      </p>
-      <p class="text-4xl text-gold font-display text-start">
-        Effect: {{item.effect}}
-      </p>
-      <p class="text-4xl text-gold font-display text-start">
-        ingredients: {{item.ingridients}}
-      </p>
+      <p class="text-4xl text-gold font-display text-start">Difficulty: {{ item.difficulty }}</p>
+      <p class="text-4xl text-gold font-display text-start">Effect: {{ item.effect }}</p>
+      <p class="text-4xl text-gold font-display text-start">ingredients: {{ item.ingridients }}</p>
     </div>
   </div>
 </template>
