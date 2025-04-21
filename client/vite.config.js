@@ -11,6 +11,9 @@ export default defineConfig({
     vueJsx(),
     tailwindcss(),
   ],
+  server: {
+    historyApiFallback: true,
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

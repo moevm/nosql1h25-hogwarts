@@ -1,14 +1,25 @@
 <script setup>
 import Card from '../components/Card.vue'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import Search from '../components/Search.vue'
-import AddCharacterForm from '../components/AddCharacterForm.vue'
 
-const items = ref([
-  { id: 'harry', name: 'Harry Potter', imageUrl: '/images/HarryPotter.png' },
-  { id: 'hermione-granger', name: 'Hermione Granger', imageUrl: '/images/HermioneGranger.png' },
-  { id: 'ron', name: 'Ron Weasley', imageUrl: '/images/RonWeasley.png' }
-])
+import AddCharacterForm from '../components/AddCharacterForm.vue'
+import AddItem from '../components/AddItem.vue'
+
+const items = ref([])
+
+onMounted(async () => {
+  try{
+    const data = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/characters`, {
+      method: 'GET'
+    })
+    items.value = await data.json()
+    console.log(items.value)
+  }
+  catch(err){
+    console.error(err)
+  }
+})
 
 const isAddModalOpen = ref(false)
 const isSearchPanelOpen = ref(false)
@@ -37,7 +48,7 @@ const addCharacter = (character) => {
 </script>
 
 <template>
-  <div>
+  <div class="mt-[-150px]">
     <router-link to="/" class="text-5xl text-gold font-display flex">
       Harry Potter Wiki
     </router-link>
@@ -63,7 +74,7 @@ const addCharacter = (character) => {
       </li>
 
       <li v-for="item in items" :key="item.id" class="flex justify-center">
-        <router-link :to="`/character/${item.id}`">
+        <router-link :to="`/characters/${item.id}`">
           <Card :title="item.name" :image-url="item.imageUrl" />
         </router-link>
       </li>
