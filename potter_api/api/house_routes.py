@@ -6,7 +6,7 @@ def register_house_routes(app, db):
     def get_houses():
         houses = db.houses.get_all()
         return jsonify([{
-            'id': str(h.id),
+            'id': h.id,
             'name': h.name,
             'founder': h.founder
         } for h in houses])
@@ -20,7 +20,7 @@ def register_house_routes(app, db):
                 founder=data.get('founder')
             )
             return jsonify({
-                'name': str(house.name),
+                'name': house.name,
                 'founder': house.founder
             }), 201
         except Exception as e:

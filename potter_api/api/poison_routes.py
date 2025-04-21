@@ -27,7 +27,7 @@ def register_poison_routes(app, db):
             brewers = record[1]
 
             poisons.append({
-                'id': str(p.id),
+                'id': p['id'],
                 'name': p['name'],
                 'image_path': p['image_path'],
                 'effect': p['effect'],
@@ -44,7 +44,7 @@ def register_poison_routes(app, db):
         if not poison:
             return jsonify({'error': 'Potion not found'}), 404
         return jsonify({
-            'id': str(poison.id),
+            'id': poison.id,
             'name': poison.name,
             'image_path': poison.image_path,
             'effect': poison.effect,
@@ -63,7 +63,7 @@ def register_poison_routes(app, db):
                 ingredients=data.get('ingredients'),
             )
             return jsonify({
-                'id': str(poison.id),
+                'id': poison.id,
                 'name': poison.name
             }), 201
         except Exception as e:

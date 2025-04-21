@@ -31,7 +31,7 @@ def register_character_routes(app, db):
             c, h, spells, poisons, relationships = result
 
             characters.append({
-                'id': str(c.id),
+                'id': c['id'],
                 'name': c['name'],
                 'image_path': c['image_path'],
                 'born': c['born'],
@@ -66,7 +66,7 @@ def register_character_routes(app, db):
             })
 
         return jsonify({
-            'id': str(character.id),
+            'id': character.id,
             'name': character.name,
             'image_path': character.image_path,
             'born': character.born,
@@ -127,7 +127,7 @@ def register_character_routes(app, db):
                                                         {'type': relationship_type})
 
             return jsonify({
-                'id': str(character.id),
+                'id': character.id,
                 'name': character.name
             }), 201
 

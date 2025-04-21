@@ -27,7 +27,7 @@ def register_spell_routes(app, db):
             known_by = record[1]
 
             spells.append({
-                'id': str(s.id),
+                'id': s['id'],
                 'name': s['name'],
                 'image_path': s['image_path'],
                 'effect': s['effect'],
@@ -44,7 +44,7 @@ def register_spell_routes(app, db):
         if not spell:
             return jsonify({'error': 'Spells not found'}), 404
         return jsonify({
-            'id': str(spell.id),
+            'id': spell.id,
             'name': spell.name,
             'image_path': spell.image_path,
             'effect': spell.effect,
@@ -63,7 +63,7 @@ def register_spell_routes(app, db):
                 light=data.get('light')
             )
             return jsonify({
-                'id': str(spell.id),
+                'id': spell.id,
                 'name': spell.name
             }), 201
         except Exception as e:

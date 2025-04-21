@@ -27,7 +27,7 @@ def register_port_routes(app, db):
                 })
 
             characters.append({
-                'id': str(c.id),
+                'id': c.id,
                 'name': c.name,
                 'image_path': c.image_path,
                 'born': c.born,
@@ -42,7 +42,7 @@ def register_port_routes(app, db):
             })
 
         spells = [{
-            'id': str(spell.id),
+            'id': spell.id,
             'name': spell.name,
             'image_path': spell.image_path,
             'effect': spell.effect,
@@ -51,7 +51,7 @@ def register_port_routes(app, db):
         } for spell in db.spells.get_all()]
 
         poisons = [{
-            'id': str(poison.id),
+            'id': poison.id,
             'name': poison.name,
             'image_path': poison.image_path,
             'effect': poison.effect,
