@@ -9,7 +9,7 @@ const items = ref([])
 
 onMounted(async () => {
   try{
-    const data = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/poisons`, {
+    const data = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/potions`, {
       method: 'GET'
     })
     items.value = await data.json()
@@ -19,6 +19,19 @@ onMounted(async () => {
     console.error(err)
   }
 })
+
+const fetchUpdate = async (str) => {
+  try{
+    const data = await fetch(str, {
+      method: 'GET'
+    })
+    items.value = await data.json()
+    console.log(items.value)
+  }
+  catch(err){
+    console.error(err)
+  }
+}
 
 const modalOpen = ref(false)
 
@@ -33,7 +46,7 @@ const modalToggle = () => {
       Harry Potter Wiki
     </router-link>
 
-    <Search :modal-toggle="modalToggle" placeholder="Amorentia" :modal-open="modalOpen" />
+    <Search @fetchUpdate="fetchUpdate" :modal-toggle="modalToggle" placeholder="Amorentia" :modal-open="modalOpen" />
 
     <ul class="w-5/6 grid grid-cols-[2fr_2fr_2fr_2fr] gap-5 overflow-y-auto scrollbar-hide">
       <AddItem />

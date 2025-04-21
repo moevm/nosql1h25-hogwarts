@@ -23,7 +23,7 @@ const updateItems = async () => {
     const query = options.value
       .map((el) => {
         const key = encodeURIComponent(el.key.toLowerCase())
-        const value = encodeURIComponent(el.value.toLowerCase())
+        const value = encodeURIComponent(el.value)
         return `${key}=${value}`
       })
       .join('&')
@@ -40,11 +40,7 @@ const updateItems = async () => {
 
     console.log('Full API request:', fullUrl)
 
-    const res = await fetch(fullUrl)
-    const data = await res.json()
-
-    console.log('Received data:', data)
-    emit('fetchUpdate')
+    emit('fetchUpdate', fullUrl)
   } catch (error) {
     console.error('Error fetching data:', error)
   }

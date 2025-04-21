@@ -8,7 +8,7 @@ const item = ref({})
 
 onMounted(async () => {
   try{
-    const data = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/poisons/${route.params.id}`, {
+    const data = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/potions/${route.params.id}`, {
       method: 'GET'
     })
     item.value = await data.json()

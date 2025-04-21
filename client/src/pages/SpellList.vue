@@ -20,6 +20,19 @@ onMounted(async () => {
   }
 })
 
+const fetchUpdate = async (str) => {
+  try{
+    const data = await fetch(str, {
+      method: 'GET'
+    })
+    items.value = await data.json()
+    console.log(items.value)
+  }
+  catch(err){
+    console.error(err)
+  }
+}
+
 const modalOpen = ref(false)
 
 const modalToggle = () => {
@@ -33,7 +46,7 @@ const modalToggle = () => {
       Harry Potter Wiki
     </router-link>
 
-    <Search :modal-toggle="modalToggle" placeholder="Aguamenti" :modal-open="modalOpen" />
+    <Search @fetchUpdate="fetchUpdate" :modal-toggle="modalToggle" placeholder="Aguamenti" :modal-open="modalOpen" />
 
     <ul class="w-5/6 grid grid-cols-[2fr_2fr_2fr_2fr] gap-5 overflow-y-auto scrollbar-hide">
       <AddItem />
