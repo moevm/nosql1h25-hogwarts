@@ -9,6 +9,11 @@ def register_poison_routes(app, db):
         ingredients = request.args.get('ingredients')
         difficulty = request.args.get('difficulty')
 
+        name = None if not name else name
+        effect = None if not effect else effect
+        ingredients = None if not ingredients else ingredients
+        difficulty = None if not difficulty else difficulty
+
         results = db.poisons.get_all(
             name=name,
             effect=effect,
@@ -18,29 +23,20 @@ def register_poison_routes(app, db):
 
         poisons = []
         for record in results:
-            p, brewers = record
+            p = record[0]
+            brewers = record[1]
 
             poisons.append({
                 'id': str(p.id),
-                'name': p.name,
-                'image_path': p.image_path,
-                'effect': p.effect,
+                'name': p['name'],
+                'image_path': p['image_path'],
+                'effect': p['effect'],
                 'brewers': brewers,
-                'ingredients': p.ingredients,
-                'difficulty': p.difficulty
+                'ingredients': p['ingredients'],
+                'difficulty': p['difficulty']
             })
 
         return jsonify(poisons)
-
-    # def get_poisons():
-    #     poisons = db.poisons.get_all()
-    #     return jsonify([{
-    #         'id': str(poison.id),
-    #         'name': poison.name,
-    #         'image_path': poison.image_path,
-    #         'effect': poison.effect,
-    #         'difficulty': poison.difficulty
-    #     } for poison in poisons])
 
     @app.route('/api/poisons/<poison_id>', methods=['GET'])
     def get_poison(poison_id):

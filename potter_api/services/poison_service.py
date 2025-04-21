@@ -13,11 +13,11 @@ class PoisonService:
     def get_all(self, name=None, effect=None, ingredients=None, difficulty=None):
         query = """
                 MATCH (p:Poison)
+                WHERE ($name IS NULL OR toLower(p.name) CONTAINS toLower($name))
+                  AND ($effect IS NULL OR toLower(p.effect) CONTAINS toLower($effect))
+                  AND ($ingredients IS NULL OR toLower(p.ingredients) CONTAINS toLower($ingredients))
+                  AND ($difficulty IS NULL OR toLower(p.difficulty) = toLower($difficulty))
                 OPTIONAL MATCH (p)<-[:BREWED]-(c:Character)
-                WHERE ($name IS NULL OR p.name CONTAINS $name)
-                  AND ($effect IS NULL OR p.effect CONTAINS $effect)
-                  AND ($ingredients IS NULL OR p.ingredients CONTAINS $ingredients)
-                  AND ($difficulty IS NULL OR p.difficulty = $difficulty)
                 RETURN p, 
                        collect(DISTINCT c.name) AS brewers
                 """
@@ -29,7 +29,7 @@ class PoisonService:
             'difficulty': difficulty
         }
 
-        results, _ = self.db.cypher_query(query, parameters)
+        results, _ = self.db.execute_query(query, parameters)
         return results
 
     def add_brewed(self, char_id, poison_id):
