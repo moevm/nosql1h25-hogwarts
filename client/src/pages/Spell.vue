@@ -4,20 +4,19 @@ import { useRoute } from 'vue-router'
 
 const route = useRoute()
 
-const items = ref([])
+const item = ref([])
 
 onMounted(async () => {
-  const data = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/spells/${route.params.id}`, {
-    method: 'GET'
-  })
-
-  if (!data.ok) {
-    throw new Error('Ошибка при загрузке зелий')
+  try{
+    const data = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/spells/${route.params.id}`, {
+      method: 'GET'
+    })
+    item.value = await data.json()
+    console.log(item.value)
   }
-
-  items.value = await data.json()
-
-  console.log(items.value)
+  catch(err){
+    console.error(err)
+  }
 })
 
 </script>

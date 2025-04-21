@@ -7,17 +7,15 @@ import AddItem from '../components/AddItem.vue'
 const items = ref([])
 
 onMounted(async () => {
+  try{
   const data = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/characters`, {
     method: 'GET'
   })
-
-  if (!data.ok) {
-    throw new Error('Ошибка при загрузке персонажей')
-  }
-
   items.value = await data.json()
-
-  console.log(items.value)
+  }
+  catch(err){
+    console.error(err)
+  }
 })
 
 const modalOpen = ref(false)
