@@ -10,45 +10,47 @@ class CharacterService:
         return Character(name=name, **kwargs).save()
 
     def get_all(self, name=None, house=None, blood_status=None, gender=None, born=None, died=None):
-        filters = []
-        parameters = {}
-
+        # build base QuerySet
+        qs = Character.nodes
+        # dynamic filters
         if name:
-            filters.append("toLower(c.name) CONTAINS toLower($name)")
-            parameters["name"] = name
+            qs = qs.filter(name__icontains=name)
         if blood_status:
-            filters.append("toLower(c.blood_status) = toLower($blood_status)")
-            parameters["blood_status"] = blood_status
+            qs = qs.filter(blood_status=blood_status)
         if gender:
-            filters.append("toLower(c.gender) = toLower($gender)")
-            parameters["gender"] = gender
+            qs = qs.filter(gender=gender)
         if born:
-            filters.append("toLower(c.born) = toLower($born)")
-            parameters["born"] = born
+            qs = qs.filter(born=born)
         if died:
-            filters.append("toLower(c.died) = toLower($died)")
-            parameters["died"] = died
+            qs = qs.filter(died=died)
         if house:
-            filters.append("toLower(h.name) = toLower($house)")
-            parameters["house"] = house
+            qs = qs.filter(belongs_to__name=house)
 
-        where_clause = " AND ".join(filters) if filters else "1=1"
-
-        query = f"""
-            MATCH (c:Character)
-            OPTIONAL MATCH (c)-[:BELONGS_TO]->(h:House)
-            OPTIONAL MATCH (c)-[:KNOWS]->(s:Spell)
-            OPTIONAL MATCH (c)-[:BREWED]->(p:Poison)
-            OPTIONAL MATCH (c)-[r:RELATIONSHIP]->(target:Character)
-            WHERE {where_clause}
-            RETURN c, h,
-                   collect(DISTINCT s.name) AS spells,
-                   collect(DISTINCT p.name) AS poisons,
-                   collect(DISTINCT {{target: target.name, type: r.type}}) AS relationships
-        """
-
-        results, _ = self.db.execute_query(query, parameters)
-        return results
+        characters = []
+        for c in qs:
+            house_node = c.belongs_to.single()
+            spells = [s.name for s in c.knows.all()]
+            poisons = [p.name for p in c.brewed.all()]
+            relationships = [
+                {'target_character': t.name,
+                 'type': c.relationships.relationship(t).type}
+                for t in c.relationships.all()
+            ]
+            characters.append({
+                'id': c.id,
+                'name': c.name,
+                'image_path': c.image_path,
+                'born': c.born,
+                'died': c.died,
+                'house': house_node.name if house_node else None,
+                'blood_status': c.blood_status,
+                'gender': c.gender,
+                'description': c.description,
+                'spells': spells,
+                'poisons': poisons,
+                'relationships': relationships
+            })
+        return characters
 
     def get_by_id(self, char_id):
         try:

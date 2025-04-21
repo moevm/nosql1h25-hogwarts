@@ -4,48 +4,17 @@ from flask import jsonify, request
 def register_character_routes(app, db):
     @app.route('/api/characters', methods=['GET'])
     def get_characters():
-        def clean_param(value):
-            if value is None or value.lower() == "none" or value.strip() == "":
-                return None
-            return value.strip()
+        raw = {k: request.args.get(k) for k in [
+            'name', 'house', 'blood_status', 'gender', 'born', 'died']}
+        filters = {k: v.strip() for k, v in raw.items()
+                   if v and v.strip().lower() != 'none'}
 
-        name = clean_param(request.args.get('name'))
-        house = clean_param(request.args.get('house'))
-        blood_status = clean_param(request.args.get('blood_status'))
-        gender = clean_param(request.args.get('gender'))
-        born = clean_param(request.args.get('born'))
-        died = clean_param(request.args.get('died'))
+        try:
+            characters = db.characters.get_all(**filters)
+        except Exception as e:
+            return jsonify({'error': 'Internal server error'}), 500
 
-        results = db.characters.get_all(
-            name=name,
-            house=house,
-            blood_status=blood_status,
-            gender=gender,
-            born=born,
-            died=died
-        )
-
-        characters = []
-
-        for result in results:
-            c, h, spells, poisons, relationships = result
-
-            characters.append({
-                'id': c['id'],
-                'name': c['name'],
-                'image_path': c['image_path'],
-                'born': c['born'],
-                'died': c['died'],
-                'house': h['name'] if isinstance(h, dict) and 'name' in h else getattr(h, 'name', None),
-                'blood_status': c['blood_status'],
-                'gender': c['gender'],
-                'description': c['description'],
-                'spells': spells,
-                'poisons': poisons,
-                'relationships': relationships
-            })
-
-        return jsonify(characters)
+        return jsonify(characters), 200
 
     @app.route('/api/characters/<character_id>', methods=['GET'])
     def get_character(character_id):
