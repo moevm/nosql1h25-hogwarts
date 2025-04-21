@@ -15,8 +15,8 @@ class SpellService:
             MATCH (s:Spell)
             WHERE ($name IS NULL OR toLower(s.name) CONTAINS toLower($name))
               AND ($effect IS NULL OR toLower(s.effect) CONTAINS toLower($effect))
-              AND ($category IS NULL OR s.category = $category)
-              AND ($light IS NULL OR s.light = $light)
+              AND ($category IS NULL OR toLower(s.category) = toLower($category))
+              AND ($light IS NULL OR toLower(s.light) = toLower($light))
             OPTIONAL MATCH (s)<-[:KNOWS]-(c:Character)
             RETURN s, collect(DISTINCT c.name) AS known_by
         """
