@@ -13,6 +13,35 @@ useHead({
   ],
   link: [{ rel: 'icon', href: '/images/favicon.ico' }]
 })
+const fileInput = ref(null)
+
+function triggerFileInput() {
+  fileInput.value?.click()
+}
+function handleFileUpload(event) {
+  const file = event.target.files[0]
+  if (!file) return
+
+  const reader = new FileReader()
+
+  reader.onload = async (e) => {
+    try {
+      const data = JSON.parse(e.target.result)
+      console.log('Imported:', data)
+      await fetch(`${import.meta.env.VITE_SERVER_URL}/api/import`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+    } catch (err) {
+      console.error('Неверный формат файла.')
+    }
+  }
+  reader.readAsText(file)
+}
+
 const isOpen = ref(false)
 </script>
 
@@ -64,8 +93,15 @@ const isOpen = ref(false)
     </div>
     <div class="absolute top-[50px] right-[70px] flex gap-5">
       <TopButton action="Statistics" disabled />
-      <TopButton action="Import" />
-      <TopButton action="Export" />
+      <TopButton action="Import" @click="triggerFileInput" />
+      <TopButton action="Export" disabled />
+      <input
+        type="file"
+        accept="application/json"
+        @change="handleFileUpload"
+        ref="fileInput"
+        class="hidden"
+      />
     </div>
     <router-view class="flex-1 flex flex-col items-center pt-[250px]"></router-view>
   </div>
