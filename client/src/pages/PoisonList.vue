@@ -1,34 +1,32 @@
 <script setup>
 import Card from '@/components/Card.vue'
 import Search from '../components/Search.vue'
-import AddItem from '../components/AddItem.vue'
+import AddPoison from '../components/AddPoison.vue'
 import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 const items = ref([])
 
 onMounted(async () => {
-  try{
+  try {
     const data = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/potions`, {
       method: 'GET'
     })
     items.value = await data.json()
     console.log(items.value)
-  }
-  catch(err){
+  } catch (err) {
     console.error(err)
   }
 })
 
 const fetchUpdate = async (str) => {
-  try{
+  try {
     const data = await fetch(str, {
       method: 'GET'
     })
     items.value = await data.json()
     console.log(items.value)
-  }
-  catch(err){
+  } catch (err) {
     console.error(err)
   }
 }
@@ -46,13 +44,18 @@ const modalToggle = () => {
       Harry Potter Wiki
     </router-link>
 
-    <Search @fetchUpdate="fetchUpdate" :modal-toggle="modalToggle" placeholder="Amorentia" :modal-open="modalOpen" />
+    <Search
+      @fetchUpdate="fetchUpdate"
+      :modal-toggle="modalToggle"
+      placeholder="Amorentia"
+      :modal-open="modalOpen"
+    />
 
     <ul class="w-5/6 grid grid-cols-[2fr_2fr_2fr_2fr] gap-5 overflow-y-auto scrollbar-hide">
-      <AddItem />
+      <AddPoison />
       <li v-for="item in items" :key="item.id" class="flex justify-center">
         <router-link :to="`/potions/${item.id}`">
-          <Card :title="item.name" :imageUrl="item.image_path"/>
+          <Card :title="item.name" :imageUrl="item.image_path" />
         </router-link>
       </li>
     </ul>
