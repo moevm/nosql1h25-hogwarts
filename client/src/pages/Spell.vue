@@ -22,7 +22,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center text-center p-4 min-w-3/5">
+  <div class="flex flex-col items-center text-center p-4 min-w-3/5 mt-[-150px]">
     <router-link to="/" class="text-5xl text-gold font-display flex mb-[50px]">
       Harry Potter Wiki
     </router-link>

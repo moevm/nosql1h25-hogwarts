@@ -36,7 +36,7 @@ const modalToggle = () => {
       <AddItem />
       <li v-for="item in items" :key="item.id" class="flex justify-center">
         <router-link :to="`/characters/${item.id}`">
-          <Card :title="item.name" :image-url="item.imageUrl" />
+          <Card :title="item.name" :image-url="item.image_path" />
         </router-link>
       </li>
     </ul>
