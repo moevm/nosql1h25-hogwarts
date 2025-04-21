@@ -7,17 +7,16 @@ const route = useRoute()
 const item = ref({})
 
 onMounted(async () => {
-  const data = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/characters/${route.params.id}`, {
-    method: 'GET'
-  })
-
-  if (!data.ok) {
-    throw new Error('Ошибка при загрузке зелий')
+  try{
+    const data = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/characters/${route.params.id}`, {
+      method: 'GET'
+    })
+    item.value = await data.json()
+    console.log(item.value)
   }
-
-  item.value = await data.json()
-
-  console.log(item.value)
+  catch(err){
+    console.error(err)
+  }
 })
 
 </script>
