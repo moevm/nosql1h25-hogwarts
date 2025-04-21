@@ -10,8 +10,27 @@ class PoisonService:
     def create(self, name, **kwargs):
         return Poison(name=name, **kwargs).save()
 
-    def get_all(self):
-        return Poison.nodes.all()
+    def get_all(self, name=None, effect=None, ingredients=None, difficulty=None):
+        query = """
+                MATCH (p:Poison)
+                WHERE ($name IS NULL OR toLower(p.name) CONTAINS toLower($name))
+                  AND ($effect IS NULL OR toLower(p.effect) CONTAINS toLower($effect))
+                  AND ($ingredients IS NULL OR toLower(p.ingredients) CONTAINS toLower($ingredients))
+                  AND ($difficulty IS NULL OR toLower(p.difficulty) = toLower($difficulty))
+                OPTIONAL MATCH (p)<-[:BREWED]-(c:Character)
+                RETURN p, 
+                       collect(DISTINCT c.name) AS brewers
+                """
+
+        parameters = {
+            'name': name,
+            'effect': effect,
+            'ingredients': ingredients,
+            'difficulty': difficulty
+        }
+
+        results, _ = self.db.execute_query(query, parameters)
+        return results
 
     def add_brewed(self, char_id, poison_id):
         char = Character.nodes.get(id=char_id)

@@ -4,42 +4,48 @@ from flask import jsonify, request
 def register_character_routes(app, db):
     @app.route('/api/characters', methods=['GET'])
     def get_characters():
-        from models.character import Character
+        def clean_param(value):
+            if value is None or value.lower() == "none" or value.strip() == "":
+                return None
+            return value.strip()
 
-        characters = db.characters.get_all()
-        result = []
+        name = clean_param(request.args.get('name'))
+        house = clean_param(request.args.get('house'))
+        blood_status = clean_param(request.args.get('blood_status'))
+        gender = clean_param(request.args.get('gender'))
+        born = clean_param(request.args.get('born'))
+        died = clean_param(request.args.get('died'))
 
-        for c in characters:
-            house_node = c.belongs_to.single()
-            house_name = house_node.name if house_node else None
+        results = db.characters.get_all(
+            name=name,
+            house=house,
+            blood_status=blood_status,
+            gender=gender,
+            born=born,
+            died=died
+        )
 
-            spells = [spell.name for spell in c.knows.all()]
-            poisons = [poison.name for poison in c.brewed.all()]
+        characters = []
 
-            relationships = []
-            for target_character in c.relationships.all():
-                rel = c.relationships.relationship(target_character)
-                relationships.append({
-                    'target_character': target_character.name,
-                    'type': rel.type
-                })
+        for result in results:
+            c, h, spells, poisons, relationships = result
 
-            result.append({
+            characters.append({
                 'id': str(c.id),
-                'name': c.name,
-                'image_path': c.image_path,
-                'born': c.born,
-                'died': c.died,
-                'house': house_name,
-                'blood_status': c.blood_status,
-                'gender': c.gender,
-                'description': c.description,
+                'name': c['name'],
+                'image_path': c['image_path'],
+                'born': c['born'],
+                'died': c['died'],
+                'house': h['name'] if isinstance(h, dict) and 'name' in h else getattr(h, 'name', None),
+                'blood_status': c['blood_status'],
+                'gender': c['gender'],
+                'description': c['description'],
                 'spells': spells,
                 'poisons': poisons,
                 'relationships': relationships
             })
 
-        return jsonify(result)
+        return jsonify(characters)
 
     @app.route('/api/characters/<character_id>', methods=['GET'])
     def get_character(character_id):

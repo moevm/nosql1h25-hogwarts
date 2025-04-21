@@ -4,21 +4,45 @@ from flask import jsonify, request
 def register_poison_routes(app, db):
     @app.route('/api/poisons', methods=['GET'])
     def get_poisons():
-        poisons = db.poisons.get_all()
-        return jsonify([{
-            'id': str(poison.id),
-            'name': poison.name,
-            'image_path': poison.image_path,
-            'effect': poison.effect,
-            'difficulty': poison.difficulty,
-            'ingredients': poison.ingredients
-        } for poison in poisons])
+        name = request.args.get('name')
+        effect = request.args.get('effect')
+        ingredients = request.args.get('ingredients')
+        difficulty = request.args.get('difficulty')
+
+        name = None if not name else name
+        effect = None if not effect else effect
+        ingredients = None if not ingredients else ingredients
+        difficulty = None if not difficulty else difficulty
+
+        results = db.poisons.get_all(
+            name=name,
+            effect=effect,
+            ingredients=ingredients,
+            difficulty=difficulty
+        )
+
+        poisons = []
+        for record in results:
+            p = record[0]
+            brewers = record[1]
+
+            poisons.append({
+                'id': str(p.id),
+                'name': p['name'],
+                'image_path': p['image_path'],
+                'effect': p['effect'],
+                'brewers': brewers,
+                'ingredients': p['ingredients'],
+                'difficulty': p['difficulty']
+            })
+
+        return jsonify(poisons)
 
     @app.route('/api/poisons/<poison_id>', methods=['GET'])
     def get_poison(poison_id):
         poison = db.poisons.get_by_id(poison_id)
         if not poison:
-            return jsonify({'error': 'Character not found'}), 404
+            return jsonify({'error': 'Poison not found'}), 404
         return jsonify({
             'id': str(poison.id),
             'name': poison.name,
