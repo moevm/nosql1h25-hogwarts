@@ -29,7 +29,7 @@ defineProps({
       </div>
       <button
         class="text-bg w-25 h-14 bg-bg rounded-md border border-gold flex justify-center items-center text-gold outline-none flex gap-2"
-        @click="modalToggle"
+        @click="() => modalToggle()"
       >
         Search
         <span :class="['transition-transform duration-200', modalOpen ? 'rotate-180' : 'rotate-0']">
@@ -37,7 +37,6 @@ defineProps({
         </span>
       </button>
     </div>
-
     <transition name="fade">
       <div
         v-if="modalOpen"
