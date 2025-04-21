@@ -12,15 +12,14 @@ class SpellService:
 
     def get_all(self, name=None, effect=None, category=None, light=None):
         query = """
-                MATCH (s:Spell)
-                OPTIONAL MATCH (s)<-[:KNOWS]-(c:Character)
-                WHERE ($name IS NULL OR s.name CONTAINS $name)
-                  AND ($effect IS NULL OR s.effect CONTAINS $effect)
-                  AND ($category IS NULL OR s.category = $category)
-                  AND ($light IS NULL OR s.light = $light)
-                RETURN s, 
-                       collect(DISTINCT c.name) AS known_by
-                """
+            MATCH (s:Spell)
+            WHERE ($name IS NULL OR toLower(s.name) CONTAINS toLower($name))
+              AND ($effect IS NULL OR toLower(s.effect) CONTAINS toLower($effect))
+              AND ($category IS NULL OR s.category = $category)
+              AND ($light IS NULL OR s.light = $light)
+            OPTIONAL MATCH (s)<-[:KNOWS]-(c:Character)
+            RETURN s, collect(DISTINCT c.name) AS known_by
+        """
 
         parameters = {
             'name': name,
@@ -29,7 +28,7 @@ class SpellService:
             'light': light
         }
 
-        results, _ = self.db.cypher_query(query, parameters)
+        results, _ = self.db.execute_query(query, parameters)
         return results
 
     def add_knows(self, char_id, spell_id):
