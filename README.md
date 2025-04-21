@@ -59,6 +59,7 @@ docker compose up
 | backend   | API-сервер (Flask)          | http://localhost:5000     |
 | neo4j     | База данных + визуализация  | http://localhost:7474     |
 
+> Интерфейс приложения для пользователей доступен по адресу: [http://localhost:3000](http://localhost:3000)
 ---
 
 ## Структура проекта
