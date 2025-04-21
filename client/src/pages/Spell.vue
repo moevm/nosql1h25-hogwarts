@@ -12,7 +12,7 @@ onMounted(async () => {
   })
 
   if (!data.ok) {
-    throw new Error('Ошибка при загрузке зелий')
+    throw new Error('Ошибка при загрузке заклинаний')
   }
 
   items.value = await data.json()
