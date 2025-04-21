@@ -1,37 +1,55 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-
-const characters = [
-  { id: 'harry', name: 'Harry Potter' },
-  { id: 'hermione-granger', name: 'Hermione Granger' },
-  { id: 'ron', name: 'Ron Weasley' }
-]
 
 const route = useRoute()
 
-const character = computed(() => characters.find((c) => c.id === route.params.id))
+const item = ref({})
+
+onMounted(async () => {
+  try{
+    const data = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/characters/${route.params.id}`, {
+      method: 'GET'
+    })
+    item.value = await data.json()
+    console.log(item.value)
+  }
+  catch(err){
+    console.error(err)
+  }
+})
+
 </script>
 
 <template>
-  <div class="flex flex-col items-center text-center p-4">
+  <div class="flex flex-col items-center text-center p-4 min-w-3/5">
     <router-link to="/" class="text-5xl text-gold font-display flex mb-[50px]">
       Harry Potter Wiki
     </router-link>
-    <div class="bg-[#09306260] p-[70px] rounded-md overflow-y-auto scrollbar-hide">
+    <div class="bg-[#09306260] p-[70px] w-full rounded-md overflow-y-auto scrollbar-hide">
       <img
         class="rounded-md w-[250px] h-[250px] float-left mr-10 mb-10 border-3 border-gold"
-        :src="`/images/${character.name.replace(' ', '')}.png`"
-        :alt="character.name"
+        :src="item.image_path || ''"
+        :alt="item.name"
       />
-      <h2 class="text-5xl text-gold font-display pb-5">{{ character.name }}</h2>
+      <h2 class="text-5xl text-gold font-display pb-5">{{ item.name }}</h2>
       <p class="text-2xl text-gold font-display text-start">
-        Aliases: The Boy Who Lived, Gregory Goyle(under disguise of Polyjuice  Potion),
-        Neville Longbottom(the name he told Stanley  Shunpike in his third year),
-        Potty (by Peeves and Slytherins), The Boy Who Lied (by the Daily Prophet), The Chosen One,
-        Barny Weasley (under disguise of Polyjuice Potion), Albert Runcorn 
-        (under disguise of Polyjuice Potion),
-        Vernon Dudley (the name he used to disguise his identity from Snatchers)
+        Description: {{item.description}}
+      </p>
+      <p class="text-2xl text-gold font-display text-start">
+        Blood Status: {{item.blood_status}}
+      </p>
+      <p class="text-2xl text-gold font-display text-start">
+        Born: {{item.born}}
+      </p>
+      <p class="text-2xl text-gold font-display text-start">
+        Died: {{item.died? "No" : "Yes"}}
+      </p>
+      <p class="text-2xl text-gold font-display text-start">
+        Gender: {{item.gender}}
+      </p>
+      <p class="text-2xl text-gold font-display text-start">
+        House: {{item.house}}
       </p>
     </div>
   </div>

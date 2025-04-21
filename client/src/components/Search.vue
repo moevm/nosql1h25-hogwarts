@@ -1,4 +1,11 @@
 <script setup>
+import CharacterFilters from './CharacterFilters.vue'
+import PoisonFilter from './PoisonsFilters.vue'
+import SpellFilter from './SpellFilter.vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+
 defineProps({
   modalToggle: Function,
   placeholder: String,
@@ -34,10 +41,13 @@ defineProps({
     <transition name="fade">
       <div
         v-if="modalOpen"
-        class="absolute top-full mt-2 left-0 bg-bg w-full h-[400px] rounded-md border border-gold z-10"
+        class="bg-bg w-full h-[400px] rounded-md border border-gold absolute b-[-1px] l-0 p-6 flex gap-[300px]"
       >
-        <!-- Здесь можно разместить фильтры -->
-        <p class="text-gold p-4"></p>
+        <template v-if="route.path.includes('/character')"> <CharacterFilters /> </template>
+
+        <template v-else-if="route.path.includes('/spell')"> <SpellFilter /> </template>
+
+        <template v-else-if="route.path.includes('/poison')"> <PoisonFilter /> </template>
       </div>
     </transition>
   </div>

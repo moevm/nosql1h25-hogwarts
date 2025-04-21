@@ -38,7 +38,7 @@ const isOpen = ref(false)
         <ul v-if="isOpen" class="flex flex-col border-r-3 border-gold">
           <li class="flex-1">
             <router-link
-              to="/character"
+              to="/characters"
               class="block text-center py-2 bg-bg text-gold border-b-3 border-gold w-full h-full flex items-center justify-center text-xl"
             >
               Character
@@ -46,7 +46,7 @@ const isOpen = ref(false)
           </li>
           <li class="flex-1">
             <router-link
-              to="/poisons"
+              to="/potions"
               class="block text-center py-2 bg-bg text-gold border-b-3 border-gold w-full h-full flex items-center justify-center text-xl"
             >
               Poison
@@ -68,7 +68,7 @@ const isOpen = ref(false)
       <TopButton action="Import" />
       <TopButton action="Export" />
     </div>
-    <router-view class="flex-1 flex flex-col items-center pt-[100px]"></router-view>
+    <router-view class="flex-1 flex flex-col items-center pt-[250px]"></router-view>
   </div>
 </template>
 

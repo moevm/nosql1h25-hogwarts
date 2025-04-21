@@ -1,6 +1,6 @@
 <script setup>
 import Card from '../components/Card.vue'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import Search from '../components/Search.vue'
 import AddCharacterForm from '../components/AddCharacterForm.vue'
 
@@ -37,7 +37,7 @@ const addCharacter = (character) => {
 </script>
 
 <template>
-  <div>
+  <div class="mt-[-150px]">
     <router-link to="/" class="text-5xl text-gold font-display flex">
       Harry Potter Wiki
     </router-link>
@@ -63,7 +63,7 @@ const addCharacter = (character) => {
       </li>
 
       <li v-for="item in items" :key="item.id" class="flex justify-center">
-        <router-link :to="`/character/${item.id}`">
+        <router-link :to="`/characters/${item.id}`">
           <Card :title="item.name" :image-url="item.imageUrl" />
         </router-link>
       </li>

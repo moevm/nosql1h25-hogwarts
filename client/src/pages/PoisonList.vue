@@ -1,14 +1,24 @@
 <script setup>
 import PoisonCard from '@/components/PoisonCard.vue'
 import Search from '../components/Search.vue'
-import { computed, ref } from 'vue'
+import AddItem from '../components/AddItem.vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
-const items = ref([
-  { id: 'amortentia', name: 'Amortentia' },
-  { id: 'anti-jinx', name: 'Anti-jinx varnish' },
-  { id: 'volubilis', name: 'Volubilis Potion' }
-])
+const items = ref([])
+
+onMounted(async () => {
+  try{
+    const data = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/poisons`, {
+      method: 'GET'
+    })
+    items.value = await data.json()
+    console.log(items.value)
+  }
+  catch(err){
+    console.error(err)
+  }
+})
 
 const modalOpen = ref(false)
 
@@ -18,7 +28,7 @@ const modalToggle = () => {
 </script>
 
 <template>
-  <div>
+  <div class="mt-[-150px]">
     <router-link to="/" class="text-5xl text-gold font-display flex">
       Harry Potter Wiki
     </router-link>
@@ -26,18 +36,10 @@ const modalToggle = () => {
     <Search :modal-toggle="modalToggle" placeholder="Amorentia" :modal-open="modalOpen" />
 
     <ul class="w-5/6 grid grid-cols-[2fr_2fr_2fr_2fr] gap-5 overflow-y-auto scrollbar-hide">
-      <li class="flex justify-center">
-        <div class="w-50 h-50 bg-bg flex flex-col items-center pt-2 rounded-md">
-          <img
-            class="my-4 w-3/5 rounded-md border-3 border-gold border-dashed"
-            src="/images/add.svg"
-          />
-          <p class="text-gold text-lg">Add Item</p>
-        </div>
-      </li>
-      <li v-for="item in items" :key="item.id">
-        <router-link :to="`/poisons/${item.id}`">
-          <PoisonCard />
+      <AddItem />
+      <li v-for="item in items" :key="item.id" class="flex justify-center">
+        <router-link :to="`/potions/${item.id}`">
+          <PoisonCard :title="item.name" />
         </router-link>
       </li>
     </ul>
