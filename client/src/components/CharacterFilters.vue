@@ -5,7 +5,7 @@ const emit = defineEmits(['makeOptions'])
 
 const filters = reactive({
   blood_status: '',
-  died: '',
+  died: null,
   gender: '',
   house: '',
   born: ''
@@ -39,14 +39,10 @@ watch(
     </div>
     <div class="text-gold">
       Died:
-      <select
+      <input
         v-model="filters.died"
         class="bg-bg text-gold border border-gold rounded-md px-4 py-2 font-display outline-none focus:ring-1 focus:ring-gold ml-2"
-      >
-        <option class="bg-bg text-gold" value="">--</option>
-        <option class="bg-bg text-gold" value="Yes">Yes</option>
-        <option class="bg-bg text-gold" value="No">No</option>
-      </select>
+      />
     </div>
     <div class="text-gold">
       Gender:
@@ -68,10 +64,10 @@ watch(
         class="bg-bg text-gold border border-gold rounded-md px-4 py-2 font-display outline-none focus:ring-1 focus:ring-gold ml-2"
       >
         <option class="bg-bg text-gold" value="">--</option>
-        <option class="bg-bg text-gold" value="Griffindor">Griffindor</option>
-        <option class="bg-bg text-gold" value="Cogtenvran">Cogtenvran</option>
-        <option class="bg-bg text-gold" value="Slyzerin">Slyzerin</option>
-        <option class="bg-bg text-gold" value="Puffendui">Puffendui</option>
+        <option class="bg-bg text-gold" value="Gryffindor">Gryffindor</option>
+        <option class="bg-bg text-gold" value="Ravenclaw">Ravenclaw</option>
+        <option class="bg-bg text-gold" value="Slytherin">Slytherin</option>
+        <option class="bg-bg text-gold" value="Hufflepuff">Hufflepuff</option>
       </select>
     </div>
     <div class="text-gold">
