@@ -9,12 +9,12 @@ services:
     environment:
       - DATABASE_URL=${DATABASE_URL}
     depends_on:
-      neo4j:
+      db:
         condition: service_healthy
     networks:
       - neo4j_network
     ports:
-      - "5000:5000"
+      - "127.0.0.1:5000:5000"
 
   frontend:
     build:
@@ -24,17 +24,14 @@ services:
     networks:
       - neo4j_network
     ports:
-      - "3000:5173"
+      - "127.0.0.1:3000:5173"
     depends_on:
       - backend
 
-  neo4j:
-    image: neo4j:latest
+  db:
+    image: neo4j:5.19
     environment:
       - NEO4J_AUTH=${NEO4J_USER}/${NEO4J_PASSWORD}
-    ports:
-      - "7474:7474"  # веб-интерфейс (HTTP)
-      - "7687:7687"  # протокол Bolt для подключения
     volumes:
       - neo4j_data:/data  # сохраняем данные
       - neo4j_logs:/logs  # сохраняем логи
