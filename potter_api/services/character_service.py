@@ -14,22 +14,22 @@ class CharacterService:
         parameters = {}
 
         if name:
-            filters.append("c.name CONTAINS $name")
+            filters.append("toLower(c.name) CONTAINS toLower($name)")
             parameters["name"] = name
         if blood_status:
-            filters.append("c.blood_status = $blood_status")
+            filters.append("toLower(c.blood_status) = toLower($blood_status)")
             parameters["blood_status"] = blood_status
         if gender:
-            filters.append("c.gender = $gender")
+            filters.append("toLower(c.gender) = toLower($gender)")
             parameters["gender"] = gender
         if born:
-            filters.append("c.born = $born")
+            filters.append("toLower(c.born) = toLower($born)")
             parameters["born"] = born
         if died:
-            filters.append("c.died = $died")
+            filters.append("toLower(c.died) = toLower($died)")
             parameters["died"] = died
         if house:
-            filters.append("h.name = $house")
+            filters.append("toLower(h.name) = toLower($house)")
             parameters["house"] = house
 
         where_clause = " AND ".join(filters) if filters else "1=1"

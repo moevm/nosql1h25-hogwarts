@@ -29,7 +29,7 @@ const updateItems = async () => {
       .join('&')
 
     const searchParam = searchQuery.value
-      ? `search=${encodeURIComponent(searchQuery.value.toLowerCase())}`
+      ? `name=${encodeURIComponent(searchQuery.value)}`
       : ''
 
     const combinedQuery = [query, searchParam].filter(Boolean).join('&')

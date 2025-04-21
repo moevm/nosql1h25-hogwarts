@@ -32,9 +32,8 @@ watch(
         class="bg-bg text-gold border border-gold rounded-md px-4 py-2 font-display outline-none focus:ring-1 focus:ring-gold ml-2"
       >
         <option class="bg-bg text-gold" value="">--</option>
-        <option class="bg-bg text-gold" value="Mage">Pure-blood</option>
-        <option class="bg-bg text-gold" value="Muggle">Muggle-born
-</option>
+        <option class="bg-bg text-gold" value="Pure-blood">Pure-blood</option>
+        <option class="bg-bg text-gold" value="Muggle-born">Muggle-born</option>
         <option class="bg-bg text-gold" value="Half-blood">Half-blood</option>
       </select>
     </div>
