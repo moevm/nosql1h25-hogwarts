@@ -34,6 +34,8 @@ watch(
         <option class="bg-bg text-gold" value="">--</option>
         <option class="bg-bg text-gold" value="Charm">Charm</option>
         <option class="bg-bg text-gold" value="Curse">Curse</option>
+        <option class="bg-bg text-gold" value="Hex">Hex</option>
+        <option class="bg-bg text-gold" value="Spell">Spell</option>
       </select>
     </div>
     <div class="text-gold">
@@ -55,8 +57,7 @@ watch(
         <option class="bg-bg text-gold" value="Blue">Blue</option>
         <option class="bg-bg text-gold" value="Red">Red</option>
         <option class="bg-bg text-gold" value="Green">Green</option>
-        <option class="bg-bg text-gold" value="White">White</option>
-        <option class="bg-bg text-gold" value="Yellow">Yellow</option>
+        <option class="bg-bg text-gold" value="Yellow">None</option>
       </select>
     </div>
     <div class="text-gold">

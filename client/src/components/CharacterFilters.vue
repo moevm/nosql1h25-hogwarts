@@ -57,7 +57,6 @@ watch(
         <option class="bg-bg text-gold" value="">--</option>
         <option class="bg-bg text-gold" value="Man">Man</option>
         <option class="bg-bg text-gold" value="Female">Female</option>
-        <option class="bg-bg text-gold" value="Helicopter">Helicopter</option>
       </select>
     </div>
   </div>

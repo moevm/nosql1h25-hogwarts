@@ -47,9 +47,9 @@ watch(
         class="bg-bg text-gold border border-gold rounded-md px-4 py-2 font-display outline-none focus:ring-1 focus:ring-gold ml-2"
       >
         <option class="bg-bg text-gold" value="">--</option>
-        <option class="bg-bg text-gold" value="Advanced">Advanced</option>
+        <option class="bg-bg text-gold" value="Easy">Easy</option>
+        <option class="bg-bg text-gold" value="Medium">Medium</option>
         <option class="bg-bg text-gold" value="Hard">Hard</option>
-        <option class="bg-bg text-gold" value="Very Hard">Very Hard</option>
       </select>
     </div>
     <div class="text-gold">
