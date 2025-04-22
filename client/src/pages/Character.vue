@@ -7,18 +7,19 @@ const route = useRoute()
 const item = ref({})
 
 onMounted(async () => {
-  try{
-    const data = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/characters/${route.params.id}`, {
-      method: 'GET'
-    })
+  try {
+    const data = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}/api/characters/${route.params.id}`,
+      {
+        method: 'GET'
+      }
+    )
     item.value = await data.json()
     console.log(item.value)
-  }
-  catch(err){
+  } catch (err) {
     console.error(err)
   }
 })
-
 </script>
 
 <template>
@@ -33,24 +34,16 @@ onMounted(async () => {
         :alt="item.name"
       />
       <h2 class="text-5xl text-gold font-display pb-5">{{ item.name }}</h2>
+      <p class="text-2xl text-gold font-display text-start">Description: {{ item.description }}</p>
       <p class="text-2xl text-gold font-display text-start">
-        Description: {{item.description}}
+        Blood Status: {{ item.blood_status }}
       </p>
+      <p class="text-2xl text-gold font-display text-start">Born: {{ item.born }}</p>
       <p class="text-2xl text-gold font-display text-start">
-        Blood Status: {{item.blood_status}}
+        Died: {{ item.died ? item.died : 'No' }}
       </p>
-      <p class="text-2xl text-gold font-display text-start">
-        Born: {{item.born}}
-      </p>
-      <p class="text-2xl text-gold font-display text-start">
-        Died: {{item.died? "No" : "Yes"}}
-      </p>
-      <p class="text-2xl text-gold font-display text-start">
-        Gender: {{item.gender}}
-      </p>
-      <p class="text-2xl text-gold font-display text-start">
-        House: {{item.house}}
-      </p>
+      <p class="text-2xl text-gold font-display text-start">Gender: {{ item.gender }}</p>
+      <p class="text-2xl text-gold font-display text-start">House: {{ item.house }}</p>
     </div>
   </div>
 </template>
