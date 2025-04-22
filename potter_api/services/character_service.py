@@ -9,10 +9,10 @@ class CharacterService:
     def create(self, name, **kwargs):
         return Character(name=name, **kwargs).save()
 
-    def get_all(self, name=None, house=None, blood_status=None, gender=None, born=None, died=None):
-        # build base QuerySet
+    def get_all(self, name=None, house=None, blood_status=None, gender=None,
+            born=None, died=None, born_min=None, born_max=None, died_min=None, died_max=None):
         qs = Character.nodes
-        # dynamic filters
+
         if name:
             qs = qs.filter(name__icontains=name)
         if blood_status:
@@ -23,6 +23,14 @@ class CharacterService:
             qs = qs.filter(born=born)
         if died:
             qs = qs.filter(died=died)
+        if born_min:
+            qs = qs.filter(born__gte=born_min)
+        if born_max:
+            qs = qs.filter(born__lte=born_max)
+        if died_min:
+            qs = qs.filter(died__gte=died_min)
+        if died_max:
+            qs = qs.filter(died__lte=died_max)
         if house:
             qs = qs.filter(belongs_to__name=house)
 
@@ -33,7 +41,7 @@ class CharacterService:
             poisons = [p.name for p in c.brewed.all()]
             relationships = [
                 {'target_character': t.name,
-                 'type': c.relationships.relationship(t).type}
+                'type': c.relationships.relationship(t).type}
                 for t in c.relationships.all()
             ]
             characters.append({
@@ -51,6 +59,7 @@ class CharacterService:
                 'relationships': relationships
             })
         return characters
+
 
     def get_by_id(self, char_id):
         try:
