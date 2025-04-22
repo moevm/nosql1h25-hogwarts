@@ -10,7 +10,7 @@ class CharacterService:
         return Character(name=name, **kwargs).save()
 
     def get_all(self, name=None, house=None, blood_status=None, gender=None,
-            born=None, died=None, born_min=None, born_max=None, died_min=None, died_max=None):
+                born=None, died=None, born_min=None, born_max=None, died_min=None, died_max=None):
         qs = Character.nodes
 
         if name:
@@ -41,7 +41,7 @@ class CharacterService:
             poisons = [p.name for p in c.brewed.all()]
             relationships = [
                 {'target_character': t.name,
-                'type': c.relationships.relationship(t).type}
+                 'type': c.relationships.relationship(t).type}
                 for t in c.relationships.all()
             ]
             characters.append({
@@ -59,7 +59,6 @@ class CharacterService:
                 'relationships': relationships
             })
         return characters
-
 
     def get_by_id(self, char_id):
         try:

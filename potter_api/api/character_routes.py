@@ -7,7 +7,7 @@ def register_character_routes(app, db):
         raw = {k: request.args.get(k) for k in [
             'name', 'house', 'blood_status', 'gender', 'born', 'died']}
         filters = {k: v.strip() for k, v in raw.items()
-                if v and v.strip().lower() != 'none'}
+                   if v and v.strip().lower() != 'none'}
 
         # Диапазоны по born и died
         born_min = request.args.get('born_min')
@@ -25,7 +25,6 @@ def register_character_routes(app, db):
             return jsonify({'error': 'Internal server error'}), 500
 
         return jsonify(characters), 200
-
 
     @app.route('/api/characters/<character_id>', methods=['GET'])
     def get_character(character_id):
