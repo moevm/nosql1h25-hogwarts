@@ -36,6 +36,10 @@ const modalOpen = ref(false)
 const modalToggle = () => {
   modalOpen.value = !modalOpen.value
 }
+
+const modalDisable = () => {
+  modalOpen.value = false
+}
 </script>
 
 <template>
@@ -46,6 +50,7 @@ const modalToggle = () => {
 
     <Search
       @fetchUpdate="fetchUpdate"
+      :modal-disable="modalDisable"
       :modal-toggle="modalToggle"
       placeholder="Amorentia"
       :modal-open="modalOpen"

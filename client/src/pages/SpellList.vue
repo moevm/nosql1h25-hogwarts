@@ -24,8 +24,8 @@ const fetchUpdate = async (str) => {
     const data = await fetch(str, {
       method: 'GET'
     })
-    const res = data.json
-    items.value = Array.isArray(res) ? res : null
+    items.value = await data.json()
+    console.log(items.value)
   } catch (err) {
     console.error(err)
   }
@@ -35,6 +35,10 @@ const modalOpen = ref(false)
 
 const modalToggle = () => {
   modalOpen.value = !modalOpen.value
+}
+
+const modalDisable = () => {
+  modalOpen.value = false
 }
 </script>
 
@@ -46,6 +50,7 @@ const modalToggle = () => {
 
     <Search
       @fetchUpdate="fetchUpdate"
+      :modal-disable="modalDisable"
       :modal-toggle="modalToggle"
       placeholder="Aguamenti"
       :modal-open="modalOpen"

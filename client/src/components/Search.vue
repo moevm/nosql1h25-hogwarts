@@ -11,12 +11,15 @@ const options = ref([])
 const searchQuery = ref('') 
 
 const props = defineProps({
+  modalDisable: Function,
   modalToggle: Function,
   placeholder: String,
   modalOpen: Boolean
 })
 
 const emit = defineEmits(['fetchUpdate'])
+
+const filterRef = ref()
 
 const updateItems = async () => {
   try {
@@ -41,7 +44,10 @@ const updateItems = async () => {
     console.log('Full API request:', fullUrl)
 
     emit('fetchUpdate', fullUrl)
-    props.modalToggle()
+
+    options.value = []
+
+    props.modalDisable()
   } catch (error) {
     console.error('Error fetching data:', error)
   }
@@ -85,15 +91,15 @@ const makeOptions = (data) => {
         class="bg-bg w-full h-[400px] rounded-md border border-gold absolute b-[-1px] l-0 p-6 flex gap-[300px]"
       >
         <template v-if="route.path.includes('/character')">
-          <CharacterFilters @makeOptions="makeOptions" />
+          <CharacterFilters @makeOptions="makeOptions" ref="filterRef"/>
         </template>
 
         <template v-else-if="route.path.includes('/spell')">
-          <SpellFilter @makeOptions="makeOptions" />
+          <SpellFilter @makeOptions="makeOptions" ref="filterRef"/>
         </template>
 
         <template v-else-if="route.path.includes('/potion')">
-          <PoisonFilter @makeOptions="makeOptions" />
+          <PoisonFilter @makeOptions="makeOptions" ref="filterRef"/>
         </template>
       </div>
     </transition>

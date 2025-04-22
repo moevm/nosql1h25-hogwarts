@@ -10,6 +10,10 @@ const filters = reactive({
   founder: ''
 })
 
+const props = defineProps({
+  modalOpen: Boolean
+})
+
 watch(
   () => filters,
   () => {
