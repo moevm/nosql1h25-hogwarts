@@ -109,14 +109,14 @@ const handleSubmit = () => {
 
 <template>
   <li class="flex justify-center" @click="toggleModal">
-    <div class="w-50 h-60 bg-bg flex flex-col items-center pt-2 rounded-md cursor-pointer">
+    <div class="w-50 bg-bg flex flex-col items-center justify-center pt-2 rounded-[10px] cursor-pointer">
       <img class="my-4 w-3/5 rounded-md border-3 border-gold border-dashed" src="/images/add.svg" />
       <p class="text-gold text-lg">Add Character</p>
     </div>
 
     <div
       v-if="addItemModal"
-      class="w-[700px] h-[500px] absolute bg-bg top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] rounded-[10px] border-2 border-gold p-6 overflow-y-auto scrollbar-hide"
+      class="w-[700px] h-[500px] absolute bg-bg top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] rounded-[10px] border-2 border-gold p-6 overflow-y-auto"
       @click.stop
     >
       <div class="relative w-full h-[500px] flex flex-col justify-between">

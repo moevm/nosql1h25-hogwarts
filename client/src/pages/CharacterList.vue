@@ -23,8 +23,7 @@ const fetchUpdate = async (str) => {
     const data = await fetch(str, {
       method: 'GET'
     })
-    items.value = await data.json()
-    console.log(items.value)
+    items.value = data.json()
   } catch (err) {
     console.error(err)
   }
@@ -52,7 +51,7 @@ const modalToggle = () => {
       <AddCharacter @fetchUpdate="fetchUpdate" />
       <li v-for="item in items" :key="item.id" class="flex justify-center">
         <router-link :to="`/characters/${item.id}`">
-          <Card :title="item.name" :image-url="item.image_path" />
+          <Card :title="item.name" :image-url="item.image_path" :blood-status="item.blood_status" :born="item.born" :died="item.died? item.died : 'No'" :house="item.house" :gender="item.gender"/>
         </router-link>
       </li>
     </ul>

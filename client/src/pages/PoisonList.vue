@@ -55,7 +55,7 @@ const modalToggle = () => {
       <AddPoison @fetchUpdate="fetchUpdate" />
       <li v-for="item in items" :key="item.id" class="flex justify-center">
         <router-link :to="`/potions/${item.id}`">
-          <Card :title="item.name" :imageUrl="item.image_path" />
+          <Card :title="item.name" :imageUrl="item.image_path" :difficulty="item.difficulty" :effect="item.effect"/>
         </router-link>
       </li>
     </ul>

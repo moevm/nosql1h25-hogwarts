@@ -10,7 +10,7 @@ const route = useRoute()
 const options = ref([])
 const searchQuery = ref('') 
 
-defineProps({
+const props = defineProps({
   modalToggle: Function,
   placeholder: String,
   modalOpen: Boolean
@@ -41,7 +41,7 @@ const updateItems = async () => {
     console.log('Full API request:', fullUrl)
 
     emit('fetchUpdate', fullUrl)
-    modalToggle()
+    props.modalToggle()
   } catch (error) {
     console.error('Error fetching data:', error)
   }

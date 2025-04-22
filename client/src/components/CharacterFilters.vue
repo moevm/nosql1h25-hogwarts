@@ -5,10 +5,12 @@ const emit = defineEmits(['makeOptions'])
 
 const filters = reactive({
   blood_status: '',
-  died: null,
   gender: '',
   house: '',
-  born: ''
+  born_min: '',
+  born_max: '',
+  died_min: '',
+  died_max: ''
 })
 
 watch(
@@ -22,6 +24,7 @@ watch(
   { deep: true }
 )
 </script>
+
 
 <template>
   <div class="flex flex-col flex-wrap justify-around h-full">
@@ -38,11 +41,17 @@ watch(
       </select>
     </div>
     <div class="text-gold">
-      Died:
-      <input
-        v-model="filters.died"
+      House:
+      <select
+        v-model="filters.house"
         class="bg-bg text-gold border border-gold rounded-md px-4 py-2 font-display outline-none focus:ring-1 focus:ring-gold ml-2"
-      />
+      >
+        <option class="bg-bg text-gold" value="">--</option>
+        <option class="bg-bg text-gold" value="Gryffindor">Gryffindor</option>
+        <option class="bg-bg text-gold" value="Ravenclaw">Ravenclaw</option>
+        <option class="bg-bg text-gold" value="Slytherin">Slytherin</option>
+        <option class="bg-bg text-gold" value="Hufflepuff">Hufflepuff</option>
+      </select>
     </div>
     <div class="text-gold">
       Gender:
@@ -57,25 +66,38 @@ watch(
     </div>
   </div>
   <div class="flex flex-col flex-wrap justify-around h-full">
-    <div class="text-gold">
-      House:
-      <select
-        v-model="filters.house"
-        class="bg-bg text-gold border border-gold rounded-md px-4 py-2 font-display outline-none focus:ring-1 focus:ring-gold ml-2"
-      >
-        <option class="bg-bg text-gold" value="">--</option>
-        <option class="bg-bg text-gold" value="Gryffindor">Gryffindor</option>
-        <option class="bg-bg text-gold" value="Ravenclaw">Ravenclaw</option>
-        <option class="bg-bg text-gold" value="Slytherin">Slytherin</option>
-        <option class="bg-bg text-gold" value="Hufflepuff">Hufflepuff</option>
-      </select>
-    </div>
+    
     <div class="text-gold">
       Born:
       <input
-        v-model="filters.born"
-        class="text-gold outline-none border border-gold rounded-md ml-2"
+        v-model="filters.born_min"
+        class="text-gold outline-none border border-gold rounded-md ml-2 w-[100px]"
+        placeholder="from"
+        type="number"
+      />
+      <input
+        v-model="filters.born_max"
+        class="text-gold outline-none border border-gold rounded-md ml-2 w-[100px]"
+        placeholder="to"
+        type="number"
+      />
+    </div>
+
+    <div class="text-gold">
+      Died:
+      <input
+        v-model="filters.died_min"
+        class="text-gold outline-none border border-gold rounded-md ml-2 w-[100px]"
+        placeholder="from"
+        type="number"
+      />
+      <input
+        v-model="filters.died_max"
+        class="text-gold outline-none border border-gold rounded-md ml-2 w-[100px]"
+        placeholder="to"
+        type="number"
       />
     </div>
   </div>
+  
 </template>

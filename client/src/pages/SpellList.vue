@@ -24,8 +24,8 @@ const fetchUpdate = async (str) => {
     const data = await fetch(str, {
       method: 'GET'
     })
-    items.value = await data.json()
-    console.log(items.value)
+    const res = data.json
+    items.value = Array.isArray(res) ? res : null
   } catch (err) {
     console.error(err)
   }
@@ -55,7 +55,7 @@ const modalToggle = () => {
       <AddSpell @fetchUpdate="fetchUpdate" />
       <li v-for="item in items" :key="item.id" class="flex justify-center">
         <router-link :to="`/spells/${item.id}`">
-          <Card :title="item.name" :imageUrl="item.image_path" />
+          <Card :title="item.name" :imageUrl="item.image_path" :category="item.category" :light="item.light" :effect="item.effect" />
         </router-link>
       </li>
     </ul>
