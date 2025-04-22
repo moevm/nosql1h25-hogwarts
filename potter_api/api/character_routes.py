@@ -9,9 +9,20 @@ def register_character_routes(app, db):
         filters = {k: v.strip() for k, v in raw.items()
                    if v and v.strip().lower() != 'none'}
 
+        # Диапазоны по born и died
+        born_min = request.args.get('born_min')
+        born_max = request.args.get('born_max')
+        died_min = request.args.get('died_min')
+        died_max = request.args.get('died_max')
+
         try:
-            characters = db.characters.get_all(**filters)
+            characters = db.characters.get_all(
+                **filters,
+                born_min=born_min, born_max=born_max,
+                died_min=died_min, died_max=died_max
+            )
         except Exception as e:
+            app.logger.error(e)
             return jsonify({'error': 'Internal server error'}), 500
 
         return jsonify(characters), 200

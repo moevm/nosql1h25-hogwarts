@@ -9,10 +9,10 @@ class CharacterService:
     def create(self, name, **kwargs):
         return Character(name=name, **kwargs).save()
 
-    def get_all(self, name=None, house=None, blood_status=None, gender=None, born=None, died=None):
-        # build base QuerySet
+    def get_all(self, name=None, house=None, blood_status=None, gender=None,
+                born=None, died=None, born_min=None, born_max=None, died_min=None, died_max=None):
         qs = Character.nodes
-        # dynamic filters
+
         if name:
             qs = qs.filter(name__icontains=name)
         if blood_status:
@@ -23,12 +23,23 @@ class CharacterService:
             qs = qs.filter(born=born)
         if died:
             qs = qs.filter(died=died)
-        if house:
-            qs = qs.filter(belongs_to__name=house)
+        if born_min:
+            qs = qs.filter(born__gte=born_min)
+        if born_max:
+            qs = qs.filter(born__lte=born_max)
+        if died_min:
+            qs = qs.filter(died__gte=died_min)
+        if died_max:
+            qs = qs.filter(died__lte=died_max)
 
         characters = []
+
         for c in qs:
             house_node = c.belongs_to.single()
+
+            if house and (not house_node or house_node.name != house):
+                continue
+
             spells = [s.name for s in c.knows.all()]
             poisons = [p.name for p in c.brewed.all()]
             relationships = [
