@@ -8,7 +8,7 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 
 const options = ref([])
-const searchQuery = ref('') // Строка поиска
+const searchQuery = ref('') 
 
 defineProps({
   modalToggle: Function,
@@ -41,6 +41,7 @@ const updateItems = async () => {
     console.log('Full API request:', fullUrl)
 
     emit('fetchUpdate', fullUrl)
+    modalToggle()
   } catch (error) {
     console.error('Error fetching data:', error)
   }
@@ -48,6 +49,7 @@ const updateItems = async () => {
 
 const makeOptions = (data) => {
   options.value = data
+  
 }
 </script>
 
