@@ -51,7 +51,7 @@ watch(
         class="bg-bg text-gold border border-gold rounded-md px-4 py-2 font-display outline-none focus:ring-1 focus:ring-gold ml-2"
       >
         <option class="bg-bg text-gold" value="">--</option>
-        <option class="bg-bg text-gold" value="Man">Man</option>
+        <option class="bg-bg text-gold" value="Male">Male</option>
         <option class="bg-bg text-gold" value="Female">Female</option>
       </select>
     </div>
