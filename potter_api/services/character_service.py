@@ -31,12 +31,15 @@ class CharacterService:
             qs = qs.filter(died__gte=died_min)
         if died_max:
             qs = qs.filter(died__lte=died_max)
-        if house:
-            qs = qs.filter(belongs_to__name=house)
 
         characters = []
+
         for c in qs:
             house_node = c.belongs_to.single()
+
+            if house and (not house_node or house_node.name != house):
+                continue
+
             spells = [s.name for s in c.knows.all()]
             poisons = [p.name for p in c.brewed.all()]
             relationships = [

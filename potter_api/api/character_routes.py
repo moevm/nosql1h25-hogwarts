@@ -22,6 +22,7 @@ def register_character_routes(app, db):
                 died_min=died_min, died_max=died_max
             )
         except Exception as e:
+            app.logger.error(e)
             return jsonify({'error': 'Internal server error'}), 500
 
         return jsonify(characters), 200
