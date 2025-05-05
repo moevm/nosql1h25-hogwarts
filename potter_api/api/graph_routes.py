@@ -2,24 +2,24 @@ from flask import jsonify
 from models.character import Character
 from models.spell import Spell
 from models.poison import Poison
-from neomodel.exceptions import DoesNotExist
+
 
 def register_graph_routes(app, db):
-    @app.route('/api/graph/<node_type>/<name>', methods=['GET'])
-    def get_graph_neighbors(node_type, name):
+    @app.route('/api/graph/<node_type>/<id>', methods=['GET'])
+    def get_graph_by_id(node_type, id):
         try:
             node = None
             if node_type == 'character':
-                node = Character.nodes.get_or_none(name=name)
+                node = Character.nodes.get_or_none(id=id)
             elif node_type == 'spell':
-                node = Spell.nodes.get_or_none(name=name)
+                node = Spell.nodes.get_or_none(id=id)
             elif node_type == 'poison':
-                node = Poison.nodes.get_or_none(name=name)
+                node = Poison.nodes.get_or_none(id=id)
             else:
                 return jsonify({'error': f'Unknown node type: {node_type}'}), 400
 
             if not node:
-                return jsonify({'error': f'{node_type} with name {name} not found'}), 404
+                return jsonify({'error': f'{node_type} with id {id} not found'}), 404
 
             nodes = []
             edges = []
@@ -30,8 +30,8 @@ def register_graph_routes(app, db):
                     return
                 seen.add(obj.id)
                 nodes.append({
-                    'id': obj.id,         # <--- важное изменение
-                    'title': obj.name,    # для отображения имени
+                    'id': obj.id,
+                    'title': obj.name,
                     'label': label
                 })
 
