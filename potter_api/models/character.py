@@ -16,8 +16,8 @@ class Character(BaseModel):
     description = StringProperty()
 
     # Relationships
-    belongs_to = RelationshipTo(House, 'BELONGS_TO')
-    knows = RelationshipTo(Spell, 'KNOWS')
-    brewed = RelationshipTo(Poison, 'BREWED')
+    belongs_to = RelationshipTo('House', 'BELONGS_TO')
+    knows = RelationshipTo('Spell', 'KNOWS')
+    brewed = RelationshipTo('Poison', 'BREWED')
     relationships = RelationshipTo('Character', 'HAS_RELATIONSHIP_WITH',
                                    model=CharacterRelationship)
