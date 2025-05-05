@@ -1,0 +1,181 @@
+{
+  "characters": [
+    {
+      "name": "Harry Potter",
+      "born": "1980",
+      "died": null,
+      "blood_status": "Half-blood",
+      "gender": "Male",
+      "description": "The Boy Who Lived.",
+      "house": "Gryffindor",
+      "spells": ["Expelliarmus", "Expecto Patronum", "Stupefy"],
+      "poisons": ["Polyjuice Potion"],
+      "relationships": [
+        {"target_character": "Ron Weasley", "type": "friend"},
+        {"target_character": "Hermione Granger", "type": "friend"},
+        {"target_character": "Lord Voldemort", "type": "enemy"}
+      ]
+    },
+    {
+      "name": "Hermione Granger",
+      "born": "1979",
+      "died": null,
+      "blood_status": "Muggle-born",
+      "gender": "Female",
+      "description": "Brilliant witch with unmatched intellect.",
+      "house": "Gryffindor",
+      "spells": ["Alohomora", "Petrificus Totalus", "Expecto Patronum"],
+      "poisons": ["Amortentia"],
+      "relationships": [
+        {"target_character": "Harry Potter", "type": "friend"},
+        {"target_character": "Ron Weasley", "type": "romantic"}
+      ]
+    },
+    {
+      "name": "Ron Weasley",
+      "born": "1980",
+      "died": null,
+      "blood_status": "Pure-blood",
+      "gender": "Male",
+      "description": "Loyal and brave member of the Weasley family.",
+      "house": "Gryffindor",
+      "spells": ["Wingardium Leviosa", "Expelliarmus"],
+      "poisons": ["Felix Felicis"],
+      "relationships": [
+        {"target_character": "Harry Potter", "type": "friend"},
+        {"target_character": "Hermione Granger", "type": "romantic"}
+      ]
+    },
+    {
+      "name": "Lord Voldemort",
+      "born": "1926",
+      "died": "1998",
+      "blood_status": "Half-blood",
+      "gender": "Male",
+      "description": "The Dark Lord, feared by all.",
+      "house": "Slytherin",
+      "spells": ["Avada Kedavra", "Crucio", "Imperio"],
+      "poisons": ["Draught of Living Death"],
+      "relationships": [
+        {"target_character": "Harry Potter", "type": "enemy"},
+        {"target_character": "Bellatrix Lestrange", "type": "follower"}
+      ]
+    },
+    {
+      "name": "Bellatrix Lestrange",
+      "born": "1951",
+      "died": "1998",
+      "blood_status": "Pure-blood",
+      "gender": "Female",
+      "description": "Fanatic Death Eater, loyal to Voldemort.",
+      "house": "Slytherin",
+      "spells": ["Crucio", "Avada Kedavra"],
+      "poisons": ["Veritaserum"],
+      "relationships": [
+        {"target_character": "Lord Voldemort", "type": "follower"}
+      ]
+    },
+    {
+      "name": "Severus Snape",
+      "born": "1960",
+      "died": "1998",
+      "blood_status": "Half-blood",
+      "gender": "Male",
+      "description": "Potions Master with a complex allegiance.",
+      "house": "Slytherin",
+      "spells": ["Sectumsempra", "Legilimens"],
+      "poisons": ["Wolfsbane Potion"],
+      "relationships": [
+        {"target_character": "Harry Potter", "type": "protector"},
+        {"target_character": "Albus Dumbledore", "type": "confidant"}
+      ]
+    },
+    {
+      "name": "Albus Dumbledore",
+      "born": "1881",
+      "died": "1997",
+      "blood_status": "Half-blood",
+      "gender": "Male",
+      "description": "Greatest Headmaster of Hogwarts.",
+      "house": "Gryffindor",
+      "spells": ["Fawkes' Call", "Protego Maxima"],
+      "poisons": ["Elixir to Induce Euphoria", "Antidote to Common Poisons", "Skele-Gro"],
+      "relationships": [
+        {"target_character": "Harry Potter", "type": "mentor"},
+        {"target_character": "Severus Snape", "type": "confidant"}
+      ]
+    },
+    {
+      "name": "Draco Malfoy",
+      "born": "1980",
+      "died": null,
+      "blood_status": "Pure-blood",
+      "gender": "Male",
+      "description": "Slytherin student and rival to Harry.",
+      "house": "Slytherin",
+      "spells": ["Serpensortia"],
+      "poisons": ["Amortentia"],
+      "relationships": [
+        {"target_character": "Harry Potter", "type": "rival"}
+      ]
+    },
+    {
+      "name": "Neville Longbottom",
+      "born": "1980",
+      "died": null,
+      "blood_status": "Pure-blood",
+      "gender": "Male",
+      "description": "Gryffindor hero and herbology expert.",
+      "house": "Gryffindor",
+      "spells": ["Herbivicus"],
+      "poisons": ["Mandrake Draught"],
+      "relationships": [
+        {"target_character": "Harry Potter", "type": "friend"}
+      ]
+    },
+    {
+      "name": "Luna Lovegood",
+      "born": "1981",
+      "died": null,
+      "blood_status": "Pure-blood",
+      "gender": "Female",
+      "description": "Ravenclaw dreamer with a unique perspective.",
+      "house": "Ravenclaw",
+      "spells": ["Rictusempra", "Expelliarmus"],
+      "poisons": ["Skele-Gro"],
+      "relationships": [
+        {"target_character": "Neville Longbottom", "type": "friend"}
+      ]
+    }
+  ],
+  "houses": [
+  {"name": "Gryffindor", "founder": "Godric Gryffindor"},
+  {"name": "Slytherin", "founder": "Salazar Slytherin"},
+  {"name": "Ravenclaw", "founder": "Rowena Ravenclaw"},
+  {"name": "Hufflepuff", "founder": "Helga Hufflepuff"}
+  ],
+  "potions": [
+    {"name": "Polyjuice Potion", "effect": "Transform into someone else", "difficulty": "Advanced", "ingredients": "Lacewing flies, leeches, powdered bicorn horn"},
+    {"name": "Felix Felicis", "effect": "Gives luck", "difficulty": "Advanced", "ingredients": "Ashwinder egg, squill bulb"},
+    {"name": "Amortentia", "effect": "Causes infatuation", "difficulty": "Advanced", "ingredients": "Pearl dust, rose thorns"},
+    {"name": "Veritaserum", "effect": "Forces truth telling", "difficulty": "Very Advanced", "ingredients": "Jobberknoll feathers"},
+    {"name": "Wolfsbane Potion", "effect": "Helps werewolves", "difficulty": "Advanced", "ingredients": "Wolfsbane, belladonna"},
+    {"name": "Draught of Living Death", "effect": "Puts drinker into deep sleep", "difficulty": "Advanced", "ingredients": "Valerian root, wormwood"},
+    {"name": "Mandrake Draught", "effect": "Revives petrified people", "difficulty": "Intermediate", "ingredients": "Mandrake root"},
+    {"name": "Elixir to Induce Euphoria", "effect": "Gives joy", "difficulty": "Advanced", "ingredients": "Shrivelfig, peppermint"},
+    {"name": "Antidote to Common Poisons", "effect": "Neutralizes most toxins", "difficulty": "Beginner", "ingredients": "Bezoar, mistletoe"},
+    {"name": "Skele-Gro", "effect": "Regrows bones", "difficulty": "Intermediate", "ingredients": "Bone, regrowth solution"}
+  ],
+  "spells": [
+    {"name": "Expelliarmus", "effect": "Disarms opponent", "category": "Charm", "light": "Red"},
+    {"name": "Expecto Patronum", "effect": "Summons Patronus", "category": "Charm", "light": "White"},
+    {"name": "Stupefy", "effect": "Stuns opponent", "category": "Charm", "light": "Red"},
+    {"name": "Avada Kedavra", "effect": "Kills target", "category": "Curse", "light": "Green"},
+    {"name": "Crucio", "effect": "Inflicts pain", "category": "Curse", "light": "Red"},
+    {"name": "Imperio", "effect": "Controls target", "category": "Curse", "light": "Blue"},
+    {"name": "Alohomora", "effect": "Opens locks", "category": "Charm", "light": "None"},
+    {"name": "Petrificus Totalus", "effect": "Full body bind", "category": "Charm", "light": "Blue"},
+    {"name": "Wingardium Leviosa", "effect": "Levitates objects", "category": "Charm", "light": "White"},
+    {"name": "Sectumsempra", "effect": "Causes deep cuts", "category": "Dark Magic", "light": "Purple"}
+  ]
+}
