@@ -10,60 +10,69 @@ from flask import jsonify, request
 def register_port_routes(app, db):
     @app.route('/api/export', methods=['GET'])
     def export_database():
-        characters = []
-        for c in db.characters.get_all():
-            house_node = c.belongs_to.single()
-            house_name = house_node.name if house_node else None
-
-            spells = [spell.name for spell in c.knows.all()]
-            poisons = [poison.name for poison in c.brewed.all()]
-
-            relationships = []
-            for target_character in c.relationships.all():
-                rel = c.relationships.relationship(target_character)
-                relationships.append({
-                    'target_character': target_character.name,
-                    'type': rel.type
+        try:
+            # Characters
+            characters_json = []
+            characters = Character.nodes.all()
+            for c in characters:
+                house = c.belongs_to.single()
+                characters_json.append({
+                    'name': c.name,
+                    'born': c.born,
+                    'died': c.died,
+                    'blood_status': c.blood_status,
+                    'gender': c.gender,
+                    'description': c.description,
+                    'house': house.name if house else None,
+                    'spells': [s.name for s in c.knows.all()],
+                    'poisons': [p.name for p in c.brewed.all()],
+                    'relationships': [
+                        {
+                            'target_character': target.name,
+                            'type': c.relationships.relationship(target).type
+                        }
+                        for target in c.relationships.all()
+                    ],
+                    'image_path': c.image_path
                 })
 
-            characters.append({
-                'id': c.id,
-                'name': c.name,
-                'image_path': c.image_path,
-                'born': c.born,
-                'died': c.died,
-                'house': house_name,
-                'blood_status': c.blood_status,
-                'gender': c.gender,
-                'description': c.description,
-                'spells': spells,
-                'poisons': poisons,
-                'relationships': relationships
+            # Potions
+            potions = db.poisons.get_all()
+            potions_json = [{
+                'name': p[0]['name'],
+                'effect': p[0]['effect'],
+                'difficulty': p[0]['difficulty'],
+                'ingredients': p[0]['ingredients'],
+                'image_path': p[0]['image_path']
+            } for p in potions]
+
+            # Spells
+            spells = db.spells.get_all()
+            spells_json = [{
+                'name': s[0]['name'],
+                'effect': s[0]['effect'],
+                'category': s[0]['category'],
+                'light': s[0]['light'],
+                'image_path': s[0]['image_path']
+            } for s in spells]
+
+            # Houses
+            houses = db.houses.get_all()
+            houses_json = [{
+                'name': h.name,
+                'founder': h.founder
+            } for h in houses]
+
+            return jsonify({
+                'characters': characters_json,
+                'potions': potions_json,
+                'spells': spells_json,
+                'houses': houses_json
             })
 
-        spells = [{
-            'id': spell.id,
-            'name': spell.name,
-            'image_path': spell.image_path,
-            'effect': spell.effect,
-            'category': spell.category,
-            'light': spell.light
-        } for spell in db.spells.get_all()]
-
-        poisons = [{
-            'id': poison.id,
-            'name': poison.name,
-            'image_path': poison.image_path,
-            'effect': poison.effect,
-            'difficulty': poison.difficulty,
-            'ingredients': poison.ingredients
-        } for poison in db.poisons.get_all()]
-
-        return jsonify({
-            'characters': characters,
-            'spells': spells,
-            'poisons': poisons
-        })
+        except Exception as e:
+            app.logger.error(f"Export error: {e}")
+            return jsonify({'error': str(e)}), 500
 
     @app.route('/api/import', methods=['POST'])
     def import_database():
