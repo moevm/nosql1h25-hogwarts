@@ -8,12 +8,28 @@
       "gender": "Male",
       "description": "The Boy Who Lived.",
       "house": "Gryffindor",
-      "spells": ["Expelliarmus", "Expecto Patronum", "Stupefy"],
-      "poisons": ["Polyjuice Potion"],
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/c/ce/Harry_Potter_DHF1.jpg",
+      "spells": [
+        "Expelliarmus",
+        "Expecto Patronum",
+        "Stupefy"
+      ],
+      "poisons": [
+        "Polyjuice Potion"
+      ],
       "relationships": [
-        {"target_character": "Ron Weasley", "type": "friend"},
-        {"target_character": "Hermione Granger", "type": "friend"},
-        {"target_character": "Lord Voldemort", "type": "enemy"}
+        {
+          "target_character": "Ron Weasley",
+          "type": "friend"
+        },
+        {
+          "target_character": "Hermione Granger",
+          "type": "friend"
+        },
+        {
+          "target_character": "Lord Voldemort",
+          "type": "enemy"
+        }
       ]
     },
     {
@@ -24,11 +40,24 @@
       "gender": "Female",
       "description": "Brilliant witch with unmatched intellect.",
       "house": "Gryffindor",
-      "spells": ["Alohomora", "Petrificus Totalus", "Expecto Patronum"],
-      "poisons": ["Amortentia"],
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/3/34/Hermione_Granger.jpg",
+      "spells": [
+        "Alohomora",
+        "Petrificus Totalus",
+        "Expecto Patronum"
+      ],
+      "poisons": [
+        "Amortentia"
+      ],
       "relationships": [
-        {"target_character": "Harry Potter", "type": "friend"},
-        {"target_character": "Ron Weasley", "type": "romantic"}
+        {
+          "target_character": "Harry Potter",
+          "type": "friend"
+        },
+        {
+          "target_character": "Ron Weasley",
+          "type": "romantic"
+        }
       ]
     },
     {
@@ -39,11 +68,23 @@
       "gender": "Male",
       "description": "Loyal and brave member of the Weasley family.",
       "house": "Gryffindor",
-      "spells": ["Wingardium Leviosa", "Expelliarmus"],
-      "poisons": ["Felix Felicis"],
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/4/44/Ronald_Weasley_DHF1.jpg",
+      "spells": [
+        "Wingardium Leviosa",
+        "Expelliarmus"
+      ],
+      "poisons": [
+        "Felix Felicis"
+      ],
       "relationships": [
-        {"target_character": "Harry Potter", "type": "friend"},
-        {"target_character": "Hermione Granger", "type": "romantic"}
+        {
+          "target_character": "Harry Potter",
+          "type": "friend"
+        },
+        {
+          "target_character": "Hermione Granger",
+          "type": "romantic"
+        }
       ]
     },
     {
@@ -54,11 +95,24 @@
       "gender": "Male",
       "description": "The Dark Lord, feared by all.",
       "house": "Slytherin",
-      "spells": ["Avada Kedavra", "Crucio", "Imperio"],
-      "poisons": ["Draught of Living Death"],
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/9/97/Voldemort_Headshot_DHF1.png",
+      "spells": [
+        "Avada Kedavra",
+        "Crucio",
+        "Imperio"
+      ],
+      "poisons": [
+        "Draught of Living Death"
+      ],
       "relationships": [
-        {"target_character": "Harry Potter", "type": "enemy"},
-        {"target_character": "Bellatrix Lestrange", "type": "follower"}
+        {
+          "target_character": "Harry Potter",
+          "type": "enemy"
+        },
+        {
+          "target_character": "Bellatrix Lestrange",
+          "type": "follower"
+        }
       ]
     },
     {
@@ -69,10 +123,19 @@
       "gender": "Female",
       "description": "Fanatic Death Eater, loyal to Voldemort.",
       "house": "Slytherin",
-      "spells": ["Crucio", "Avada Kedavra"],
-      "poisons": ["Veritaserum"],
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/1/14/BellatrixLestrange.png",
+      "spells": [
+        "Crucio",
+        "Avada Kedavra"
+      ],
+      "poisons": [
+        "Veritaserum"
+      ],
       "relationships": [
-        {"target_character": "Lord Voldemort", "type": "follower"}
+        {
+          "target_character": "Lord Voldemort",
+          "type": "follower"
+        }
       ]
     },
     {
@@ -83,11 +146,23 @@
       "gender": "Male",
       "description": "Potions Master with a complex allegiance.",
       "house": "Slytherin",
-      "spells": ["Sectumsempra", "Legilimens"],
-      "poisons": ["Wolfsbane Potion"],
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/a/a3/Severus_Snape.jpg",
+      "spells": [
+        "Sectumsempra",
+        "Legilimens"
+      ],
+      "poisons": [
+        "Wolfsbane Potion"
+      ],
       "relationships": [
-        {"target_character": "Harry Potter", "type": "protector"},
-        {"target_character": "Albus Dumbledore", "type": "confidant"}
+        {
+          "target_character": "Harry Potter",
+          "type": "protector"
+        },
+        {
+          "target_character": "Albus Dumbledore",
+          "type": "confidant"
+        }
       ]
     },
     {
@@ -98,11 +173,25 @@
       "gender": "Male",
       "description": "Greatest Headmaster of Hogwarts.",
       "house": "Gryffindor",
-      "spells": ["Fawkes' Call", "Protego Maxima"],
-      "poisons": ["Elixir to Induce Euphoria", "Antidote to Common Poisons", "Skele-Gro"],
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/7/75/Albus_Dumbledore_%28HBPF_promo%29.jpg",
+      "spells": [
+        "Fawkes' Call",
+        "Protego Maxima"
+      ],
+      "poisons": [
+        "Elixir to Induce Euphoria",
+        "Antidote to Common Poisons",
+        "Skele-Gro"
+      ],
       "relationships": [
-        {"target_character": "Harry Potter", "type": "mentor"},
-        {"target_character": "Severus Snape", "type": "confidant"}
+        {
+          "target_character": "Harry Potter",
+          "type": "mentor"
+        },
+        {
+          "target_character": "Severus Snape",
+          "type": "confidant"
+        }
       ]
     },
     {
@@ -113,10 +202,18 @@
       "gender": "Male",
       "description": "Slytherin student and rival to Harry.",
       "house": "Slytherin",
-      "spells": ["Serpensortia"],
-      "poisons": ["Amortentia"],
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/7/7e/Draco_Malfoy_TDH.png",
+      "spells": [
+        "Serpensortia"
+      ],
+      "poisons": [
+        "Amortentia"
+      ],
       "relationships": [
-        {"target_character": "Harry Potter", "type": "rival"}
+        {
+          "target_character": "Harry Potter",
+          "type": "rival"
+        }
       ]
     },
     {
@@ -127,10 +224,18 @@
       "gender": "Male",
       "description": "Gryffindor hero and herbology expert.",
       "house": "Gryffindor",
-      "spells": ["Herbivicus"],
-      "poisons": ["Mandrake Draught"],
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/b/ba/Neville_Longbottom_DHF2_promo_2.jpg",
+      "spells": [
+        "Herbivicus"
+      ],
+      "poisons": [
+        "Mandrake Draught"
+      ],
       "relationships": [
-        {"target_character": "Harry Potter", "type": "friend"}
+        {
+          "target_character": "Harry Potter",
+          "type": "friend"
+        }
       ]
     },
     {
@@ -141,41 +246,182 @@
       "gender": "Female",
       "description": "Ravenclaw dreamer with a unique perspective.",
       "house": "Ravenclaw",
-      "spells": ["Rictusempra", "Expelliarmus"],
-      "poisons": ["Skele-Gro"],
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/e/ed/Luna_Lovegood.jpg",
+      "spells": [
+        "Rictusempra",
+        "Expelliarmus"
+      ],
+      "poisons": [
+        "Skele-Gro"
+      ],
       "relationships": [
-        {"target_character": "Neville Longbottom", "type": "friend"}
+        {
+          "target_character": "Neville Longbottom",
+          "type": "friend"
+        }
       ]
     }
   ],
   "houses": [
-  {"name": "Gryffindor", "founder": "Godric Gryffindor"},
-  {"name": "Slytherin", "founder": "Salazar Slytherin"},
-  {"name": "Ravenclaw", "founder": "Rowena Ravenclaw"},
-  {"name": "Hufflepuff", "founder": "Helga Hufflepuff"}
+    {
+      "name": "Gryffindor",
+      "founder": "Godric Gryffindor"
+    },
+    {
+      "name": "Slytherin",
+      "founder": "Salazar Slytherin"
+    },
+    {
+      "name": "Ravenclaw",
+      "founder": "Rowena Ravenclaw"
+    },
+    {
+      "name": "Hufflepuff",
+      "founder": "Helga Hufflepuff"
+    }
   ],
   "potions": [
-    {"name": "Polyjuice Potion", "effect": "Transform into someone else", "difficulty": "Advanced", "ingredients": "Lacewing flies, leeches, powdered bicorn horn"},
-    {"name": "Felix Felicis", "effect": "Gives luck", "difficulty": "Advanced", "ingredients": "Ashwinder egg, squill bulb"},
-    {"name": "Amortentia", "effect": "Causes infatuation", "difficulty": "Advanced", "ingredients": "Pearl dust, rose thorns"},
-    {"name": "Veritaserum", "effect": "Forces truth telling", "difficulty": "Very Advanced", "ingredients": "Jobberknoll feathers"},
-    {"name": "Wolfsbane Potion", "effect": "Helps werewolves", "difficulty": "Advanced", "ingredients": "Wolfsbane, belladonna"},
-    {"name": "Draught of Living Death", "effect": "Puts drinker into deep sleep", "difficulty": "Advanced", "ingredients": "Valerian root, wormwood"},
-    {"name": "Mandrake Draught", "effect": "Revives petrified people", "difficulty": "Intermediate", "ingredients": "Mandrake root"},
-    {"name": "Elixir to Induce Euphoria", "effect": "Gives joy", "difficulty": "Advanced", "ingredients": "Shrivelfig, peppermint"},
-    {"name": "Antidote to Common Poisons", "effect": "Neutralizes most toxins", "difficulty": "Beginner", "ingredients": "Bezoar, mistletoe"},
-    {"name": "Skele-Gro", "effect": "Regrows bones", "difficulty": "Intermediate", "ingredients": "Bone, regrowth solution"}
+    {
+      "name": "Polyjuice Potion",
+      "effect": "Transform into someone else",
+      "difficulty": "Advanced",
+      "ingredients": "Lacewing flies, leeches, powdered bicorn horn",
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/1/1b/B2C12M2_Polyjuice_Potion_ready.jpg"
+    },
+    {
+      "name": "Felix Felicis",
+      "effect": "Gives luck",
+      "difficulty": "Advanced",
+      "ingredients": "Ashwinder egg, squill bulb",
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/8/84/Felix_Felicis_Phial_HBP.png"
+    },
+    {
+      "name": "Amortentia",
+      "effect": "Causes infatuation",
+      "difficulty": "Advanced",
+      "ingredients": "Pearl dust, rose thorns",
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/4/4f/B6C9M1_cropped_Amortentia.png"
+    },
+    {
+      "name": "Veritaserum",
+      "effect": "Forces truth telling",
+      "difficulty": "Very Advanced",
+      "ingredients": "Jobberknoll feathers",
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/3/3e/Antidote_to_Veritaserum_HM.png"
+    },
+    {
+      "name": "Wolfsbane Potion",
+      "effect": "Helps werewolves",
+      "difficulty": "Advanced",
+      "ingredients": "Wolfsbane, belladonna",
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/0/01/PA_C8.jpg"
+    },
+    {
+      "name": "Draught of Living Death",
+      "effect": "Puts drinker into deep sleep",
+      "difficulty": "Advanced",
+      "ingredients": "Valerian root, wormwood",
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/e/e8/Draught_of_living_death.gif"
+    },
+    {
+      "name": "Mandrake Draught",
+      "effect": "Revives petrified people",
+      "difficulty": "Intermediate",
+      "ingredients": "Mandrake root",
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/8/88/Mandrake_Restorative_Draught_HM_icon.png"
+    },
+    {
+      "name": "Elixir to Induce Euphoria",
+      "effect": "Gives joy",
+      "difficulty": "Advanced",
+      "ingredients": "Shrivelfig, peppermint",
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/6/65/Elixir_to_Induce_Euphoria.png"
+    },
+    {
+      "name": "Antidote to Common Poisons",
+      "effect": "Neutralizes most toxins",
+      "difficulty": "Beginner",
+      "ingredients": "Bezoar, mistletoe",
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/9/96/Antidote-to-common-poisons.png"
+    },
+    {
+      "name": "Skele-Gro",
+      "effect": "Regrows bones",
+      "difficulty": "Intermediate",
+      "ingredients": "Bone, regrowth solution",
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/6/6e/Skele-gro.png"
+    }
   ],
   "spells": [
-    {"name": "Expelliarmus", "effect": "Disarms opponent", "category": "Charm", "light": "Red"},
-    {"name": "Expecto Patronum", "effect": "Summons Patronus", "category": "Charm", "light": "White"},
-    {"name": "Stupefy", "effect": "Stuns opponent", "category": "Charm", "light": "Red"},
-    {"name": "Avada Kedavra", "effect": "Kills target", "category": "Curse", "light": "Green"},
-    {"name": "Crucio", "effect": "Inflicts pain", "category": "Curse", "light": "Red"},
-    {"name": "Imperio", "effect": "Controls target", "category": "Curse", "light": "Blue"},
-    {"name": "Alohomora", "effect": "Opens locks", "category": "Charm", "light": "None"},
-    {"name": "Petrificus Totalus", "effect": "Full body bind", "category": "Charm", "light": "Blue"},
-    {"name": "Wingardium Leviosa", "effect": "Levitates objects", "category": "Charm", "light": "White"},
-    {"name": "Sectumsempra", "effect": "Causes deep cuts", "category": "Dark Magic", "light": "Purple"}
+    {
+      "name": "Expelliarmus",
+      "effect": "Disarms opponent",
+      "category": "Charm",
+      "light": "Red",
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/9/96/Snape_disarming_Lockhart_COS.gif"
+    },
+    {
+      "name": "Expecto Patronum",
+      "effect": "Summons Patronus",
+      "category": "Charm",
+      "light": "White",
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/f/fe/Patronus_PM_SilverStagPatronus_MomentIllust.jpg"
+    },
+    {
+      "name": "Stupefy",
+      "effect": "Stuns opponent",
+      "category": "Charm",
+      "light": "Red",
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/f/fa/StupefyHM.png"
+    },
+    {
+      "name": "Avada Kedavra",
+      "effect": "Kills target",
+      "category": "Curse",
+      "light": "Green",
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/7/78/Avada-Kedavra.gif"
+    },
+    {
+      "name": "Crucio",
+      "effect": "Inflicts pain",
+      "category": "Curse",
+      "light": "Red",
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/9/9c/Voldemort_crucio_harry.gif"
+    },
+    {
+      "name": "Imperio",
+      "effect": "Controls target",
+      "category": "Curse",
+      "light": "Blue",
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/8/8c/Imperio1.gif"
+    },
+    {
+      "name": "Alohomora",
+      "effect": "Opens locks",
+      "category": "Charm",
+      "light": "None",
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/0/0e/Alohomora.gif"
+    },
+    {
+      "name": "Petrificus Totalus",
+      "effect": "Full body bind",
+      "category": "Charm",
+      "light": "Blue",
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/6/6e/HermionePetrificusTotalus.gif"
+    },
+    {
+      "name": "Wingardium Leviosa",
+      "effect": "Levitates objects",
+      "category": "Charm",
+      "light": "White",
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/c/cf/Levitation_Charm_PSF.gif"
+    },
+    {
+      "name": "Sectumsempra",
+      "effect": "Causes deep cuts",
+      "category": "Dark Magic",
+      "light": "Purple",
+      "image_path": "https://static.wikia.nocookie.net/harrypotter/images/3/3a/Sectumempra_Curse.gif"
+    }
   ]
 }
