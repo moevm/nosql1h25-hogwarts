@@ -9,7 +9,6 @@ from flask import jsonify, request
 
 def run_import(data, db, app=None):
     try:
-        db.clear_data()
         # Импорт заклинаний
         for s in data.get('spells', []):
             if not Spell.nodes.get_or_none(name=s['name']):
@@ -155,6 +154,7 @@ def register_port_routes(app, db):
 
     @app.route('/api/import', methods=['POST'])
     def import_database():
+        db.clear_data()
         data = request.json
         success = run_import(data, db, app)
         if success:

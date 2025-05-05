@@ -10,12 +10,8 @@ def create_app():
     CORS(app)
     db = Neo4jDatabase()
 
-    # для дебага
-    db.clear_data()
-
     # сидирование
-    faker_seed(db=db, num_characters=20, num_houses=4,
-               num_poisons=25, num_spells=10)
+    db.seeding()
 
     # регистрация всех маршрутов
     register_all_routes(app, db)
