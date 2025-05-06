@@ -25,14 +25,15 @@ def register_graph_routes(app, db):
             edges = []
             seen = set()
 
-            def add_node(obj, label):
+            def add_node(obj, node_type):
                 if obj.id in seen:
                     return
                 seen.add(obj.id)
                 nodes.append({
                     'id': obj.id,
-                    'title': obj.name,
-                    'label': label
+                    'name': obj.name,
+                    'type': node_type,
+                    'image_path': obj.image_path if node_type != 'House' else None
                 })
 
             add_node(node, node_type.capitalize())
