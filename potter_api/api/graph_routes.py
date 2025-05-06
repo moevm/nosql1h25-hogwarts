@@ -33,7 +33,7 @@ def register_graph_routes(app, db):
                     'id': obj.id,
                     'name': obj.name,
                     'type': node_type,
-                    'image_path': obj.image_path if node_type != 'House' else None
+                    'image_path': obj.image_path
                 })
 
             add_node(node, node_type.capitalize())
