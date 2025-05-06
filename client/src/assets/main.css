@@ -19,3 +19,34 @@ html {
   -ms-overflow-style: none; /* IE и Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+/* Общая ширина скроллбара */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Фон скроллбара */
+::-webkit-scrollbar-track {
+  background: #093062;
+}
+
+/* Ползунок */
+::-webkit-scrollbar-thumb {
+  background-color: #195a9c;
+  border-radius: 5px;
+}
+
+/* При наведении — чуть светлее */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #01407e;
+}
+/* Для Firefox */
+.scrollable-element {
+  scrollbar-width: thin;
+  scrollbar-color: #195a9c #01407e;
+}
+.scrollable-element {
+  overflow-y: auto;
+  max-height: 300px;
+}
+

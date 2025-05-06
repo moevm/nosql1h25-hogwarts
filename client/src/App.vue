@@ -42,6 +42,36 @@ function handleFileUpload(event) {
   reader.readAsText(file)
 }
 
+async function handleExport() {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/export`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    if (!response.ok) {
+      throw new Error('Ошибка при экспорте данных')
+    }
+
+    const data = await response.json()
+
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+
+    const link = document.createElement('a')
+    link.href = url
+    link.download = 'exported_data.json'
+    link.click()
+
+    URL.revokeObjectURL(url)
+  } catch (error) {
+    console.error('Export failed:', error)
+  }
+}
+
+
 const isOpen = ref(false)
 </script>
 
@@ -94,7 +124,7 @@ const isOpen = ref(false)
     <div class="absolute top-[50px] right-[70px] flex gap-5">
       <TopButton action="Statistics" disabled />
       <TopButton action="Import" @click="triggerFileInput" />
-      <TopButton action="Export" disabled />
+      <TopButton action="Export"  @click="handleExport" />
       <input
         type="file"
         accept="application/json"
