@@ -2,9 +2,12 @@
 import { computed, ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
+import Graph from '../components/Graph.vue'
+
 const route = useRoute()
 
 const item = ref({})
+const modalView = ref(false)
 
 onMounted(async () => {
   try {
@@ -20,6 +23,13 @@ onMounted(async () => {
     console.error(err)
   }
 })
+
+const closeModal = () => {
+  modalView.value = false
+}
+const openModal = () => {
+  modalView.value = true
+}
 </script>
 
 <template>
@@ -28,11 +38,15 @@ onMounted(async () => {
       Harry Potter Wiki
     </router-link>
     <div class="bg-[#09306260] p-[70px] w-full rounded-md overflow-y-auto scrollbar-hide">
-      <img
-        class="rounded-md w-[250px] h-[250px] float-left mr-10 mb-10 border-3 border-gold"
-        :src="item.image_path || ''"
-        :alt="item.name"
-      />
+      <div class="flex flex-col float-left mr-10 mb-10">
+        <img
+          class="rounded-md w-[250px] h-[250px] mb-10 border-3 border-gold"
+          :src="item.image_path || ''"
+          :alt="item.name"
+        />
+        <button class="bg-bg rounded-[5px] border-3 border-gold text-gold px-4 py-2" @click="openModal">Graph</button>
+        <Graph v-if="modalView" @close-modal="closeModal"/>
+      </div>
       <h2 class="text-5xl text-gold font-display pb-5">{{ item.name }}</h2>
       <p class="text-2xl text-gold font-display text-start">Description: {{ item.description }}</p>
       <p class="text-2xl text-gold font-display text-start">

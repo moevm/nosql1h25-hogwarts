@@ -57,7 +57,7 @@ const handleSubmitPotion = async () => {
 
 <template>
   <li class="flex justify-center" @click="togglePotionModal">
-    <div class="w-50 bg-bg flex flex-col items-center justify-center pt-2 rounded-[10px] cursor-pointer">
+    <div class="w-[250px] bg-bg flex flex-col items-center justify-center pt-2 rounded-[10px] cursor-pointer">
       <img class="my-4 w-3/5 rounded-md border-3 border-gold border-dashed" src="/images/add.svg" />
       <p class="text-gold text-lg">Add Potion</p>
     </div>

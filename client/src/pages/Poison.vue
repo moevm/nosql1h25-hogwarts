@@ -26,7 +26,7 @@ onMounted(async () => {
     </router-link>
     <div class="bg-[#09306260] p-[70px] w-full rounded-md overflow-y-auto scrollbar-hide">
       <img
-        class="rounded-md w-[300px] h-[300px] float-left mr-10 mb-10"
+        class="rounded-md float-left mr-10 mb-10"
         :src="item.image_path || '/images/defaultPotion.jpg'"
         :alt="item.name"
       />
