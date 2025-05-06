@@ -36,7 +36,8 @@ def run_import(data, db, app=None):
             if not House.nodes.get_or_none(name=h['name']):
                 db.houses.create(
                     name=h['name'],
-                    founder=h.get('founder')
+                    founder=h.get('founder'),
+                    image_path=h.get('image_path')
                 )
 
         # Импорт персонажей
@@ -138,7 +139,8 @@ def register_port_routes(app, db):
             houses = db.houses.get_all()
             houses_json = [{
                 'name': h.name,
-                'founder': h.founder
+                'founder': h.founder,
+                'image_path': h.image_path
             } for h in houses]
 
             return jsonify({
