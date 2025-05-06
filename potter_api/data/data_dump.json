@@ -265,19 +265,23 @@
   "houses": [
     {
       "name": "Gryffindor",
-      "founder": "Godric Gryffindor"
+      "founder": "Godric Gryffindor",
+      "image_path": "/images/Gryffindor_ClearBG.png"
     },
     {
       "name": "Slytherin",
-      "founder": "Salazar Slytherin"
+      "founder": "Salazar Slytherin",
+      "image_path": "/images/Slytherin_ClearBG.png"
     },
     {
       "name": "Ravenclaw",
-      "founder": "Rowena Ravenclaw"
+      "founder": "Rowena Ravenclaw",
+      "image_path": "/images/RavenclawCrest.png"
     },
     {
       "name": "Hufflepuff",
-      "founder": "Helga Hufflepuff"
+      "founder": "Helga Hufflepuff",
+      "image_path": "/images/Hufflepuff_ClearBG.png"
     }
   ],
   "potions": [
