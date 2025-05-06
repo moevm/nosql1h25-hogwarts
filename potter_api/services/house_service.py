@@ -6,8 +6,8 @@ class HouseService:
     def __init__(self, database):
         self.db = database
 
-    def create(self, name, founder=None):
-        return House(name=name, founder=founder).save()
+    def create(self, name, **kwargs):
+        return House(name=name, **kwargs).save()
 
     def get_all(self):
         return House.nodes.all()
