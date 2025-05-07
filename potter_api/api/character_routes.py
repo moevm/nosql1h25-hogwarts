@@ -113,3 +113,90 @@ def register_character_routes(app, db):
 
         except Exception as e:
             return jsonify({'error': str(e)}), 400
+
+    @app.route('/api/characters/<character_id>', methods=['PUT'])
+    def update_character(character_id):
+        data = request.json
+        try:
+            from models.spell import Spell
+            from models.poison import Poison
+            from models.house import House
+            from models.character import Character
+
+            # Получаем персонажа
+            character = db.characters.get_by_id(character_id)
+            if not character:
+                return jsonify({'error': 'Character not found'}), 404
+
+            # Обновляем основные атрибуты
+            character.name = data.get('name', character.name)
+            character.born = data.get('born', character.born)
+            character.died = data.get('died', character.died)
+            character.blood_status = data.get('blood_status', character.blood_status)
+            character.gender = data.get('gender', character.gender)
+            character.description = data.get('description', character.description)
+            character.save()
+
+            # Обновляем дом
+            if 'house' in data:
+                # Удаляем текущую связь с домом
+                for house in character.belongs_to.all():
+                    character.belongs_to.disconnect(house)
+
+                # Добавляем новую связь, если указан дом
+                if data['house']:
+                    house_node = House.nodes.get_or_none(name=data['house'])
+                    if house_node:
+                        character.belongs_to.connect(house_node)
+
+            # Обновляем заклинания
+            if 'spells' in data:
+                # Удаляем все текущие связи с заклинаниями
+                for spell in character.knows.all():
+                    character.knows.disconnect(spell)
+
+                # Добавляем новые связи
+                for spell_name in data['spells']:
+                    spell = Spell.nodes.get_or_none(name=spell_name)
+                    if spell:
+                        character.knows.connect(spell)
+
+            # Обновляем яды
+            if 'poisons' in data:
+                # Удаляем все текущие связи с ядами
+                for poison in character.brewed.all():
+                    character.brewed.disconnect(poison)
+
+                # Добавляем новые связи
+                for poison_name in data['poisons']:
+                    poison = Poison.nodes.get_or_none(name=poison_name)
+                    if poison:
+                        character.brewed.connect(poison)
+
+            # Обновляем отношения
+            if 'relationships' in data:
+                # Удаляем все текущие отношения
+                for target_character in character.relationships.all():
+                    character.relationships.disconnect(target_character)
+
+                # Добавляем новые отношения
+                for relationship in data['relationships']:
+                    target_character_name = relationship['target_character']
+                    relationship_type = relationship['type']
+
+                    target_character = Character.nodes.get_or_none(
+                        name=target_character_name)
+                    if target_character:
+                        character.relationships.connect(
+                            target_character,
+                            {'type': relationship_type}
+                        )
+
+            return jsonify({
+                'id': character.id,
+                'name': character.name,
+                'message': 'Character updated successfully'
+            }), 200
+
+        except Exception as e:
+            return jsonify({'error': str(e)}), 400
