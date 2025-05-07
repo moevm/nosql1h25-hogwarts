@@ -68,3 +68,26 @@ def register_poison_routes(app, db):
             }), 201
         except Exception as e:
             return jsonify({'error': str(e)}), 400
+
+    @app.route('/api/potions/<potion_id>', methods=['PUT'])
+    def update_poisons(potion_id):
+        data = request.json
+        try:
+            poison = db.poisons.get_by_id(potion_id)
+            if not poison:
+                return jsonify({'error': 'Potion not found'}), 404
+
+            poison.name = data.get('name')
+            poison.effect = data.get('effect')
+            poison.difficulty = data.get('difficulty')
+            poison.ingredients = data.get('ingredients')
+            poison.save()
+
+            return jsonify({
+                'id': poison.id,
+                'name': poison.name,
+                'message': 'Potion updated successfully'
+            }), 200
+
+        except Exception as e:
+            return jsonify({'error': str(e)}), 400
