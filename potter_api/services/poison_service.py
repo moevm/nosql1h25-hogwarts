@@ -1,6 +1,7 @@
 from models.poison import Poison
 from models.character import Character
 from neomodel.exceptions import DoesNotExist
+from datetime import datetime
 
 
 class PoisonService:
@@ -8,6 +9,7 @@ class PoisonService:
         self.db = database
 
     def create(self, name, **kwargs):
+        kwargs['updated_at'] = datetime.now()
         return Poison(name=name, **kwargs).save()
 
     def get_all(self, name=None, effect=None, ingredients=None, difficulty=None):
