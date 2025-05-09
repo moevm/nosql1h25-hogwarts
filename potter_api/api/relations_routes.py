@@ -5,32 +5,28 @@ def register_relations_routes(app, _):
     @app.route('/api/relations/<node_type>', methods=['GET'])
     def get_relation_types(node_type):
         try:
-            query_types = f"""
-            MATCH (n:`{node_type.capitalize()}`)-[r]-()
-            RETURN DISTINCT type(r) AS relation_type
+            query = f"""
+            MATCH (n:`{node_type.capitalize()}`)-[r]-(m)
+            WITH type(r) AS rel_type, labels(m) AS labels, r
+            UNWIND labels AS label
+            WITH 
+                CASE 
+                    WHEN rel_type = 'HAS_RELATIONSHIP_WITH' AND r.type IS NOT NULL THEN r.type
+                    ELSE rel_type
+                END AS final_type,
+                label
+            RETURN label, collect(DISTINCT final_type) AS relation_types
             """
 
-            type_results, _ = db.cypher_query(query_types)
-            relation_types = [row[0] for row in type_results]
+            results, _ = db.cypher_query(query)
+            relation_map = {}
 
-            flat_types = []
-
-            for rel_type in relation_types:
-                if rel_type == "HAS_RELATIONSHIP_WITH":
-                    sub_query = f"""
-                    MATCH (n:`{node_type}`)-[r:`{rel_type}`]-()
-                    WHERE r.type IS NOT NULL
-                    RETURN DISTINCT r.type AS subtype
-                    """
-                    subtypes_result, _ = db.cypher_query(sub_query)
-                    subtypes = [row[0] for row in subtypes_result]
-                    flat_types.extend(subtypes)
-                else:
-                    flat_types.append(rel_type)
+            for label, rel_types in results:
+                relation_map[label] = rel_types
 
             return jsonify({
-                'node_type': node_type,
-                'relation_types': flat_types
+                "node_type": node_type,
+                "relation_map": relation_map
             })
 
         except Exception as e:
