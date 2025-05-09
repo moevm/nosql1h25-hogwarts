@@ -1,7 +1,5 @@
 <script setup>
-<<<<<<< Updated upstream
-const emit = defineEmits(['closeModal'])
-=======
+
 import { ref, onMounted, watch } from 'vue'
 import { Network, DataSet } from 'vis-network/standalone/esm/vis-network'
 
@@ -93,12 +91,16 @@ const closeGraph = () => {
 
 onMounted(fetchGraphData)
 watch(() => props.characterId, fetchGraphData)
->>>>>>> Stashed changes
 </script>
 
 <template>
-    <div class="absolute w-full h-full bg-[#09306260] top-0 left-0 flex justify-end items-start">
-        <button @click="emit('closeModal')" class="mt-10 mr-10 bg-bg rounded-[5px] border-3 border-gold text-gold px-4 py-2">X</button>
-        <div class="absolute bg-bg top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-4/6 h-4/6 rounded-[10px] border-3 border-gold"></div>
+  <div class="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
+    <div class="relative bg-bg p-12 rounded-lg w-[90%] max-w-[1000px] h-[600px] shadow-lg">
+      <button class="absolute top-2 right-2 px-4 py-2 rounded text-gold" @click="closeGraph">
+        X
+      </button>
+
+      <div ref="container" class="w-full h-full border-3 border-gold rounded-md" />
     </div>
+  </div>
 </template>
