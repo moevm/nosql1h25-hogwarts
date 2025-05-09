@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import Graph from '../components/Graph.vue'
 
 const route = useRoute()
 
@@ -17,6 +18,15 @@ onMounted(async () => {
     console.error(err)
   }
 })
+const modalView = ref(false)
+
+const closeModal = () => {
+  console.log('click')
+  modalView.value = false
+}
+const openModal = () => {
+  modalView.value = true
+}
 </script>
 
 <template>
@@ -25,11 +35,20 @@ onMounted(async () => {
       Harry Potter Wiki
     </router-link>
     <div class="bg-[#09306260] p-[70px] w-full rounded-md overflow-y-auto scrollbar-hide">
-      <img
-        class="rounded-md float-left mr-10 mb-10"
-        :src="item.image_path || '/images/defaultPotion.jpg'"
-        :alt="item.name"
-      />
+      <div class="flex flex-col float-left mr-10 mb-10">
+        <img
+          class="rounded-md w-[250px] h-[250px ] mb-10 border-3 border-gold"
+          :src="item.image_path || ''"
+          :alt="item.name"
+        />
+        <button
+          class="bg-bg rounded-[5px] border-3 border-gold text-gold px-4 py-2"
+          @click="openModal"
+        >
+          Graph
+        </button>
+        <Graph v-if="modalView" type="poison" :id="item.id" @close="closeModal" />
+      </div>
       <h2 class="text-6xl text-gold font-display pb-5">{{ item.name }}</h2>
       <p class="text-4xl text-gold font-display text-start">Difficulty: {{ item.difficulty }}</p>
       <p class="text-4xl text-gold font-display text-start">Effect: {{ item.effect }}</p>

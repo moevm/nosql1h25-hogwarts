@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import RelationEditor from './RelationsEditor.vue'
 const emit = defineEmits(['fetchUpdate'])
 
 const addPotionModal = ref(false)
@@ -7,6 +8,7 @@ const name = ref('')
 const difficulty = ref('')
 const ingredients = ref('')
 const effect = ref('')
+const relationships = ref([])
 
 const togglePotionModal = (e) => {
   e.stopPropagation()
@@ -21,7 +23,8 @@ const handleSubmitPotion = async () => {
       .split(',')
       .map((ing) => ing.trim())
       .filter(Boolean),
-    effect: effect.value
+    effect: effect.value,
+    relationships: relationships.value
   }
 
   try {
@@ -46,6 +49,7 @@ const handleSubmitPotion = async () => {
     difficulty.value = ''
     ingredients.value = ''
     effect.value = ''
+    relationships.value = []
   } catch (error) {
     console.error('Ошибка при отправке:', error)
     alert('Произошла ошибка при добавлении зелья.')
@@ -57,7 +61,9 @@ const handleSubmitPotion = async () => {
 
 <template>
   <li class="flex justify-center" @click="togglePotionModal">
-    <div class="w-[250px] bg-bg flex flex-col items-center justify-center pt-2 rounded-[10px] cursor-pointer">
+    <div
+      class="w-[250px] bg-bg flex flex-col items-center justify-center pt-2 rounded-[10px] cursor-pointer"
+    >
       <img class="my-4 w-3/5 rounded-md border-3 border-gold border-dashed" src="/images/add.svg" />
       <p class="text-gold text-lg">Add Potion</p>
     </div>
@@ -115,6 +121,7 @@ const handleSubmitPotion = async () => {
               class="w-full p-2 rounded border border-gold bg-transparent text-gold font-display"
             />
           </div>
+          <RelationEditor v-model="relationships" />
 
           <div class="flex justify-between">
             <button
@@ -129,3 +136,15 @@ const handleSubmitPotion = async () => {
     </div>
   </li>
 </template>
+
+<style scoped>
+.input {
+  background-color: #093062;
+  border: 1px solid gold;
+  color: gold;
+  padding: 0.5em;
+  border-radius: 4px;
+  display: block;
+  width: 100%;
+}
+</style>

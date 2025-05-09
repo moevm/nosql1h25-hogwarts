@@ -38,6 +38,7 @@ const openModal = () => {
       Harry Potter Wiki
     </router-link>
     <div class="bg-[#09306260] p-[70px] w-full rounded-md overflow-y-auto scrollbar-hide">
+<<<<<<< Updated upstream
       <div class="flex flex-col float-left mr-10 mb-10">
         <img
           class="rounded-md w-[250px] h-[250px] mb-10 border-3 border-gold"
@@ -58,6 +59,47 @@ const openModal = () => {
       </p>
       <p class="text-2xl text-gold font-display text-start">Gender: {{ item.gender }}</p>
       <p class="text-2xl text-gold font-display text-start">House: {{ item.house }}</p>
+=======
+      <template v-if="editMode">
+        <CharacterEdit :character="item" @saved="onEditSaved" />
+      </template>
+      <template v-else>
+        <!-- текущий просмотр персонажа -->
+        <div class="flex flex-col float-left mr-10 mb-10">
+          <img
+            class="rounded-md w-[250px] h-[250px ] mb-10 border-3 border-gold"
+            :src="item.image_path || ''"
+            :alt="item.name"
+          />
+          <button
+            class="bg-bg rounded-[5px] border-3 border-gold text-gold px-4 py-2"
+            @click="openModal"
+          >
+            Graph
+          </button>
+          <Graph v-if="modalView" type="character" :id="item.id" @close="closeModal" />
+        </div>
+        <div class="flex justify-around">
+          <h2 class="text-5xl text-gold font-display pb-5">{{ item.name }}</h2>
+          <button
+            class="bg-bg rounded-[5px] border-3 border-gold text-gold px-6 py-1 h-1/2"
+            @click="editMode = true"
+          >
+            Edit
+          </button>
+        </div>
+        <p class="text-2xl text-gold font-display text-start">
+          Description: {{ item.description }}
+        </p>
+        <p class="text-2xl text-gold font-display text-start">
+          Blood Status: {{ item.blood_status }}
+        </p>
+        <p class="text-2xl text-gold font-display text-start">Born: {{ item.born }}</p>
+        <p class="text-2xl text-gold font-display text-start">Died: {{ item.died || 'No' }}</p>
+        <p class="text-2xl text-gold font-display text-start">Gender: {{ item.gender }}</p>
+        <p class="text-2xl text-gold font-display text-start">House: {{ item.house }}</p>
+      </template>
+>>>>>>> Stashed changes
     </div>
   </div>
 </template>
