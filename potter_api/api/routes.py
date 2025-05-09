@@ -4,6 +4,7 @@ from api.poison_routes import register_poison_routes
 from api.spell_routes import register_spell_routes
 from api.port_routes import register_port_routes
 from api.graph_routes import register_graph_routes
+from api.statistics_routes import register_statistics_routes
 
 
 def register_all_routes(app, db):
@@ -14,3 +15,4 @@ def register_all_routes(app, db):
     register_spell_routes(app, db)
     register_port_routes(app, db)
     register_graph_routes(app, db)
+    register_statistics_routes(app, db)
