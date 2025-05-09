@@ -1,7 +1,7 @@
 from flask import jsonify
 from neomodel import db
 
-def register_graph_routes(app, _):
+def register_relations_routes(app, _):
     @app.route('/api/relations/<node_type>', methods=['GET'])
     def get_relation_types(node_type):
         try:
@@ -18,8 +18,8 @@ def register_graph_routes(app, _):
             for rel_type in relation_types:
                 if rel_type == "HAS_RELATIONSHIP_WITH":
                     sub_query = f"""
-                    MATCH (n:`{node_type.capitalize()}`)-[r:`{rel_type}`]-()
-                    WHERE exists(r.type)
+                    MATCH (n:`{node_type}`)-[r:`{rel_type}`]-()
+                    WHERE r.type IS NOT NULL
                     RETURN DISTINCT r.type AS subtype
                     """
                     subtypes_result, _ = db.cypher_query(sub_query)
