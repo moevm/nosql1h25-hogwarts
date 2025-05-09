@@ -62,7 +62,8 @@ const openModal = () => {
           >
             Graph
           </button>
-          <Graph v-if="modalView" :character-id="item.id" @close="closeModal" />
+
+          <Graph v-if="modalView" type="character" :id="item.id" @close="closeModal" />
         </div>
         <div class="flex justify-around">
           <h2 class="text-5xl text-gold font-display pb-5">{{ item.name }}</h2>

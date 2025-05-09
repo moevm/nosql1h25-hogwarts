@@ -31,9 +31,9 @@ const removeRelation = (index) => {
 
 <template>
   <div class="mt-4">
-    <h3 class="text-lg font-bold">Relations</h3>
+    <h3 class="text-lg font-bold text-gold">Relations</h3>
 
-    <div class="flex space-x-2 mb-2">
+    <div class="flex space-x-2 mb-2 text-gold">
       <select v-model="newRelation.type" class="input">
         <option value="">-- Relation Type --</option>
         <option value="friend">Friend</option>

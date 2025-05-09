@@ -1,9 +1,11 @@
 <script setup>
+
 import { ref, onMounted, watch } from 'vue'
 import { Network, DataSet } from 'vis-network/standalone/esm/vis-network'
 
 const props = defineProps({
-  characterId: {
+  type: String,
+  id: {
     type: String,
     required: true
   }
@@ -19,7 +21,7 @@ let network = null
 const fetchGraphData = async () => {
   try {
     const res = await fetch(
-      `${import.meta.env.VITE_SERVER_URL}/api/graph/character/${props.characterId}`
+      `${import.meta.env.VITE_SERVER_URL}/api/graph/${props.type}/${props.id}`
     )
     const data = await res.json()
     nodes.value = data.nodes
@@ -61,7 +63,7 @@ const drawGraph = () => {
       enabled: true,
       solver: 'forceAtlas2Based',
       forceAtlas2Based: {
-        springLength: 300, // Увеличь это значение, чтобы соединения стали длиннее
+        springLength: 300,
         springConstant: 0.01
       },
       stabilization: {
