@@ -68,3 +68,26 @@ def register_spell_routes(app, db):
             }), 201
         except Exception as e:
             return jsonify({'error': str(e)}), 400
+
+    @app.route('/api/spells/<spell_id>', methods=['PUT'])
+    def update_spell(spell_id):
+        data = request.json
+        try:
+            spell = db.spells.get_by_id(spell_id)
+            if not spell:
+                return jsonify({'error': 'Spell not found'}), 404
+
+            spell.name = data.get('name')
+            spell.effect = data.get('effect')
+            spell.category = data.get('category')
+            spell.light = data.get('light')
+            spell.save()
+
+            return jsonify({
+                'id': spell.id,
+                'name': spell.name,
+                'message': 'Spell updated successfully'
+            }), 200
+
+        except Exception as e:
+            return jsonify({'error': str(e)}), 400
