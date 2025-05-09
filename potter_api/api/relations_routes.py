@@ -6,7 +6,7 @@ def register_graph_routes(app, _):
     def get_relation_types(node_type):
         try:
             query = f"""
-            MATCH (n:`{node_type}`)-[r]-()
+            MATCH (n:`{node_type.capitalize()}`)-[r]-()
             RETURN DISTINCT type(r) AS relation_type
             """
 
