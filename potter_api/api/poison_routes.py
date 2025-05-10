@@ -33,7 +33,8 @@ def register_poison_routes(app, db):
                 'effect': p['effect'],
                 'brewers': brewers,
                 'ingredients': p['ingredients'],
-                'difficulty': p['difficulty']
+                'difficulty': p['difficulty'],
+                'updated_at': p['updated_at']
             })
 
         return jsonify(poisons)
@@ -49,7 +50,9 @@ def register_poison_routes(app, db):
             'image_path': poison.image_path,
             'effect': poison.effect,
             'difficulty': poison.difficulty,
-            'ingredients': poison.ingredients
+            'ingredients': poison.ingredients,
+            'updated_at': poison.updated_at,
+            'brewers': [brewer.name for brewer in poison.brewed.all()]
         })
 
     @app.route('/api/potions', methods=['POST'])
@@ -73,6 +76,8 @@ def register_poison_routes(app, db):
     def update_poisons(potion_id):
         data = request.json
         try:
+            from datetime import datetime
+
             poison = db.poisons.get_by_id(potion_id)
             if not poison:
                 return jsonify({'error': 'Potion not found'}), 404
@@ -81,6 +86,7 @@ def register_poison_routes(app, db):
             poison.effect = data.get('effect')
             poison.difficulty = data.get('difficulty')
             poison.ingredients = data.get('ingredients')
+            poison.updated_at = datetime.now()
             poison.save()
 
             return jsonify({

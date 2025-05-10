@@ -33,7 +33,8 @@ def register_spell_routes(app, db):
                 'effect': s['effect'],
                 'category': s['category'],
                 'light': s.get('light'),
-                'known_by': known_by
+                'known_by': known_by,
+                'updated_at': s['updated_at']
             })
 
         return jsonify(spells)
@@ -49,7 +50,8 @@ def register_spell_routes(app, db):
             'image_path': spell.image_path,
             'effect': spell.effect,
             'category': spell.category,
-            'light': spell.light
+            'light': spell.light,
+            'known_by': [character.name for character in spell.known_by.all()]
         })
 
     @app.route('/api/spells', methods=['POST'])
@@ -73,6 +75,8 @@ def register_spell_routes(app, db):
     def update_spell(spell_id):
         data = request.json
         try:
+            from datetime import datetime
+
             spell = db.spells.get_by_id(spell_id)
             if not spell:
                 return jsonify({'error': 'Spell not found'}), 404
@@ -81,6 +85,7 @@ def register_spell_routes(app, db):
             spell.effect = data.get('effect')
             spell.category = data.get('category')
             spell.light = data.get('light')
+            spell.updated_at = datetime.now()
             spell.save()
 
             return jsonify({

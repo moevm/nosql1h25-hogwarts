@@ -57,7 +57,8 @@ def register_character_routes(app, db):
             'description': character.description,
             'spells': spells,
             'poisons': poisons,
-            'relationships': relationships
+            'relationships': relationships,
+            'updated_at': character.updated_at,
         })
 
     @app.route('/api/characters', methods=['POST'])
@@ -122,6 +123,7 @@ def register_character_routes(app, db):
             from models.poison import Poison
             from models.house import House
             from models.character import Character
+            from datetime import datetime
 
             # Получаем персонажа
             character = db.characters.get_by_id(character_id)
@@ -135,6 +137,7 @@ def register_character_routes(app, db):
             character.blood_status = data.get('blood_status', character.blood_status)
             character.gender = data.get('gender', character.gender)
             character.description = data.get('description', character.description)
+            character.updated_at = data.get('updated_at', datetime.now())
             character.save()
 
             # Обновляем дом

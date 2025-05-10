@@ -8,3 +8,4 @@ class Poison(BaseModel):
     effect = StringProperty()
     difficulty = StringProperty()
     ingredients = StringProperty()
+    updated_at = StringProperty()

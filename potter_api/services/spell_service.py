@@ -1,6 +1,7 @@
 from models.spell import Spell
 from models.character import Character
 from neomodel.exceptions import DoesNotExist
+from datetime import datetime
 
 
 class SpellService:
@@ -8,6 +9,7 @@ class SpellService:
         self.db = database
 
     def create(self, name, **kwargs):
+        kwargs['updated_at'] = datetime.now()
         return Spell(name=name, **kwargs).save()
 
     def get_all(self, name=None, effect=None, category=None, light=None):

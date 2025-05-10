@@ -1,5 +1,6 @@
 from models.character import Character
 from neomodel.exceptions import DoesNotExist
+from datetime import datetime
 
 
 class CharacterService:
@@ -7,6 +8,7 @@ class CharacterService:
         self.db = database
 
     def create(self, name, **kwargs):
+        kwargs['updated_at'] = datetime.now()
         return Character(name=name, **kwargs).save()
 
     def get_all(self, name=None, house=None, blood_status=None, gender=None,
@@ -59,7 +61,8 @@ class CharacterService:
                 'description': c.description,
                 'spells': spells,
                 'poisons': poisons,
-                'relationships': relationships
+                'relationships': relationships,
+                'updated_at': c.updated_at
             })
         return characters
 

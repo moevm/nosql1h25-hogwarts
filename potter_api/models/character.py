@@ -14,6 +14,7 @@ class Character(BaseModel):
     blood_status = StringProperty()
     gender = StringProperty()
     description = StringProperty()
+    updated_at = StringProperty()
 
     # Relationships
     belongs_to = RelationshipTo('House', 'BELONGS_TO')

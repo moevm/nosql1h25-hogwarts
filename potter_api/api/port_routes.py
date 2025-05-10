@@ -112,7 +112,8 @@ def register_port_routes(app, db):
                         }
                         for target in c.relationships.all()
                     ],
-                    'image_path': c.image_path
+                    'image_path': c.image_path,
+                    'updated_at': c.updated_at
                 })
 
             # Potions
@@ -122,7 +123,8 @@ def register_port_routes(app, db):
                 'effect': p[0]['effect'],
                 'difficulty': p[0]['difficulty'],
                 'ingredients': p[0]['ingredients'],
-                'image_path': p[0]['image_path']
+                'image_path': p[0]['image_path'],
+                'updated_at': p[0]['updated_at']
             } for p in potions]
 
             # Spells
@@ -132,7 +134,8 @@ def register_port_routes(app, db):
                 'effect': s[0]['effect'],
                 'category': s[0]['category'],
                 'light': s[0]['light'],
-                'image_path': s[0]['image_path']
+                'image_path': s[0]['image_path'],
+                'updated_at': s[0]['updated_at']
             } for s in spells]
 
             # Houses

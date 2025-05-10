@@ -8,3 +8,4 @@ class Spell(BaseModel):
     category = StringProperty()
     light = StringProperty()
     image_path = StringProperty()
+    updated_at = StringProperty()
