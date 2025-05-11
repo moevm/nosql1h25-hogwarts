@@ -50,8 +50,7 @@ def register_spell_routes(app, db):
             'image_path': spell.image_path,
             'effect': spell.effect,
             'category': spell.category,
-            'light': spell.light,
-            'known_by': [character.name for character in spell.known_by.all()]
+            'light': spell.light
         })
 
     @app.route('/api/spells', methods=['POST'])
