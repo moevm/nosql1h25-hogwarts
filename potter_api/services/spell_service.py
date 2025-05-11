@@ -44,3 +44,13 @@ class SpellService:
             return Spell.nodes.get(id=spell_id)
         except DoesNotExist:
             return None
+
+    def get_unique_light_values(self):
+        query = """
+            MATCH (s:Spell)
+            WHERE s.light IS NOT NULL
+            RETURN DISTINCT s.light
+            ORDER BY s.light
+        """
+        results, _ = self.db.execute_query(query)
+        return [result[0] for result in results]
