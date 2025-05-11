@@ -54,3 +54,13 @@ class SpellService:
         """
         results, _ = self.db.execute_query(query)
         return [result[0] for result in results]
+
+    def get_unique_category_values(self):
+        query = """
+            MATCH (s:Spell)
+            WHERE s.category IS NOT NULL
+            RETURN DISTINCT s.category
+            ORDER BY s.category
+        """
+        results, _ = self.db.execute_query(query)
+        return [result[0] for result in results]
