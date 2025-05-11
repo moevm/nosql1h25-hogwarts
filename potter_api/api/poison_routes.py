@@ -51,8 +51,7 @@ def register_poison_routes(app, db):
             'effect': poison.effect,
             'difficulty': poison.difficulty,
             'ingredients': poison.ingredients,
-            'updated_at': poison.updated_at,
-            'brewers': [brewer.name for brewer in poison.brewed.all()]
+            'updated_at': poison.updated_at
         })
 
     @app.route('/api/potions', methods=['POST'])
