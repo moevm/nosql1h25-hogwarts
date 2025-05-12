@@ -45,3 +45,13 @@ class PoisonService:
             return Poison.nodes.get(id=poison_id)
         except DoesNotExist:
             return None
+
+    def get_unique_light_values(self):
+        query = """
+            MATCH (s:Poison)
+            WHERE s.light IS NOT NULL
+            RETURN DISTINCT s.light
+            ORDER BY s.light
+        """
+        results, _ = self.db.execute_query(query)
+        return [result[0] for result in results]
