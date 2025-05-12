@@ -56,12 +56,12 @@ class PoisonService:
         results, _ = self.db.execute_query(query)
         return [result[0] for result in results]
 
-    def get_unique_category_values(self):
+    def get_unique_difficulty_values(self):
         query = """
             MATCH (s:Poison)
-            WHERE s.category IS NOT NULL
-            RETURN DISTINCT s.category
-            ORDER BY s.category
+            WHERE s.difficulty IS NOT NULL
+            RETURN DISTINCT s.difficulty
+            ORDER BY s.difficulty
         """
         results, _ = self.db.execute_query(query)
         return [result[0] for result in results]
