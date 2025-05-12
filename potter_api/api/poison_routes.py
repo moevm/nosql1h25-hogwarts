@@ -97,3 +97,16 @@ def register_poison_routes(app, db):
 
         except Exception as e:
             return jsonify({'error': str(e)}), 400
+
+    @app.route('/api/potions/filters', methods=['GET'])
+    def get_potion_filters_arr():
+        try:
+            ingredients_values = db.poisons.get_unique_ingredients_values()
+            difficulty_values = db.poisons.get_unique_difficulty_values()
+
+            return jsonify({
+                'ingredients': ingredients_values,
+                'difficulty': difficulty_values
+            }), 200
+        except Exception as e:
+            return jsonify({'error': str(e)}), 400
