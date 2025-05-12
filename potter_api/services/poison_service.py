@@ -46,12 +46,12 @@ class PoisonService:
         except DoesNotExist:
             return None
 
-    def get_unique_light_values(self):
+    def get_unique_ingredients_values(self):
         query = """
             MATCH (s:Poison)
-            WHERE s.light IS NOT NULL
-            RETURN DISTINCT s.light
-            ORDER BY s.light
+            WHERE s.ingredients IS NOT NULL
+            RETURN DISTINCT s.ingredients
+            ORDER BY s.ingredients
         """
         results, _ = self.db.execute_query(query)
         return [result[0] for result in results]
