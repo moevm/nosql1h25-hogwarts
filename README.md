@@ -77,7 +77,7 @@ docker-compose up
 docker-compose down
 ```
 
-Для остановки и удаления контейнеров:
+Для остановки и удаления контейнеров (БД будет очищена):
 
 ```bash
 docker-compose down -v
