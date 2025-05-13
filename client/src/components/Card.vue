@@ -40,7 +40,7 @@ const getImage = (str) => {
 
 <template>
   <div class="flex justify-center items-center">
-    <div class="w-[250px] h-[300px] bg-bg flex flex-col items-center pt-2 rounded-md overflow-hidden ">
+    <div class="w-[220px] h-[300px] bg-bg flex flex-col items-center pt-2 rounded-md overflow-hidden ">
       <img
         class="max-h-[200px] object-cover rounded-[10px]"
         :src="img || getImage()"

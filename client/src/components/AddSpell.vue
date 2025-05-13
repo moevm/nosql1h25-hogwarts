@@ -2,22 +2,22 @@
 import { onMounted, ref } from 'vue'
 
 const props = defineProps({
-  character: Object
+  Spell: Object
 })
 const emit = defineEmits(['saved'])
 
-const addCharacterModal = ref(false)
-const form = ref({ ...props.character })
+const addSpellModal = ref(false)
+const form = ref({ ...props.Spell })
 const filters = ref({})
 
-const toggleCharacterModal = (e) => {
+const toggleSpellModal = (e) => {
   e.stopPropagation()
-  addCharacterModal.value = !addCharacterModal.value
+  addSpellModal.value = !addSpellModal.value
 }
 
-const createCharacter = async () => {
+const createSpell = async () => {
   try {
-    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/characters`, {
+    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/spells`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(form.value)
@@ -28,9 +28,8 @@ const createCharacter = async () => {
     }
 
     const result = await response.json()
-    console.log('Персонаж создан:', result)
     emit('saved')
-    toggleCharacterModal(new Event('click'))  // Закрыть модальное окно после успешного создания
+    toggleSpellModal(new Event('click'))
   } catch (error) {
     console.error('Ошибка при отправке:', error)
     alert('Произошла ошибка при создании персонажа.')
@@ -38,7 +37,7 @@ const createCharacter = async () => {
 }
 
 onMounted(async () => {
-  filters.value = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/characters/filters`, {
+  filters.value = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/spells/filters`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
   }).then((res) => res.json())
@@ -46,80 +45,68 @@ onMounted(async () => {
   console.log(filters.value)
 })
 </script>
-
 <template>
-  <li class="flex justify-center" @click="toggleCharacterModal">
-    <div
-      class="w-[250px] bg-bg flex flex-col items-center justify-center pt-2 rounded-[10px] cursor-pointer"
-    >
+  <li class="flex justify-center" @click="toggleSpellModal">
+    <div class="w-[220px] bg-bg flex flex-col items-center justify-center pt-2 rounded-[10px] cursor-pointer">
       <img class="my-4 w-3/5 rounded-md border-3 border-gold border-dashed" src="/images/add.svg" />
-      <p class="text-gold text-lg">Create Character</p>
+      <p class="text-gold text-lg">Create Spell</p>
     </div>
 
     <!-- Модальное окно -->
     <div
-      v-if="addCharacterModal"
-      class="w-[700px] h-[400px] absolute bg-bg top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] rounded-[10px] border-2 border-gold p-6 overflow-y-auto"
+      v-if="addSpellModal"
+      class="w-[700px] h-[500px] absolute bg-bg top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] rounded-[10px] border-2 border-gold p-6 overflow-y-auto"
       @click.stop
     >
-      <div class="relative w-full h-[500px] flex flex-col justify-between">
+      <div class="relative w-full h-full flex flex-col justify-between">
         <button
           class="absolute top-4 right-4 border border-gold w-10 h-10 rounded-[10px] text-gold text-xl"
-          @click="toggleCharacterModal"
+          @click="toggleSpellModal"
         >
           ×
         </button>
 
-        <div class="flex flex-col gap-4 mt-8">
-          <div>
-            <label class="block mb-2 text-gold text-lg font-display">Name</label>
-            <input
-              v-model="form.name"
-              type="text"
-              class="w-full p-2 rounded border border-gold bg-transparent text-gold placeholder:text-[#6C6F27] font-display"
-              placeholder="Enter character name"
-            />
-          </div>
+        <form @submit.prevent="createSpell" class="flex flex-col gap-4 mt-8 text-gold">
+          <label>
+            Name:
+            <input v-model="form.name" class="input" type="text" placeholder="Enter name" />
+          </label>
 
-          <div>
-            <label class="block mb-2 text-gold text-lg font-display">Role</label>
-            <input
-              v-model="form.role"
-              type="text"
-              placeholder="Enter character role"
-              class="w-full p-2 rounded border border-gold bg-transparent text-gold font-display"
-            />
-          </div>
+          <label>
+            Effect:
+            <input v-model="form.effect" class="input" type="text" placeholder="Enter effect" />
+          </label>
 
-          <div>
-            <label class="block mb-2 text-gold text-lg font-display">Description</label>
-            <textarea
-              v-model="form.description"
-              rows="3"
-              class="w-full p-2 rounded border border-gold bg-transparent text-gold placeholder:text-[#6C6F27] font-display resize-none"
-              placeholder="Enter character description"
-            ></textarea>
-          </div>
+          <label>
+            Light:
+            <select v-model="form.light" class="input">
+              <option v-for="option in filters.light" :key="option" :value="option">
+                {{ option }}
+              </option>
+            </select>
+          </label>
 
-          <div>
-            <label class="block mb-2 text-gold text-lg font-display">Image URL</label>
-            <input
-              v-model="form.image_path"
-              type="text"
-              class="w-full p-2 rounded border border-gold bg-transparent text-gold font-display"
-              placeholder="Enter image URL"
-            />
-          </div>
+          <label>
+            Category:
+            <select v-model="form.category" class="input">
+              <option v-for="option in filters.category" :key="option" :value="option">
+                {{ option }}
+              </option>
+            </select>
+          </label>
 
-          <div class="flex justify-between">
-            <button
-              @click="createCharacter"
-              class="px-6 py-2 border border-gold text-gold rounded-md font-display hover:bg-gold hover:text-bg transition"
-            >
-              Create
-            </button>
-          </div>
-        </div>
+          <label>
+            Image URL:
+            <input v-model="form.image_path" class="input" type="text" placeholder="Enter image URL" />
+          </label>
+
+          <button
+            type="submit"
+            class="px-6 py-2 border border-gold text-gold rounded-md font-display hover:bg-gold hover:text-bg transition"
+          >
+            Create
+          </button>
+        </form>
       </div>
     </div>
   </li>
@@ -132,7 +119,7 @@ onMounted(async () => {
   color: gold;
   padding: 0.5em;
   border-radius: 4px;
-  display: block;
   width: 100%;
 }
 </style>
+
