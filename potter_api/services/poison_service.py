@@ -50,18 +50,11 @@ class PoisonService:
         query = """
             MATCH (s:Poison)
             WHERE s.ingredients IS NOT NULL
-            RETURN s.ingredients
+            RETURN DISTINCT s.ingredients
+            ORDER BY s.ingredients
         """
         results, _ = self.db.execute_query(query)
-
-        unique_ingredients = set()
-
-        for row in results:
-            ingredients_str = row[0]
-            parts = [ingredient.strip() for ingredient in ingredients_str.split(',')]
-            unique_ingredients.update(parts)
-
-        return sorted(unique_ingredients)
+        return [result[0] for result in results]
 
     def get_unique_difficulty_values(self):
         query = """
