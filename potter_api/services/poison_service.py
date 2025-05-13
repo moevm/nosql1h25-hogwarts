@@ -45,3 +45,23 @@ class PoisonService:
             return Poison.nodes.get(id=poison_id)
         except DoesNotExist:
             return None
+
+    def get_unique_ingredients_values(self):
+        query = """
+            MATCH (s:Poison)
+            WHERE s.ingredients IS NOT NULL
+            RETURN DISTINCT s.ingredients
+            ORDER BY s.ingredients
+        """
+        results, _ = self.db.execute_query(query)
+        return [result[0] for result in results]
+
+    def get_unique_difficulty_values(self):
+        query = """
+            MATCH (s:Poison)
+            WHERE s.difficulty IS NOT NULL
+            RETURN DISTINCT s.difficulty
+            ORDER BY s.difficulty
+        """
+        results, _ = self.db.execute_query(query)
+        return [result[0] for result in results]

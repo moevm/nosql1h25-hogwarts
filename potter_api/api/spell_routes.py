@@ -95,3 +95,16 @@ def register_spell_routes(app, db):
 
         except Exception as e:
             return jsonify({'error': str(e)}), 400
+
+    @app.route('/api/spells/filters', methods=['GET'])
+    def get_spell_filters_arr():
+        try:
+            light_values = db.spells.get_unique_light_values()
+            category_values = db.spells.get_unique_category_values()
+
+            return jsonify({
+                'light': light_values,
+                'category': category_values
+            }), 200
+        except Exception as e:
+            return jsonify({'error': str(e)}), 400
