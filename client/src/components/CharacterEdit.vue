@@ -24,6 +24,9 @@ const updateCharacter = async () => {
     body: JSON.stringify(characterToSave)
   })
   emit('saved')
+
+  console.log(form.value)
+  console.log(props.character)
 }
 </script>
 
@@ -68,8 +71,11 @@ const updateCharacter = async () => {
     <label>Image URL: <input v-model="form.image_path" class="input" /></label>
 
     <!-- Отношения -->
-    <RelationEditor v-model="form.relationships" />
-
+    <RelationEditor
+      v-model="form.relationships"
+      v-model:spells="form.spells"
+      v-model:poisons="form.poisons"
+    />
     <button type="submit" class="bg-gold text-bg px-4 py-2 rounded">Save</button>
   </form>
 </template>
