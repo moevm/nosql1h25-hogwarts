@@ -23,6 +23,14 @@ const toggleModal = (e) => {
 }
 
 const handleSubmit = async () => {
+  const birth = born.value ? new Date(born.value) : null
+  const death = died.value ? new Date(died.value) : null
+
+  if (birth && death && death < birth) {
+    alert('Дата смерти не может быть раньше даты рождения.')
+    return
+  }
+
   const id = name.value.toLowerCase().replace(/\s+/g, '-')
 
   const newItem = {
@@ -79,6 +87,7 @@ const handleSubmit = async () => {
     alert('Произошла ошибка при добавлении персонажа.')
   }
 }
+
 </script>
 
 <template>

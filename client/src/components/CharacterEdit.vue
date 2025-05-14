@@ -12,22 +12,28 @@ const form = ref({
   ...props.character
 })
 const updateCharacter = async () => {
+  const bornYear = form.value.born ? Number(form.value.born) : null
+  const diedYear = form.value.died ? Number(form.value.died) : null
+
+  if (bornYear && diedYear && diedYear < bornYear) {
+    alert('Год смерти не может быть раньше года рождения.')
+    return
+  }
+
   const characterToSave = {
     ...form.value,
-    born: form.value.born ? Number(form.value.born) : null,
-    died: form.value.died ? Number(form.value.died) : null
+    born: bornYear,
+    died: diedYear
   }
-  console.log(characterToSave)
+
   await fetch(`${import.meta.env.VITE_SERVER_URL}/api/characters/${form.value.id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(characterToSave)
   })
   emit('saved')
-
-  console.log(form.value)
-  console.log(props.character)
 }
+
 </script>
 
 <template>

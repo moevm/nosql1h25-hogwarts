@@ -28,17 +28,31 @@ function handleFileUpload(event) {
     try {
       const data = JSON.parse(e.target.result)
       console.log('Imported:', data)
-      await fetch(`${import.meta.env.VITE_SERVER_URL}/api/import`, {
+
+      const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/import`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
       })
+
+      if (!response.ok) {
+        throw new Error('Ошибка при импорте данных')
+      }
+
+      const result = await response.json()
+
+      // Используем ответ от сервера, если есть
+      const count = result?.import_counts ?? data.length
+
+      alert(`Импорт завершен. Добавлено записей: ${count}`)
     } catch (err) {
-      console.error('Неверный формат файла.')
+      console.error('Ошибка при загрузке файла:', err)
+      alert('Ошибка: неверный формат или структура файла.')
     }
   }
+
   reader.readAsText(file)
 }
 

@@ -52,6 +52,7 @@ const modalDisable = () => {
       placeholder="Harry Potter"
       :modal-open="modalOpen"
     />
+    <p class="text-gold text-xl my-4">Found {{ items.length }} records</p>
     <ul class="w-5/6 grid grid-cols-[2fr_2fr_2fr_2fr] gap-5 overflow-y-auto scrollbar-hide">
       <AddCharacter @fetchUpdate="fetchUpdate" />
       <li v-for="item in items" :key="item.id" class="flex justify-center">
