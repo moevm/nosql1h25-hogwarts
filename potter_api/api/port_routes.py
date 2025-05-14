@@ -8,6 +8,7 @@ from flask import jsonify, request
 
 
 def run_import(data, db, app=None):
+    counts = 0
     try:
         # Импорт заклинаний
         for s in data.get('spells', []):
@@ -19,6 +20,7 @@ def run_import(data, db, app=None):
                     light=s.get('light'),
                     image_path=s.get('image_path')
                 )
+                counts += 1
 
         # Импорт зелий
         for p in data.get('potions', []):
@@ -30,6 +32,7 @@ def run_import(data, db, app=None):
                     ingredients=p.get('ingredients'),
                     image_path=p.get('image_path')
                 )
+                counts += 1
 
         # Импорт факультетов
         for h in data.get('houses', []):
@@ -39,6 +42,7 @@ def run_import(data, db, app=None):
                     founder=h.get('founder'),
                     image_path=h.get('image_path')
                 )
+                counts += 1
 
         # Импорт персонажей
         for c in data.get('characters', []):
@@ -52,6 +56,7 @@ def run_import(data, db, app=None):
                     description=c.get('description'),
                     image_path=c.get('image_path')
                 )
+                counts += 1
 
                 if c.get('house'):
                     house = House.nodes.get_or_none(name=c['house'])
@@ -78,13 +83,14 @@ def run_import(data, db, app=None):
                     if target:
                         source.relationships.connect(
                             target, {'type': rel['type']})
-        return True
+        return counts
+
     except Exception as e:
         if app:
             app.logger.error(f"Import error: {e}")
         else:
             print(f"[ERROR] Import error: {e}")
-        return False
+        return None
 
 def register_port_routes(app, db):
     @app.route('/api/export', methods=['GET'])
@@ -161,8 +167,12 @@ def register_port_routes(app, db):
     def import_database():
         db.clear_data()
         data = request.json
-        success = run_import(data, db, app)
-        if success:
-            return jsonify({'message': 'Data imported successfully'}), 201
+        result = run_import(data, db, app)
+
+        if result:
+            return jsonify({
+                'message': 'Data imported successfully',
+                'import_counts': result
+            }), 201
         else:
             return jsonify({'error': 'Import failed'}), 400
