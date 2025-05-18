@@ -15,17 +15,35 @@ def register_character_routes(app, db):
         died_min = request.args.get('died_min')
         died_max = request.args.get('died_max')
 
+        page = int(request.args.get('page'))
+        per_page = 7
         try:
             characters = db.characters.get_all(
                 **filters,
                 born_min=born_min, born_max=born_max,
                 died_min=died_min, died_max=died_max
             )
+            total_count = len(characters)
+
+            start_idx = (page - 1) * per_page
+            end_idx = start_idx + per_page
+            paginated_characters = characters[start_idx:end_idx]
+
+            response = {
+                'data': paginated_characters,
+                'pagination': {
+                    'total': total_count,
+                    'page': page,
+                    'per_page': per_page,
+                    'total_pages': (total_count + per_page - 1) // per_page
+                }
+            }
+
         except Exception as e:
             app.logger.error(e)
             return jsonify({'error': 'Internal server error'}), 500
 
-        return jsonify(characters), 200
+        return jsonify(response), 200
 
     @app.route('/api/characters/<character_id>', methods=['GET'])
     def get_character(character_id):
