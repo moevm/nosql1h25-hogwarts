@@ -14,6 +14,9 @@ def register_poison_routes(app, db):
         ingredients = None if not ingredients else ingredients
         difficulty = None if not difficulty else difficulty
 
+        page = int(request.args.get('page'))
+        per_page = 7
+
         results = db.poisons.get_all(
             name=name,
             effect=effect,
@@ -37,7 +40,23 @@ def register_poison_routes(app, db):
                 'updated_at': p['updated_at']
             })
 
-        return jsonify(poisons)
+            total_count = len(poisons)
+
+            start_idx = (page - 1) * per_page
+            end_idx = start_idx + per_page
+            paginated_poisons = poisons[start_idx:end_idx]
+
+            response = {
+                'data': paginated_poisons,
+                'pagination': {
+                    'total': total_count,
+                    'page': page,
+                    'per_page': per_page,
+                    'total_pages': (total_count + per_page - 1) // per_page
+                }
+            }
+
+        return jsonify(response), 200
 
     @app.route('/api/potions/<potion_id>', methods=['GET'])
     def get_poison(potion_id):
