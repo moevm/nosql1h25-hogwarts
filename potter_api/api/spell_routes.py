@@ -15,8 +15,7 @@ def register_spell_routes(app, db):
         light = None if not light else light
 
         page = int(request.args.get('page'))
-        per_page = 7
-
+        per_page = 50
         results = db.spells.get_all(
             name=name,
             effect=effect,
@@ -40,23 +39,23 @@ def register_spell_routes(app, db):
                 'updated_at': s['updated_at']
             })
 
-            total_count = len(spells)
+        total_count = len(spells)
 
-            start_idx = (page - 1) * per_page
-            end_idx = start_idx + per_page
-            paginated_spells = spells[start_idx:end_idx]
+        start_idx = (page - 1) * per_page
+        end_idx = start_idx + per_page
+        paginated_spells = spells[start_idx:end_idx]
 
-            response = {
-                'data': paginated_spells,
-                'pagination': {
-                    'total': total_count,
-                    'page': page,
-                    'per_page': per_page,
-                    'total_pages': (total_count + per_page - 1) // per_page
-                }
+        response = {
+            'data': paginated_spells,
+            'pagination': {
+                'total': total_count,
+                'page': page,
+                'per_page': per_page,
+                'total_pages': (total_count + per_page - 1) // per_page
             }
+        }
 
-        return jsonify(response), 200
+        return jsonify(response), 200   
 
     @app.route('/api/spells/<spell_id>', methods=['GET'])
     def get_spell(spell_id):
