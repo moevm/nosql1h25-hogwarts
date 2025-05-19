@@ -25,30 +25,47 @@
           <!-- Step 1: Entity -->
           <div v-if="currentStep === 0" class="space-y-4">
             <label class="block text-gold font-medium">Entity:</label>
-            <select v-model="form.entity" class="w-full p-2 rounded-lg bg-transparent border border-gold text-gold">
+            <select
+              v-model="form.entity"
+              class="w-full p-2 rounded-lg bg-transparent border border-gold text-gold"
+            >
               <option disabled value="">-- Select Entity --</option>
-              <option v-for="ent in entities" :key="ent" :value="ent" class="bg-bg text-gold">{{ ent }}</option>
+              <option
+                v-for="ent in entities"
+                :key="ent"
+                :value="ent"
+                class="bg-bg text-gold"
+              >
+                {{ ent }}
+              </option>
             </select>
           </div>
 
           <!-- Step 2: Filters -->
           <div v-if="currentStep === 1" class="space-y-4">
             <h3 class="text-lg text-gold">Filters for {{ form.entity }}</h3>
-
             <!-- Character filters -->
             <div v-if="form.entity === 'Character'" class="grid grid-cols-2 gap-4">
+              <!-- Blood Status -->
               <div>
                 <label class="block text-gold">Blood Status</label>
-                <select v-model="form.filters.blood_status" class="w-full p-2 rounded-lg bg-transparent border border-gold text-gold">
+                <select
+                  v-model="form.filters.blood_status"
+                  class="w-full p-2 rounded-lg bg-transparent border border-gold text-gold"
+                >
                   <option value="" class="bg-bg text-gold">-- Any --</option>
                   <option value="Pure-blood">Pure-blood</option>
                   <option value="Half-blood">Half-blood</option>
                   <option value="Muggle-born">Muggle-born</option>
                 </select>
               </div>
+              <!-- House -->
               <div>
                 <label class="block text-gold">House</label>
-                <select v-model="form.filters.house" class="w-full p-2 rounded-lg bg-transparent border border-gold text-gold">
+                <select
+                  v-model="form.filters.house"
+                  class="w-full p-2 rounded-lg bg-transparent border border-gold text-gold"
+                >
                   <option value="" class="bg-bg text-gold">-- Any --</option>
                   <option>Gryffindor</option>
                   <option>Slytherin</option>
@@ -56,38 +73,67 @@
                   <option>Hufflepuff</option>
                 </select>
               </div>
+              <!-- Gender -->
               <div>
                 <label class="block text-gold">Gender</label>
-                <select v-model="form.filters.gender" class="w-full p-2 rounded-lg bg-transparent border border-gold text-gold">
+                <select
+                  v-model="form.filters.gender"
+                  class="w-full p-2 rounded-lg bg-transparent border border-gold text-gold"
+                >
                   <option value="" class="bg-bg text-gold">-- Any --</option>
                   <option>Male</option>
                   <option>Female</option>
                 </select>
               </div>
+              <!-- Born Year -->
               <div>
                 <label class="block text-gold">Born Year</label>
                 <div class="flex space-x-2">
-                  <input v-model.number="form.filters.born_min" type="number" placeholder="from" class="w-1/2 p-2 rounded-lg bg-transparent border border-gold text-gold" />
-                  <input v-model.number="form.filters.born_max" type="number" placeholder="to" class="w-1/2 p-2 rounded-lg bg-transparent border border-gold text-gold" />
+                  <input
+                    v-model.number="form.filters.born_min"
+                    type="number"
+                    placeholder="from"
+                    class="w-1/2 p-2 rounded-lg bg-transparent border border-gold text-gold"
+                  />
+                  <input
+                    v-model.number="form.filters.born_max"
+                    type="number"
+                    placeholder="to"
+                    class="w-1/2 p-2 rounded-lg bg-transparent border border-gold text-gold"
+                  />
                 </div>
               </div>
+              <!-- Died Year -->
               <div>
                 <label class="block text-gold">Died Year</label>
                 <div class="flex space-x-2">
-                  <input v-model.number="form.filters.died_min" type="number" placeholder="from" class="w-1/2 p-2 rounded-lg bg-transparent border border-gold text-gold" />
-                  <input v-model.number="form.filters.died_max" type="number" placeholder="to" class="w-1/2 p-2 rounded-lg bg-transparent border border-gold text-gold" />
+                  <input
+                    v-model.number="form.filters.died_min"
+                    type="number"
+                    placeholder="from"
+                    class="w-1/2 p-2 rounded-lg bg-transparent border border-gold text-gold"
+                  />
+                  <input
+                    v-model.number="form.filters.died_max"
+                    type="number"
+                    placeholder="to"
+                    class="w-1/2 p-2 rounded-lg bg-transparent border border-gold text-gold"
+                  />
                 </div>
               </div>
             </div>
-
-            <!-- Potions filters -->
+            <!-- Poison filters -->
             <div v-if="form.entity === 'Poison'" class="space-y-4">
               <label class="block text-gold">Difficulty</label>
-              <select v-model="form.filters.difficulty" class="w-full p-2 rounded-lg bg-transparent border border-gold text-gold">
+              <select
+                v-model="form.filters.difficulty"
+                class="w-full p-2 rounded-lg bg-transparent border border-gold text-gold"
+              >
                 <option value="" class="bg-bg text-gold">-- Any --</option>
-                <option v-for="lvl in potionsFilters.difficulty" :key="lvl">{{ lvl }}</option>
+                <option v-for="lvl in potionsFilters.difficulty" :key="lvl">
+                  {{ lvl }}
+                </option>
               </select>
-
               <label class="block text-gold">Ingredients</label>
               <div class="flex flex-wrap gap-2">
                 <button
@@ -95,46 +141,71 @@
                   :key="ing"
                   type="button"
                   class="tag"
-                  :class="{ 'selected': selectedIngredients.includes(ing) }"
+                  :class="{ selected: selectedIngredients.includes(ing) }"
                   @click="toggleIngredient(ing)"
-                >{{ ing }}</button>
+                >
+                  {{ ing }}
+                </button>
               </div>
             </div>
-
             <!-- Spell filters -->
             <div v-if="form.entity === 'Spell'" class="space-y-4">
               <label class="block text-gold">Category</label>
-              <select v-model="form.filters.category" class="w-full p-2 rounded-lg bg-transparent border border-gold text-gold">
+              <select
+                v-model="form.filters.category"
+                class="w-full p-2 rounded-lg bg-transparent border border-gold text-gold"
+              >
                 <option value="" class="bg-bg text-gold">-- Any --</option>
-                <option v-for="opt in spellFilters.category" :key="opt">{{ opt }}</option>
+                <option v-for="opt in spellFilters.category" :key="opt">
+                  {{ opt }}
+                </option>
               </select>
-
               <label class="block text-gold">Light</label>
-              <select v-model="form.filters.light" class="w-full p-2 rounded-lg bg-transparent border border-gold text-gold">
+              <select
+                v-model="form.filters.light"
+                class="w-full p-2 rounded-lg bg-transparent border border-gold text-gold"
+              >
                 <option value="" class="bg-bg text-gold">-- Any --</option>
-                <option v-for="opt in spellFilters.light" :key="opt">{{ opt }}</option>
+                <option v-for="opt in spellFilters.light" :key="opt">
+                  {{ opt }}
+                </option>
               </select>
             </div>
           </div>
-
           <!-- Step 3: Axes -->
           <div v-if="currentStep === 2" class="space-y-4">
             <label class="block text-gold">X Axis:</label>
-            <select v-model="form.x_axis" class="w-full p-2 rounded-lg bg-transparent border border-gold text-gold">
+            <select
+              v-model="form.x_axis"
+              class="w-full p-2 rounded-lg bg-transparent border border-gold text-gold"
+            >
               <option disabled value="" class="bg-bg text-gold">-- Select Field --</option>
               <option v-for="f in axisFields" :key="f">{{ f }}</option>
             </select>
             <label class="block text-gold">Y Axis:</label>
-            <select v-model="form.y_axis" class="w-full p-2 rounded-lg bg-transparent border border-gold text-gold">
+            <select
+              v-model="form.y_axis"
+              class="w-full p-2 rounded-lg bg-transparent border border-gold text-gold"
+            >
               <option disabled value="" class="bg-bg text-gold">-- Select Field --</option>
               <option v-for="f in axisFields" :key="f">{{ f }}</option>
             </select>
           </div>
-
           <!-- Footer -->
           <div class="mt-6 flex justify-end space-x-4">
-            <button @click="closeModal" class="px-4 py-2 bg-gray-700 text-gold rounded-lg">Cancel</button>
-            <button @click="onSubmit" :disabled="!isFormComplete" class="px-4 py-2 bg-gold text-bg rounded-lg disabled:opacity-50">Submit</button>
+            <button
+              @click="closeModal"
+              class="px-4 py-2 bg-gray-700 text-gold rounded-lg"
+            >
+              Cancel
+            </button>
+            <button
+              @click="onSubmit"
+              :disabled="!isFormComplete"
+              class="px-4 py-2 bg-gold text-bg rounded-lg disabled:opacity-50"
+           >
+              Submit
+            </button>
           </div>
         </div>
       </div>
@@ -171,7 +242,8 @@ const isModalOpen = ref(false)
 const chartModal = ref(false)
 const currentStep = ref(0)
 
-const form = reactive({
+// начальное состояние формы
+const initialForm = () => ({
   entity: '',
   filters: {
     born_min: null, born_max: null, died_min: null, died_max: null,
@@ -181,6 +253,7 @@ const form = reactive({
   },
   x_axis: '', y_axis: ''
 })
+const form = reactive(initialForm())
 const chartData = ref(null)
 const stepNames = ['Entity', 'Filters', 'Axes']
 
@@ -190,32 +263,37 @@ const spellFilters = reactive({ category: [], light: [] })
 const axisFields = computed(() => axisOptions[form.entity] || [])
 const isFormComplete = computed(() => form.entity && form.x_axis && form.y_axis)
 
+function resetForm() {
+  Object.assign(form, initialForm())
+  currentStep.value = 0
+}
+
+function openModal() {
+  resetForm()
+  isModalOpen.value = true
+}
+function closeModal() { isModalOpen.value = false; currentStep.value=0 }
+function closeChart() { chartModal.value = false; currentStep.value=0 }
+
 watch(() => form.entity, async (ent) => {
+  form.filters = initialForm().filters
   form.x_axis = ''
   form.y_axis = ''
-  currentStep.value = 0
+  currentStep.value = 1
   if (ent === 'Poison') {
     const { difficulty, ingredients } = await fetch(
       `${import.meta.env.VITE_SERVER_URL}/api/potions/filters`
     ).then(r => r.json())
     potionsFilters.difficulty = difficulty
     potionsFilters.ingredients = ingredients
-    form.filters.difficulty = ''
-    form.filters.ingredients = []
   } else if (ent === 'Spell') {
     const { category, light } = await fetch(
       `${import.meta.env.VITE_SERVER_URL}/api/spells/filters`
     ).then(r => r.json())
     spellFilters.category = category
     spellFilters.light = light
-    form.filters.category = ''
-    form.filters.light = ''
   }
 })
-
-function openModal() { isModalOpen.value = true }
-function closeModal() { isModalOpen.value = false }
-function closeChart() { chartModal.value = false }
 
 const selectedIngredients = computed(() => form.filters.ingredients)
 function toggleIngredient(item) {
@@ -225,22 +303,23 @@ function toggleIngredient(item) {
 }
 
 async function onSubmit() {
-  const clean = {}
+  const cleanFilters = {}
   for (const [k, v] of Object.entries(form.filters)) {
-    if (Array.isArray(v) ? v.length : v) clean[k] = v
+    if (Array.isArray(v) ? v.length : v) cleanFilters[k] = v
   }
-  const { data } = await fetch(
+  const resp = await fetch(
     `${import.meta.env.VITE_SERVER_URL}/api/statistics`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         entity: form.entity,
-        filters: clean,
+        filters: cleanFilters,
         x_axis: form.x_axis,
         y_axis: form.y_axis
       })
     }
-  ).then(r => r.json())
+  )
+  const { data } = await resp.json()
   chartData.value = data
   closeModal()
   chartModal.value = true

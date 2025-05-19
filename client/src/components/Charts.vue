@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount, computed } from 'vue'
 import Chart from 'chart.js/auto'
 
 // Props: массив объектов { x, y, count }
@@ -27,13 +27,20 @@ const props = defineProps({
 const canvasRef = ref(null)
 let chartInstance = null
 
+// Собираем уникальные метки для каждой оси
+const xLabels = computed(() =>
+  Array.from(new Set(props.data.map(item => item.x)))
+)
+const yLabels = computed(() =>
+  Array.from(new Set(props.data.map(item => item.y)))
+)
+
 // Преобразование API-данных в данные для bubble-графика
 function prepareDataset(data) {
   return data.map(item => ({
     x: item.x,
     y: item.y,
-    // множитель можно настраивать для визуального размера
-    r: item.count * 4
+    r: item.count * 4    // размер пузырька
   }))
 }
 
@@ -49,20 +56,23 @@ function renderChart() {
   chartInstance = new Chart(ctx, {
     type: 'bubble',
     data: {
-      datasets: [
-        {
-          label: 'Statistics',
-          data: bubbleData,
-          backgroundColor: 'rgba(75, 192, 192, 0.5)',
-          borderColor: 'rgba(75, 192, 192, 1)',
-          borderWidth: 1
-        }
-      ]
+      datasets: [{
+        label: 'Statistics',
+        data: bubbleData,
+        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+        borderColor:     'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+      }]
     },
     options: {
       scales: {
         x: {
           type: 'category',
+          labels: xLabels.value,
+          offset: true,              // смещение меток от краёв
+          ticks: {
+            padding: 10             // внутренний отступ
+          },
           title: {
             display: true,
             text: props.xAxis
@@ -70,6 +80,11 @@ function renderChart() {
         },
         y: {
           type: 'category',
+          labels: yLabels.value,
+          offset: true,              // смещение меток от краёв
+          ticks: {
+            padding: 10             // внутренний отступ
+          },
           title: {
             display: true,
             text: props.yAxis
@@ -86,23 +101,15 @@ function renderChart() {
             }
           }
         }
-      }
+      },
+      responsive: true,
+      maintainAspectRatio: false
     }
   })
 }
 
-onMounted(() => {
-  renderChart()
-})
-
-watch(
-  () => [props.data, props.xAxis, props.yAxis],
-  () => {
-    renderChart()
-  },
-  { deep: true }
-)
-
+onMounted(renderChart)
+watch(() => props.data, renderChart, { deep: true })
 onBeforeUnmount(() => {
   if (chartInstance) chartInstance.destroy()
 })
@@ -113,5 +120,10 @@ onBeforeUnmount(() => {
   width: 100%;
   max-width: 800px;
   margin: 20px auto;
+  height: 400px;
+}
+canvas {
+  width: 100% !important;
+  height: 100% !important;
 }
 </style>
