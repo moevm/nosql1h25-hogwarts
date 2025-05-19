@@ -60,12 +60,5 @@ watch(
         <option class="bg-bg text-gold" value="yellow">None</option>
       </select>
     </div>
-    <div class="text-gold">
-      User:
-      <input
-        v-model="filters.user"
-        class="text-gold outline-none border border-gold rounded-md ml-2"
-      />
-    </div>
   </div>
 </template>

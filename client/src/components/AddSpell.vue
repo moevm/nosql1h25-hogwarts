@@ -46,7 +46,7 @@ onMounted(async () => {
 })
 </script>
 <template>
-  <li class="flex justify-center" @click="toggleSpellModal">
+  <li class="flex justify-center h-[300px]" @click="toggleSpellModal">
     <div class="w-[220px] bg-bg flex flex-col items-center justify-center pt-2 rounded-[10px] cursor-pointer">
       <img class="my-4 w-3/5 rounded-md border-3 border-gold border-dashed" src="/images/add.svg" />
       <p class="text-gold text-lg">Create Spell</p>

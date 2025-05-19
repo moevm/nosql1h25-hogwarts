@@ -91,7 +91,7 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <li class="flex justify-center" @click="toggleModal">
+  <li class="flex justify-center h-[300px]" @click="toggleModal">
     <div
       class="w-[220px] bg-bg flex flex-col items-center justify-center pt-2 rounded-[10px] cursor-pointer"
     >

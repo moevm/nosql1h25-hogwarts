@@ -29,7 +29,7 @@ def register_statistics_routes(app, db):
             ORDER BY x, y
             """
 
-            results, _ = db.cypher_query(query)
+            results, _ = db.execute_query(query)
             data = [{"x": row[0], "y": row[1], "count": row[2]}
                     for row in results]
 

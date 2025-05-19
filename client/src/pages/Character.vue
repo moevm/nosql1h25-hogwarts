@@ -74,6 +74,9 @@ const openModal = () => {
             Edit
           </button>
         </div>
+        <p v-if="item.updated_at" class="text-2xl text-gold font-display text-start">
+          Last Update: {{  new Date(item.updated_at.replace(' ', 'T')).toLocaleString() }}
+        </p>
         <p class="text-2xl text-gold font-display text-start">
           Description: {{ item.description }}
         </p>

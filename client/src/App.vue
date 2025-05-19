@@ -2,6 +2,7 @@
 import { useHead } from '@vueuse/head'
 import { ref } from 'vue'
 import TopButton from './components/TopButton.vue'
+import StatisticsModal from './components/Statistics.vue'
 
 useHead({
   title: 'Главная страница',
@@ -56,6 +57,8 @@ function handleFileUpload(event) {
   reader.readAsText(file)
 }
 
+const exportStatus = ref('')
+
 async function handleExport() {
   try {
     const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/export`, {
@@ -80,11 +83,15 @@ async function handleExport() {
     link.click()
 
     URL.revokeObjectURL(url)
+
+    exportStatus.value = 'Экспорт успешно завершён!'
+    alert(exportStatus.value)
   } catch (error) {
     console.error('Export failed:', error)
+    exportStatus.value = 'Ошибка при экспорте данных'
+    alert(exportStatus.value)
   }
 }
-
 
 const isOpen = ref(false)
 </script>
@@ -136,7 +143,7 @@ const isOpen = ref(false)
       </transition>
     </div>
     <div class="absolute top-[50px] right-[70px] flex gap-5">
-      <TopButton action="Statistics" disabled />
+      <StatisticsModal />
       <TopButton action="Import" @click="triggerFileInput" />
       <TopButton action="Export"  @click="handleExport" />
       <input
