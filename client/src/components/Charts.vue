@@ -142,12 +142,18 @@ onBeforeUnmount(() => {
 <style scoped>
 .chart-wrapper {
   width: 100%;
-  height: 600px;
-  padding: 1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
   box-sizing: border-box;
 }
+
 canvas {
+  flex-grow: 1;
   width: 100% !important;
-  height: 85% !important;
+  height: 100% !important;
+  display: block;
 }
 </style>
