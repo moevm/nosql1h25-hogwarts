@@ -7,6 +7,7 @@ import AddCharacter from '../components/AddCharacter.vue'
 const items = ref([])
 const currentPage = ref(1)
 const totalPages = ref(1)
+const totalCount = ref(0)
 const baseQueryUrl = ref(`${import.meta.env.VITE_SERVER_URL}/api/characters`)
 
 onMounted(() => {
@@ -36,10 +37,11 @@ const fetchUpdate = async (url, page = 1) => {
 
     const res = await fetch(fullUrl.toString())
     const json = await res.json()
-
+    console.log(json)
     items.value = json.data
     currentPage.value = json.pagination.page
     totalPages.value = json.pagination.total_pages
+    totalCount.value = json.pagination.total
   } catch (err) {
     console.error(err)
   }
@@ -92,7 +94,7 @@ const visiblePages = computed(() => {
       placeholder="Harry Potter"
       :modal-open="modalOpen"
     />
-    <p class="text-gold text-xl my-4">Found {{ items.length }} records</p>
+    <p class="text-gold text-xl my-4">Found {{ totalCount }} records</p>
     <ul ref="listContainer" class="w-5/6 grid grid-cols-[2fr_2fr_2fr_2fr] gap-5 overflow-y-auto items-start scrollbar-hide h-[500px]">
       <AddCharacter @fetchUpdate="fetchUpdate" />
       <li v-for="item in items" :key="item.id" class="flex justify-center">

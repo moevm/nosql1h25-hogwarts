@@ -214,7 +214,7 @@
     <!-- Chart Modal -->
     <transition name="fade">
       <div v-if="chartModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-bg rounded-lg p-6 w-full max-w-3xl border border-gold">
+        <div class="bg-bg rounded-lg p-6 w-[90%] h-[90%] border border-gold overflow-hidden flex flex-col">
           <div class="flex justify-between items-center mb-4">
             <h2 class="text-xl text-gold">Statistics Results</h2>
             <button @click="closeChart" class="text-gold text-2xl">×</button>
@@ -279,7 +279,7 @@ watch(() => form.entity, async (ent) => {
   form.filters = initialForm().filters
   form.x_axis = ''
   form.y_axis = ''
-  currentStep.value = 1
+  currentStep.value = 0
   if (ent === 'Poison') {
     const { difficulty, ingredients } = await fetch(
       `${import.meta.env.VITE_SERVER_URL}/api/potions/filters`

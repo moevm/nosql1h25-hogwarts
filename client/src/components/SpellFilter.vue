@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, watch } from 'vue'
+import { reactive, watch, onMounted, ref } from 'vue'
 
 const emit = defineEmits(['makeOptions'])
 
@@ -10,19 +10,31 @@ const filters = reactive({
   user: ''
 })
 
+const filterOptions = ref({
+  category: [],
+  light: []
+})
+
 watch(
   () => filters,
   () => {
-    console.log(filters)
     const options = Object.entries(filters)
-      .filter(([_, value]) => value) // отбрасываем пустые
+      .filter(([_, value]) => value) // отбрасываем пустые значения
       .map(([key, value]) => ({ key, value }))
     emit('makeOptions', options)
   },
   { deep: true }
 )
-</script>
 
+onMounted(async () => {
+  filterOptions.value = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/spells/filters`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' }
+  }).then((res) => res.json())
+
+  console.log('Fetched filter options:', filterOptions.value)
+})
+</script>
 <template>
   <div class="flex flex-col flex-wrap justify-around h-full">
     <div class="text-gold">
@@ -32,12 +44,17 @@ watch(
         class="bg-bg text-gold border border-gold rounded-md px-4 py-2 font-display outline-none focus:ring-1 focus:ring-gold ml-2"
       >
         <option class="bg-bg text-gold" value="">--</option>
-        <option class="bg-bg text-gold" value="Charm">Charm</option>
-        <option class="bg-bg text-gold" value="Curse">Curse</option>
-        <option class="bg-bg text-gold" value="Hex">Hex</option>
-        <option class="bg-bg text-gold" value="Spell">Spell</option>
+        <option
+          v-for="option in filterOptions.category"
+          :key="option"
+          :value="option"
+          class="bg-bg text-gold"
+        >
+          {{ option }}
+        </option>
       </select>
     </div>
+
     <div class="text-gold">
       Effect:
       <input
@@ -46,7 +63,8 @@ watch(
       />
     </div>
   </div>
-  <div class="flex flex-col flex-wrap justify-around h-full">
+
+  <div class="flex flex-col flex-wrap justify-around h-full ml-[-200px]">
     <div class="text-gold">
       Light:
       <select
@@ -54,10 +72,14 @@ watch(
         class="bg-bg text-gold border border-gold rounded-md px-4 py-2 font-display outline-none focus:ring-1 focus:ring-gold ml-2"
       >
         <option class="bg-bg text-gold" value="">--</option>
-        <option class="bg-bg text-gold" value="blue">Blue</option>
-        <option class="bg-bg text-gold" value="red">Red</option>
-        <option class="bg-bg text-gold" value="green">Green</option>
-        <option class="bg-bg text-gold" value="yellow">None</option>
+        <option
+          v-for="option in filterOptions.light"
+          :key="option"
+          :value="option"
+          class="bg-bg text-gold"
+        >
+          {{ option }}
+        </option>
       </select>
     </div>
   </div>
