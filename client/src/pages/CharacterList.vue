@@ -1,6 +1,6 @@
 <script setup>
 import Card from '../components/Card.vue'
-import { onMounted, ref } from 'vue'
+import { computed, nextTick, onMounted, ref } from 'vue'
 import Search from '../components/Search.vue'
 import AddCharacter from '../components/AddCharacter.vue'
 
@@ -13,9 +13,18 @@ onMounted(() => {
   fetchUpdate(baseQueryUrl.value, 1)
 })
 
-const goToPage = (page) => {
+const listContainer = ref(null)
+
+const goToPage = async (page) => {
   if (page < 1 || page > totalPages.value) return
-fetchUpdate(baseQueryUrl.value, page)}
+  await fetchUpdate(baseQueryUrl.value, page)
+  nextTick(() => {
+    listContainer.value?.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  })
+}
 
 const fetchUpdate = async (url, page = 1) => {
   try {
@@ -45,6 +54,30 @@ const modalToggle = () => {
 const modalDisable = () => {
   modalOpen.value = false
 }
+
+const visiblePages = computed(() => {
+  const pages = []
+  const maxVisible = 5 // число видимых страниц вокруг текущей
+  const showDots = totalPages.value > maxVisible + 4
+
+  const start = Math.max(2, currentPage.value - 2)
+  const end = Math.min(totalPages.value - 1, currentPage.value + 2)
+
+  pages.push(1)
+
+  if (start > 2) pages.push('...')
+
+  for (let i = start; i <= end; i++) {
+    pages.push(i)
+  }
+
+  if (end < totalPages.value - 1) pages.push('...')
+
+  if (totalPages.value > 1) pages.push(totalPages.value)
+
+  return pages
+})
+
 </script>
 
 <template>
@@ -60,7 +93,7 @@ const modalDisable = () => {
       :modal-open="modalOpen"
     />
     <p class="text-gold text-xl my-4">Found {{ items.length }} records</p>
-    <ul class="w-5/6 grid grid-cols-[2fr_2fr_2fr_2fr] gap-5 overflow-y-auto items-start scrollbar-hide h-[500px]">
+    <ul ref="listContainer" class="w-5/6 grid grid-cols-[2fr_2fr_2fr_2fr] gap-5 overflow-y-auto items-start scrollbar-hide h-[500px]">
       <AddCharacter @fetchUpdate="fetchUpdate" />
       <li v-for="item in items" :key="item.id" class="flex justify-center">
         <router-link :to="`/characters/${item.id}`">
@@ -68,7 +101,7 @@ const modalDisable = () => {
         </router-link>
       </li>
     </ul>
-    <div v-if="totalPages > 1" class="flex justify-center gap-4 mt-6 text-gold">
+    <div v-if="totalPages > 1" class="flex justify-center gap-2 mt-6 text-gold flex-wrap">
   <button
     class="px-4 py-2 border border-gold rounded hover:bg-gold hover:text-black transition"
     :disabled="currentPage === 1"
@@ -78,14 +111,17 @@ const modalDisable = () => {
   </button>
 
   <button
-    v-for="page in totalPages"
+    v-for="page in visiblePages"
     :key="page"
     class="px-3 py-1 border rounded"
-    :class="{
-      'bg-gold text-black': page === currentPage,
-      'border-gold': true
-    }"
-    @click="goToPage(page)"
+    :class="[
+  'border',
+  page === currentPage ? 'bg-gold text-black' : '',
+  page !== '...' ? 'border-gold' : '',
+  page === '...' ? 'cursor-default' : ''
+]"
+    @click="page !== '...' && goToPage(page)"
+    :disabled="page === '...'"
   >
     {{ page }}
   </button>
@@ -98,5 +134,5 @@ const modalDisable = () => {
     Next
   </button>
 </div>
-  </div>
+</div>
 </template>

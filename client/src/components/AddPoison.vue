@@ -129,7 +129,7 @@ function toggleIngredient(item) {
 
           <div>
             <label class="block mb-2 text-gold text-lg font-display">Ingredients</label>
-            <div class="flex flex-wrap gap-2 mt-2">
+            <div class="flex flex-wrap gap-2 mt-2 max-h-[500px] overflow-y-scroll">
               <button
                 v-for="item in filters.ingredients"
                 :key="item"

@@ -2,7 +2,7 @@
 import Card from '@/components/Card.vue'
 import Search from '../components/Search.vue'
 import AddPoison from '../components/AddPoison.vue'
-import { onMounted, ref } from 'vue'
+import { nextTick, onMounted, ref } from 'vue'
 
 const items = ref([])
 const currentPage = ref(1)
@@ -17,9 +17,17 @@ onMounted(() => {
   fetchUpdate(baseQueryUrl.value, 1)
 })
 
-const goToPage = (page) => {
+const listContainer = ref(null)
+
+const goToPage = async (page) => {
   if (page < 1 || page > totalPages.value) return
-  fetchUpdate(baseQueryUrl.value, page)
+  await fetchUpdate(baseQueryUrl.value, page)
+  nextTick(() => {
+    listContainer.value?.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  })
 }
 
 const fetchUpdate = async (url, page = 1) => {
@@ -59,7 +67,7 @@ const fetchUpdate = async (url, page = 1) => {
 
     <p class="text-gold text-xl my-4">Found {{ items.length }} records</p>
 
-    <ul class="w-5/6 grid grid-cols-[2fr_2fr_2fr_2fr] gap-5 overflow-y-auto scrollbar-hide items-start h-[500px]" >
+    <ul ref="listContainer" class="w-5/6 grid grid-cols-[2fr_2fr_2fr_2fr] gap-5 overflow-y-auto scrollbar-hide items-start h-[500px]" >
       <AddPoison @fetchUpdate="fetchUpdate" />
       <li v-for="item in items" :key="item.id" class="flex justify-center">
         <router-link :to="`/potions/${item.id}`">
