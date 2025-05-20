@@ -83,7 +83,7 @@ const visiblePages = computed(() => {
 </script>
 
 <template>
-  <div class="mt-[-150px]">
+  <div class="mt-[-100px]">
     <router-link to="/" class="text-5xl text-gold font-display flex">
       Harry Potter Wiki
     </router-link>
