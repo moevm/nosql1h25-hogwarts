@@ -45,8 +45,8 @@ const fetchUpdate = async (url, page = 1) => {
     const json = await res.json()
 
     items.value = json.data
-    currentPage.value = json.pagination?.page ?? 1
-    totalPages.value = json.pagination?.total_pages ?? 1
+    currentPage.value = json.pagination?.page
+    totalPages.value = json.pagination?.total_pages
     totalCount.value = json.pagination.total
   } catch (err) {
     console.error('Ошибка при fetchUpdate:', err)
@@ -70,7 +70,7 @@ const fetchUpdate = async (url, page = 1) => {
 
     <p class="text-gold text-xl my-4">Found {{ totalCount }} records</p>
 
-    <ul ref="listContainer" class="w-5/6 grid grid-cols-[2fr_2fr_2fr_2fr] gap-5 overflow-y-auto scrollbar-hide items-start h-[500px]" >
+  <ul ref="listContainer" :class="{'fixed-height': totalPages > 1}" class="w-5/6 grid grid-cols-[2fr_2fr_2fr_2fr] gap-5 overflow-y-auto scrollbar-hide items-start" >
       <AddPoison @fetchUpdate="fetchUpdate" />
       <li v-for="item in items" :key="item.id" class="flex justify-center">
         <router-link :to="`/potions/${item.id}`">
@@ -116,3 +116,9 @@ const fetchUpdate = async (url, page = 1) => {
     </div>
   </div>
 </template>
+
+<style>
+.fixed-height {
+  height: 500px; 
+}
+</style>

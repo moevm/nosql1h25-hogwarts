@@ -76,7 +76,7 @@ const modalDisable = () => {
 
     <p class="text-gold text-xl my-4">Found {{ totalCount }} records</p>
 
-    <ul ref="listContainer" class="w-5/6 grid grid-cols-[2fr_2fr_2fr_2fr] gap-5 overflow-y-auto scrollbar-hide items-start h-[500px]">
+    <ul ref="listContainer" :class="{'fixed-height': totalPages > 1}" class="w-5/6 grid grid-cols-[2fr_2fr_2fr_2fr] gap-5 overflow-y-auto scrollbar-hide items-start">
       <AddSpell @fetchUpdate="fetchUpdate" />
       <li v-for="item in items" :key="item.id" class="flex justify-center">
         <router-link :to="`/spells/${item.id}`">
@@ -117,3 +117,9 @@ const modalDisable = () => {
     </div>
   </div>
 </template>
+
+<style>
+.fixed-height {
+  height: 500px; 
+}
+</style>
