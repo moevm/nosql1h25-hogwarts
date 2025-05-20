@@ -7,6 +7,8 @@ import { ref, onMounted, nextTick } from 'vue'
 const items = ref([])
 const currentPage = ref(1)
 const totalPages = ref(1)
+const totalCount = ref(0)
+
 const baseQueryUrl = ref(`${import.meta.env.VITE_SERVER_URL}/api/spells`)
 
 onMounted(() => {
@@ -40,6 +42,7 @@ const fetchUpdate = async (url, page = 1) => {
     items.value = json.data || json // если API не возвращает data, fallback на полный json
     currentPage.value = json.pagination?.page || page
     totalPages.value = json.pagination?.total_pages || 1
+    totalCount.value = json.pagination.total
     console.log(items.value)
   } catch (err) {
     console.error(err)
@@ -71,7 +74,7 @@ const modalDisable = () => {
       :modal-open="modalOpen"
     />
 
-    <p class="text-gold text-xl my-4">Found {{ items.length }} records</p>
+    <p class="text-gold text-xl my-4">Found {{ totalCount }} records</p>
 
     <ul ref="listContainer" class="w-5/6 grid grid-cols-[2fr_2fr_2fr_2fr] gap-5 overflow-y-auto scrollbar-hide items-start h-[500px]">
       <AddSpell @fetchUpdate="fetchUpdate" />
