@@ -16,6 +16,11 @@ RELATION_CONFIG = {
     'Poison': {
         'brewed_by': {
             'rel': 'BREWED', 'alias': 'c', 'label': 'Character', 'prop': 'name', 'direction': 'in'
+        },
+        'ingredients': {
+            'type': 'string_list',
+            'unwind': 'ingredient',
+            'split': True
         }
     }
 }
@@ -34,6 +39,7 @@ def register_statistics_routes(app, db):
 
         extra_matches = []
         where_clauses = []
+        unwind_clauses = []
 
         # обработка фильтров
         for key, value in filters.items():
@@ -47,11 +53,11 @@ def register_statistics_routes(app, db):
 
             # фильтры по связям из конфига
             rel_cfg = RELATION_CONFIG[entity].get(key)
-            if rel_cfg:
+            if rel_cfg and 'rel' in rel_cfg:
                 alias = rel_cfg['alias']
-                rel   = rel_cfg['rel']
+                rel = rel_cfg['rel']
                 label = rel_cfg['label']
-                prop  = rel_cfg['prop']
+                prop = rel_cfg['prop']
                 if rel_cfg['direction'] == 'out':
                     extra_matches.append(f"(n)-[:{rel}]->({alias}:{label})")
                 else:
@@ -66,34 +72,41 @@ def register_statistics_routes(app, db):
         def axis_to_cypher(axis):
             cfg = RELATION_CONFIG[entity].get(axis)
             if cfg:
-                alias = cfg['alias']
-                rel   = cfg['rel']
-                label = cfg['label']
-                prop  = cfg['prop']
-                if cfg['direction'] == 'out':
-                    match_part = f"(n)-[:{rel}]->({alias}:{label})"
-                else:
-                    match_part = f"({alias}:{label})-[:{rel}]->(n)"
-                return match_part, f"{alias}.{prop} AS {axis}"
-            else:
-                return "", f"n.{axis} AS {axis}"
+                if 'rel' in cfg:
+                    alias = cfg['alias']
+                    rel = cfg['rel']
+                    label = cfg['label']
+                    prop = cfg['prop']
+                    match_part = f"(n)-[:{rel}]->({alias}:{label})" if cfg['direction'] == 'out' else f"({alias}:{label})-[:{rel}]->(n)"
+                    return match_part, f"{alias}.{prop} AS {axis}", None
+                elif cfg.get('type') == 'string_list' and cfg.get('split'):
+                    unwind_var = cfg['unwind']
+                    unwind_clause = f"UNWIND [i IN split(n.{axis}, ',') | trim(i)] AS {unwind_var}"
+                    return "", f"{unwind_var} AS {axis}", unwind_clause
+            return "", f"n.{axis} AS {axis}", None
 
-        x_match, x_ret = axis_to_cypher(x_axis)
-        y_match, y_ret = axis_to_cypher(y_axis)
+        x_match, x_ret, x_unwind = axis_to_cypher(x_axis)
+        y_match, y_ret, y_unwind = axis_to_cypher(y_axis)
 
-        # сборка MATCH
-        all_matches = [f"(n:{entity})"] + extra_matches
+        match_parts = [f"(n:{entity})"] + extra_matches
         if x_match:
-            all_matches.append(x_match)
+            match_parts.append(x_match)
         if y_match and y_match != x_match:
-            all_matches.append(y_match)
+            match_parts.append(y_match)
 
-        match_clause = "MATCH " + ", ".join(all_matches)
+        match_clause = "MATCH " + ", ".join(match_parts)
+        if x_unwind:
+            unwind_clauses.append(x_unwind)
+        if y_unwind and y_unwind != x_unwind:
+            unwind_clauses.append(y_unwind)
+
+        unwind_clause = "\n".join(unwind_clauses)
         where_clause = "WHERE " + " AND ".join(where_clauses) if where_clauses else ""
         return_clause = f"{x_ret}, {y_ret}, COUNT(*) AS count"
 
         cypher = f"""
         {match_clause}
+        {unwind_clause}
         {where_clause}
         RETURN {return_clause}
         ORDER BY {x_axis}, {y_axis}
