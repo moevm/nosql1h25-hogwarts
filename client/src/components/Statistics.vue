@@ -135,7 +135,7 @@
                 </option>
               </select>
               <label class="block text-gold">Ingredients</label>
-              <div class="flex flex-wrap gap-2">
+              <div class="flex flex-wrap gap-2 overflow-y-scroll h-[300px]">
                 <button
                   v-for="ing in potionsFilters.ingredients"
                   :key="ing"

@@ -40,7 +40,7 @@ function prepareDataset(data) {
   return data.map(item => ({
     x: item.x,
     y: item.y,
-    r: item.count * 4    // размер пузырька
+    r: item.count    // размер пузырька
   }))
 }
 
