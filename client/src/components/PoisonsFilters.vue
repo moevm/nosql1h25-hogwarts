@@ -85,7 +85,7 @@ function toggleIngredient(item) {
     <!-- Ingredients (теги) -->
     <div class="text-gold">
       Ingredients:
-      <div class="flex flex-wrap gap-2 mt-2 ml-2">
+      <div class="flex flex-wrap gap-2 mt-2 ml-2 max-h-[150px] overflow-y-scroll">
         <button
           v-for="item in availableFilters.ingredients"
           :key="item"

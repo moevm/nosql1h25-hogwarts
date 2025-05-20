@@ -88,7 +88,7 @@ const makeOptions = (data) => {
     <transition name="fade">
       <div
         v-if="modalOpen"
-        class="bg-bg w-full h-[400px] rounded-md border border-gold absolute b-[-1px] l-0 p-6 flex gap-[300px]"
+        class="bg-bg w-full h-[350px] rounded-md border border-gold absolute b-[-1px] l-0 p-6 flex gap-[300px]"
       >
         <template v-if="route.path.includes('/character')">
           <CharacterFilters @makeOptions="makeOptions" ref="filterRef"/>
