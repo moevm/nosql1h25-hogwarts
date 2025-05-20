@@ -16,7 +16,7 @@ def register_character_routes(app, db):
         died_max = request.args.get('died_max')
 
         page = int(request.args.get('page'))
-        per_page = 50
+        per_page = 25
         try:
             characters = db.characters.get_all(
                 **filters,
